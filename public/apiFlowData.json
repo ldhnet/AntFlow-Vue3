@@ -1,0 +1,187 @@
+{
+  "code": 200,
+  "msg": "获取成功",
+  "data": 
+  [
+    {
+        "id": 354,
+        "confId": 17,
+        "nodeId": "Gb2",
+        "nodeType": 1,
+        "nodeProperty": 1,
+        "nodePropertyName": null,
+        "nodeFrom": "",
+        "nodeFroms": null,
+        "prevId": [],
+        "batchStatus": 0,
+        "approvalStandard": 2,
+        "nodeName": "发起人",
+        "annotation": null,
+        "isDeduplication": 0,
+        "isSignUp": 0,
+        "remark": "",
+        "isDel": 0,
+        "createUser": "defaultUser",
+        "createTime": "2022-06-28T06:58:14.000+0000",
+        "updateUser": "",
+        "updateTime": "2022-06-28T06:58:12.000+0000",
+        "nodeTo": [
+            "LuLbT"
+        ],
+        "property": null,
+        "params": null,
+        "buttons": {
+            "startPage": [],
+            "approvalPage": [
+                2
+            ],
+            "viewPage": null
+        },
+        "templateVos": null,
+        "approveRemindVo": null,
+        "formCode": "DSFZH_WMA"
+    },
+    {
+        "id": 355,
+        "confId": 17,
+        "nodeId": "LuLbT",
+        "nodeType": 4,
+        "nodeProperty": 5,
+        "nodePropertyName": "指定人员",
+        "nodeFrom": "Gb2",
+        "nodeFroms": "Gb2",
+        "prevId": [
+            "Gb2"
+        ],
+        "batchStatus": 0,
+        "approvalStandard": 2,
+        "nodeName": "李四审批",
+        "annotation": null,
+        "isDeduplication": 0,
+        "isSignUp": 0,
+        "remark": "",
+        "isDel": 0,
+        "createUser": "defaultUser",
+        "createTime": "2022-06-28T06:58:14.000+0000",
+        "updateUser": "",
+        "updateTime": "2022-06-28T06:58:12.000+0000",
+        "nodeTo": [
+            "5UMcT"
+        ],
+        "property": {
+            "loopEndType": null,
+            "loopNumberPlies": null,
+            "loopEndGrade": null,
+            "loopEndPersonList": null,
+            "loopEndPersonObjList": null,
+            "assignLevelType": null,
+            "assignLevelGrade": null,
+            "hrbpConfType": null,
+            "roleIds": null,
+            "roleList": null,
+            "emplIds": [
+                4
+            ],
+            "emplList": [
+                {
+                    "id": 4,
+                    "name": "测试人员4"
+                }
+            ],
+            "signType": 1,
+            "conditionsConf": null,
+            "configurationTableType": null,
+            "tableFieldType": null,
+            "isMultiPeople": null,
+            "noparticipatingStaffIds": null,
+            "noparticipatingStaffs": null,
+            "functionId": null,
+            "functionName": null,
+            "afterSignUpWay": null,
+            "signUpType": null,
+            "nodeMark": null
+        },
+        "params": null,
+        "buttons": {
+            "startPage": [],
+            "approvalPage": [
+                2
+            ],
+            "viewPage": null
+        },
+        "templateVos": null,
+        "approveRemindVo": null,
+        "formCode": "DSFZH_WMA"
+    },
+    {
+        "id": 356,
+        "confId": 17,
+        "nodeId": "5UMcT",
+        "nodeType": 4,
+        "nodeProperty": 5,
+        "nodePropertyName": "指定人员",
+        "nodeFrom": "LuLbT",
+        "nodeFroms": "LuLbT",
+        "prevId": [
+            "LuLbT"
+        ],
+        "batchStatus": 0,
+        "approvalStandard": 2,
+        "nodeName": "张三审批",
+        "annotation": null,
+        "isDeduplication": 0,
+        "isSignUp": 0,
+        "remark": "",
+        "isDel": 0,
+        "createUser": "defaultUser",
+        "createTime": "2022-06-28T06:58:14.000+0000",
+        "updateUser": "",
+        "updateTime": "2022-06-28T06:58:13.000+0000",
+        "nodeTo": null,
+        "property": {
+            "loopEndType": null,
+            "loopNumberPlies": null,
+            "loopEndGrade": null,
+            "loopEndPersonList": null,
+            "loopEndPersonObjList": null,
+            "assignLevelType": null,
+            "assignLevelGrade": null,
+            "hrbpConfType": null,
+            "roleIds": null,
+            "roleList": null,
+            "emplIds": [
+                3
+            ],
+            "emplList": [
+                {
+                    "id": 3,
+                    "name": "测试人员3"
+                }
+            ],
+            "signType": 1,
+            "conditionsConf": null,
+            "configurationTableType": null,
+            "tableFieldType": null,
+            "isMultiPeople": null,
+            "noparticipatingStaffIds": null,
+            "noparticipatingStaffs": null,
+            "functionId": null,
+            "functionName": null,
+            "afterSignUpWay": null,
+            "signUpType": null,
+            "nodeMark": null
+        },
+        "params": null,
+        "buttons": {
+            "startPage": [],
+            "approvalPage": [
+                2
+            ],
+            "viewPage": null
+        },
+        "templateVos": null,
+        "approveRemindVo": null,
+        "formCode": "DSFZH_WMA"
+    }
+]
+}
