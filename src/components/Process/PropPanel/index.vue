@@ -110,7 +110,7 @@
           <el-row style="padding: 10px;"  v-if="value.type === 'start'">
             <el-col :span="4" style="font-size: 12px;">发起人</el-col>
             <el-col :span="18" style="padding-left: 12px;">
-              <fc-org-select ref="start-org" :tabList="['dep&user']" v-model="initiator" />
+               <fc-org-select ref="start-org" :tabList="['dep&user']" v-model="initiator" />
             </el-col>
           </el-row>
           
@@ -139,6 +139,14 @@
                   </el-select>
                   <br>
                   <el-checkbox v-model="useDirectorProxy" style="margin-top: 1rem;">找不到主管时，由上级主管代审批</el-checkbox>
+                </div>
+              </div>
+              <div v-else-if="approverForm.assigneeType === 'user'">
+                <div style="font-size: 14px;padding-left: 1rem;">选择人员 
+                  <el-select v-model="approverUserId" size="small">
+                    <el-option v-for="item in approverUserOptions" :key="item.value" :label="item.label" :value="item"
+                    ></el-option>
+                  </el-select>
                 </div>
               </div>
               <div v-else class="option-box">
@@ -263,6 +271,26 @@ export default {
       },
       useDirectorProxy: true, // 找不到主管时 上级主管代理审批
       directorLevel: 1,  // 审批主管级别
+
+      approverUserId:'张三',//指定审批人
+      approverUserOptions: [
+        {
+          label: '张三',
+          value: 6
+        }, {
+          label: '李四',
+          value: 2
+        },{
+          label: '张三01',
+          value: 3
+        }, {
+          label: '张三02',
+          value: 4
+        }, {
+          label: '张三03',
+          value: 5
+      }],
+      
       startForm:{
         formOperates: []
       },
