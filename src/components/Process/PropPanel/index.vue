@@ -144,7 +144,7 @@
               <div v-else-if="approverForm.assigneeType === 'user'">
                 <div style="font-size: 14px;padding-left: 1rem;">选择人员 
                   <el-select v-model="approverUserId" size="small">
-                    <el-option v-for="item in approverUserOptions" :key="item.value" :label="item.label" :value="item"
+                    <el-option v-for="item in approverUserOptions" :key="item.value" :label="item.label" :value="item.value"
                     ></el-option>
                   </el-select>
                 </div>
@@ -272,11 +272,11 @@ export default {
       useDirectorProxy: true, // 找不到主管时 上级主管代理审批
       directorLevel: 1,  // 审批主管级别
 
-      approverUserId:'张三',//指定审批人
+      approverUserId:3,//指定审批人
       approverUserOptions: [
         {
           label: '张三',
-          value: 6
+          value: 1
         }, {
           label: '李四',
           value: 2
@@ -424,6 +424,7 @@ export default {
     },
 
     copyNodeConfirm () {
+      console.log('copyNodeConfirm====1');
       this.$emit("confirm", this.properties, this.getOrgSelectLabel('copy') || '发起人自选');
       this.visible = false;
     },
@@ -475,7 +476,7 @@ export default {
     /**
      * 开始节点确认保存
      */
-    startNodeComfirm() {
+    startNodeComfirm() { 
       this.properties.initiator = this.initiator['dep&user']
       const formOperates = this.startForm.formOperates.map(t=>({formId: t.formId, formOperate: t.formOperate}))
       Object.assign(this.properties, {formOperates})
@@ -486,13 +487,21 @@ export default {
      * 审批节点确认保存
      */
     approverNodeComfirm() {
+      console.log('approverNodeComfirm====1');
       const assigneeType = this.approverForm.assigneeType
       let content = ''
       if (['optional','myself'].includes(assigneeType)) {
         content = this.assigneeTypeOptions.find(t => t.value === assigneeType).label
       } else if('director' === assigneeType){
         content = this.directorLevel === 1 ? '直接主管' : `第${this.directorLevel}级主管`
-      } else{
+      }
+      else if('user' === assigneeType)
+      {
+        const approverInfo= this.approverUserOptions.filter(key=> { return key.value == this.approverUserId }) 
+        console.log('approverInfo====',JSON.stringify(approverInfo))
+        content =approverInfo[0].label
+      }
+      else{
         content = this.getOrgSelectLabel('approver')
       }
       const formOperates = this.approverForm.formOperates.map(t=>({formId: t.formId, formOperate: t.formOperate}))
