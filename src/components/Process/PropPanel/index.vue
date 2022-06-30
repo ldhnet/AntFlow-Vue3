@@ -245,8 +245,7 @@ const defaultApproverForm = {
 export default {
   props: [/*当前节点数据*/"value", /*整个节点数据*/"processData"],
 
-  data() {
-      console.log('this.processData',JSON.stringify(this.processData))
+  data() { 
     return {
       fcOrgTabList:['dep', 'role', 'user', 'position'],
       visible: false,  // 控制面板显隐
@@ -423,8 +422,7 @@ export default {
       this.startForm.formOperates = this.initFormOperates(this.value)
     },
 
-    copyNodeConfirm () {
-      console.log('copyNodeConfirm====1');
+    copyNodeConfirm () { 
       this.$emit("confirm", this.properties, this.getOrgSelectLabel('copy') || '发起人自选');
       this.visible = false;
     },
@@ -486,8 +484,7 @@ export default {
     /**
      * 审批节点确认保存
      */
-    approverNodeComfirm() {
-      console.log('approverNodeComfirm====1');
+    approverNodeComfirm() { 
       const assigneeType = this.approverForm.assigneeType
       let content = ''
       if (['optional','myself'].includes(assigneeType)) {
@@ -495,10 +492,9 @@ export default {
       } else if('director' === assigneeType){
         content = this.directorLevel === 1 ? '直接主管' : `第${this.directorLevel}级主管`
       }
-      else if('user' === assigneeType)
+      else if('user' === assigneeType)//指定人员 下拉选择
       {
         const approverInfo= this.approverUserOptions.filter(key=> { return key.value == this.approverUserId }) 
-        console.log('approverInfo====',JSON.stringify(approverInfo))
         content =approverInfo[0].label
       }
       else{

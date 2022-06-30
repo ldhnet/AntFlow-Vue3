@@ -134,7 +134,7 @@ export default {
       const p3 = getCmpData('processDesign') 
       Promise.all([p1, p2, p3])
       .then(res => {
-       console.log('配置数据p2', JSON.stringify(res[2].formData));
+        //console.log('配置数据p2', JSON.stringify(res[2].formData));
         const param = {
           basicSetting: res[0].formData,
           processData: res[2].formData,
