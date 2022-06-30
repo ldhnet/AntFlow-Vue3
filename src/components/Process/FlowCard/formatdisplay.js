@@ -13,9 +13,9 @@ export class FormatDisplayUtils {
            if(nodesGroup.hasOwnProperty(node_t.nodeFrom)){
                nodesGroup[node_t.nodeFrom].push(node_t)
            }else{
-            nodesGroup[node_t.nodeFrom]=[node_t]
+               nodesGroup[node_t.nodeFrom]=[node_t]
            }
-        } 
+        }  
         for (let processNode of nodeData) {
             if ("start" == processNode.type) {
                 startNode = processNode;
@@ -24,7 +24,7 @@ export class FormatDisplayUtils {
             let currNodeId = processNode.nodeId;
             if (nodesGroup.hasOwnProperty(currNodeId)) {
                 let itemNodes = nodesGroup[currNodeId]; 
-                for (let itemNode of itemNodes) {
+                for (let itemNode of itemNodes) { 
                     if ("condition" == itemNode.type) {
                         processNode.conditionNodes.push(itemNode);
                     } else {
@@ -52,6 +52,10 @@ export class FormatDisplayUtils {
         {
             res.content = nodeData.nodeName
         } 
+        if(!isEmpty(nodeData.property))
+        {
+            res.properties.approvers = nodeData.property.emplIds.map(key=>({userId: key,userName: ''}))             
+        }  
         return res           
     }
     /**

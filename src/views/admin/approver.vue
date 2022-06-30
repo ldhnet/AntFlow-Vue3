@@ -110,9 +110,7 @@ export default {
     }
   },
   mounted() { 
-    getTestData().then(c=> {
-      console.log('11111**************111');
-      console.log('--api----data===',JSON.stringify(c.data.length));
+    getTestData().then(c=> { 
       this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data);
        GET_MOCK_CONF().then(data => {
         data.processData = this.nodeDate

@@ -153,7 +153,8 @@ function addNodeButton(ctx, data, h, isBranch = false) {
   );
 }
 
-function NodeFactory(ctx, data, h) { 
+function NodeFactory(ctx, data, h) {
+  //console.log('NodeFactory=====111=====',JSON.stringify(data));
   if (!data) return
   const showErrorTip = ctx.verifyMode && NodeUtils.checkNode(data) === false
   let res = [],

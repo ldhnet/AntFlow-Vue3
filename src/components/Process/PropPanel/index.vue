@@ -144,7 +144,7 @@
               <div v-else-if="approverForm.assigneeType === 'user'">
                 <div style="font-size: 14px;padding-left: 1rem;">选择人员 
                   <el-select v-model="approverUserId" size="small">
-                    <el-option v-for="item in approverUserOptions" :key="item.value" :label="item.label" :value="item.value"
+                    <el-option v-for="item in approverUserOptions" :key="item.userId" :label="item.userName" :value="item.userId"
                     ></el-option>
                   </el-select>
                 </div>
@@ -226,6 +226,7 @@ import Clickoutside from "element-ui/src/utils/clickoutside"
 import { NodeUtils } from "../FlowCard/util.js"
 import RowWrapper from './RowWrapper'
 import NumInput from "./NumInput"
+import { GET_PAGE_EMPLOYEE } from '@/api/index.js'
 const rangeType = {
   'lt': '<',
   'lte':'≤',
@@ -271,24 +272,8 @@ export default {
       useDirectorProxy: true, // 找不到主管时 上级主管代理审批
       directorLevel: 1,  // 审批主管级别
 
-      approverUserId:3,//指定审批人
-      approverUserOptions: [
-        {
-          label: '张三',
-          value: 1
-        }, {
-          label: '李四',
-          value: 2
-        },{
-          label: '张三01',
-          value: 3
-        }, {
-          label: '张三02',
-          value: 4
-        }, {
-          label: '张三03',
-          value: 5
-      }],
+      approverUserId : '',//指定审批人
+      approverUserOptions: [],
       
       startForm:{
         formOperates: []
@@ -354,6 +339,12 @@ export default {
   },
   directives: {
     Clickoutside
+  },
+  mounted() { 
+      GET_PAGE_EMPLOYEE().then(res => { 
+        //console.log("mounted====",JSON.stringify(res.data))
+        this.approverUserOptions = res.data
+      });
   },
   methods: {
     getFormOperates(){
@@ -494,17 +485,18 @@ export default {
       }
       else if('user' === assigneeType)//指定人员 下拉选择
       {
-        const approverInfo= this.approverUserOptions.filter(key=> { return key.value == this.approverUserId }) 
-        content =approverInfo[0].label
-        this.approverForm.approvers.push( {
-          userId: this.approverUserId
-        })
+        const approverInfo= this.approverUserOptions.filter(key=> { return key.userId == this.approverUserId }) 
+        if(Array.isArray( approverInfo ) && approverInfo.length > 0)
+        {
+          content =approverInfo[0].userName
+          this.approverForm.approvers = approverInfo
+        }    
       }
       else{
         content = this.getOrgSelectLabel('approver')
       }
       const formOperates = this.approverForm.formOperates.map(t=>({formId: t.formId, formOperate: t.formOperate})) 
-      this.approverForm.approvers = this.orgCollection[assigneeType]
+      this.approverForm.approvers = 'user' === assigneeType ? this.approverForm.approvers : this.orgCollection[assigneeType]
       Object.assign(this.properties, this.approverForm, {formOperates})
       this.$emit("confirm", this.properties, content || '请设置审批人')
       this.visible = false
@@ -532,6 +524,9 @@ export default {
         this.showingPCons.splice(index, 1)
         this.pconditions.find(t => t.formId === condition.formId).conditionValue = undefined
       }
+    },
+    clearApproverForm(){
+        this.approverForm =  JSON.parse(JSON.stringify(defaultApproverForm))
     },
     // 配合getPriorityLength 获取前一个节点条件数组长度 用于设置优先级
     getPrevData() {
@@ -565,17 +560,23 @@ export default {
         /**
      * 初始化审批节点所需数据
      */
-    initApproverNodeData() {
-
-      for (const key in this.approverForm) {
+    initApproverNodeData() {  
+      for (const key in this.approverForm) {  
         if (this.value.properties.hasOwnProperty(key)) {
-          this.approverForm[key] = this.value.properties[key];
+          this.approverForm[key] = this.value.properties[key]
         }
       }
-      const approvers = this.approverForm.approvers
+      const approvers = this.approverForm.approvers 
       this.resetOrgColl()
       if (Array.isArray(this.approverForm.approvers)) {
-        this.orgCollection[this.approverForm.assigneeType] = approvers
+        if('user' === this.approverForm.assigneeType)
+        {
+          this.approverUserId=approvers[0].userId
+        }
+        else
+        {
+          this.orgCollection[this.approverForm.assigneeType] = approvers
+        }
       }
       this.approverForm.formOperates = this.initFormOperates(this.value) 
     },

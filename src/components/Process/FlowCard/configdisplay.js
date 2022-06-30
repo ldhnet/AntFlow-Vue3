@@ -7,7 +7,8 @@ export default {
   approver: {
     type: "approver",
     content: "请设置审批人",
-    properties: { title: '审批人' }
+    properties: { title: '审批人',approvers: [] }
+
   },
   copy:{
     type: 'copy',
