@@ -514,7 +514,7 @@ export class NodeUtils {
       && isEmptyArray( props.conditions )
       && ( valid = false )
 
-    const customSettings = ['myself', 'optional', 'director']
+    const customSettings = ['myself', 'optional', 'director','user']
     this.isApproverNode( node )
       && !customSettings.includes( props.assigneeType )
       && isEmptyArray( props.approvers )
