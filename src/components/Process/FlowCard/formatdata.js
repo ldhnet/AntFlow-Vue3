@@ -43,7 +43,7 @@ export class FormatUtils {
             this.depthMapConditionNodes(treeData.conditionNodes,arrList);
         }  
         // console.log('arrList-length-2',arrList.length);
-        // console.log('arrList-2',JSON.stringify(arrList)); 
+        console.log('arrList-2',JSON.stringify(arrList)); 
         return arrList
     }
 
@@ -80,67 +80,63 @@ export class FormatUtils {
             }
         }
     } 
-}  
-  /**
-   * 创建节点
-   * @param { Object } nodeinfo - 节点 
-   * @returns Array
-   */
+}   
+/**
+* 创建节点
+* @param { Object } nodeinfo - 节点 
+* @returns Array
+*/
 const createNode = (nodeinfo)=>{
-      let transformedType;
-      switch (nodeinfo.type) {
-          case "start":
-              transformedType = 1
-              break;
-          case "gateway":
-              transformedType = 2
-              break
-          case "condition":
-              transformedType = 3
-              break
-          case "approver":
-              transformedType = 4
-              break
-      }
-      let node = {
-          nodeType: transformedType,
-          nodeName: nodeinfo.properties?.title,
-          nodeId: nodeinfo.nodeId,
-          nodeFrom: nodeinfo.prevId,
-          prevId: nodeinfo.nodeFrom,
-          nodeTo: nodeinfo.nodeTo,
-      };
-      let properties = nodeinfo.properties
-      let property = {}
-      if (transformedType==4) {//审批人节点
-          const approvers = properties.approvers;
-          if(approvers){
-              var emplIds = approvers.map(a => a.userId);
-              property.emplIds = emplIds;
-              property.signType = properties.counterSign?1:2;
-              node.property = property;
-              node.nodeProperty=5;
-          }
-      }else if(transformedType==3){//条件节点
-          var conditions = properties.conditions;
-          if(conditions.length>0){
-              const condition = conditions[0];
-              let conditionsConf={};
-              conditionsConf.sort=properties.priority;
-              conditionsConf[condition.formId]=[condition.conditionValue];
-              property.conditionsConf=conditionsConf;
-              node.property=property;
-          }else{
-              let conditionsConf={};
-              conditionsConf.sort=properties.priority;
-              conditionsConf.isDefault=1;
-              property.conditionsConf=conditionsConf;
-              node.property=property;
-          }
-      }
-      return node;
-}
-    
-// const isConditionNode =  ( node )=> {
-//     return node && node.nodeType === 'condition'
-//   }
+    let transformedType;
+    switch (nodeinfo.type) {
+        case "start":
+            transformedType = 1
+            break;
+        case "gateway":
+            transformedType = 2
+            break
+        case "condition":
+            transformedType = 3
+            break
+        case "approver":
+            transformedType = 4
+            break
+    }
+    let node = {
+        nodeType: transformedType,
+        nodeName: nodeinfo.properties?.title,
+        nodeId: nodeinfo.nodeId,
+        nodeFrom: nodeinfo.prevId,
+        prevId: nodeinfo.nodeFrom,
+        nodeTo: nodeinfo.nodeTo,
+    };
+    let properties = nodeinfo.properties
+    let property = {}
+    if (transformedType==4) {//审批人节点
+        const approvers = properties.approvers;
+        if(approvers){
+            var emplIds = approvers.map(a => a.userId);
+            property.emplIds = emplIds;
+            property.signType = properties.counterSign?1:2;
+            node.property = property;
+            node.nodeProperty=5;
+        }
+    }else if(transformedType==3){//条件节点
+        var conditions = properties.conditions;
+        if(conditions.length>0){
+            const condition = conditions[0];
+            let conditionsConf={};
+            conditionsConf.sort=properties.priority;
+            conditionsConf[condition.formId]=[condition.conditionValue];
+            property.conditionsConf=conditionsConf;
+            node.property=property;
+        }else{
+            let conditionsConf={};
+            conditionsConf.sort=properties.priority;
+            conditionsConf.isDefault=1;
+            property.conditionsConf=conditionsConf;
+            node.property=property;
+        }
+    }
+    return node;
+} 
