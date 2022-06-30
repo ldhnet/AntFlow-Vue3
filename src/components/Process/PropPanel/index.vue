@@ -496,11 +496,14 @@ export default {
       {
         const approverInfo= this.approverUserOptions.filter(key=> { return key.value == this.approverUserId }) 
         content =approverInfo[0].label
+        this.approverForm.approvers.push( {
+          userId: this.approverUserId
+        })
       }
       else{
         content = this.getOrgSelectLabel('approver')
       }
-      const formOperates = this.approverForm.formOperates.map(t=>({formId: t.formId, formOperate: t.formOperate}))
+      const formOperates = this.approverForm.formOperates.map(t=>({formId: t.formId, formOperate: t.formOperate})) 
       this.approverForm.approvers = this.orgCollection[assigneeType]
       Object.assign(this.properties, this.approverForm, {formOperates})
       this.$emit("confirm", this.properties, content || '请设置审批人')
@@ -563,6 +566,7 @@ export default {
      * 初始化审批节点所需数据
      */
     initApproverNodeData() {
+
       for (const key in this.approverForm) {
         if (this.value.properties.hasOwnProperty(key)) {
           this.approverForm[key] = this.value.properties[key];
@@ -573,7 +577,7 @@ export default {
       if (Array.isArray(this.approverForm.approvers)) {
         this.orgCollection[this.approverForm.assigneeType] = approvers
       }
-      this.approverForm.formOperates = this.initFormOperates(this.value)
+      this.approverForm.formOperates = this.initFormOperates(this.value) 
     },
     /**
      * 初始化条件节点数据
