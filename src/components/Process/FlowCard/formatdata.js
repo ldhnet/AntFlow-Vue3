@@ -21,7 +21,7 @@ export class FormatUtils {
 
         console.log("final object最终对象"+JSON.stringify(finalObj));
 
-        console.log("formatSettings-2", JSON.stringify(treeList));
+        //console.log("formatSettings-2", JSON.stringify(treeList));
         return finalObj;
     }
 
@@ -31,7 +31,7 @@ export class FormatUtils {
    * @returns Array
    */
     static depthMapTree (treeData) {
-        console.log('treeData====',JSON.stringify(treeData)); 
+        //console.log('treeData====',JSON.stringify(treeData)); 
         let  arrList=[];
         let  node = createNode(treeData);
         arrList.push(node);
