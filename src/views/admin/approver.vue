@@ -110,12 +110,10 @@ export default {
     }
   },
   mounted() { 
-    getTestData().then(c=> {
-      console.log('11111**************111');
-      console.log('--api----data===',JSON.stringify(c.data.length));
+    getTestData().then(c=> { 
       this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data);
-       GET_MOCK_CONF().then(data => {
-        data.processData = this.nodeDate
+       GET_MOCK_CONF().then(data => { 
+        data.processData = this.nodeDate 
         this.mockData = data
       });
     });
@@ -134,7 +132,7 @@ export default {
       const p3 = getCmpData('processDesign') 
       Promise.all([p1, p2, p3])
       .then(res => {
-        //console.log('配置数据p2', JSON.stringify(res[2].formData));
+        //console.log('配置数据===formData====', JSON.stringify(res[1].formData));
         const param = {
           basicSetting: res[0].formData,
           processData: res[2].formData,
@@ -151,6 +149,7 @@ export default {
     },
     formatProcessData(param){
       console.log('开始Format'); 
+      console.log('原始数据==processData==',JSON.stringify(param.processData)); 
       let treeList = FormatUtils.depthMapTree(param.processData);
       const formattedSettings = FormatUtils.formatSettings(param, treeList);
       return formattedSettings;

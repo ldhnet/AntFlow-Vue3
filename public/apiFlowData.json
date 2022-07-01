@@ -55,7 +55,7 @@
         ],
         "batchStatus": 0,
         "approvalStandard": 2,
-        "nodeName": "李四审批",
+        "nodeName": "二麻子，张三",
         "annotation": null,
         "isDeduplication": 0,
         "isSignUp": 0,
@@ -80,7 +80,7 @@
             "roleIds": null,
             "roleList": null,
             "emplIds": [
-                4
+                4,1
             ],
             "emplList": [
                 {

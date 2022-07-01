@@ -294,6 +294,24 @@ export const selectComponents = [{
 // asSummary: false
 //   },
 {
+  label: '下拉多选',
+  tag: 'el-select-multiple',
+  tagIcon: 'select',
+  placeholder: '请选择',
+  style: { width: '100%' },
+  defaultValue: undefined,
+  span: 24,
+  labelWidth: null,
+  clearable: true,
+  disabled: false,
+  required: false,
+  filterable: false,
+  multiple: false, 
+  regList: [],
+  changeTag: true,
+  proCondition: true
+},
+{
   label: '滑块',
   tag: 'el-slider',
   tagIcon: 'slider',

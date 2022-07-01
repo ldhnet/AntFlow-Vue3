@@ -1,3 +1,4 @@
+import formidConfig from "@/config/flowformid.config.js";
 const isEmpty = data => data === null || data === undefined || data === ''
 const isEmptyArray = data => Array.isArray( data ) ? data.length === 0 : true
 
@@ -123,11 +124,34 @@ const createNode = (nodeinfo)=>{
         }
     }else if(transformedType==3){//条件节点
         var conditions = properties.conditions;
-        if(conditions.length>0){
-            const condition = conditions[0];
+        if(!isEmptyArray(conditions)){
+
+            //const condition = conditions[0];
             let conditionsConf={};
-            conditionsConf.sort=properties.priority;
-            conditionsConf[condition.formId]=[condition.conditionValue];
+            conditionsConf.conditionParamTypes= conditions.map(c=>(c.formId))
+            conditionsConf.sort=properties.priority; 
+
+            conditionsConf.organizationIds = [];
+            conditionsConf.educationType= [];
+            conditionsConf.jobLevelVo = null;
+            conditionsConf.accountType = [];
+
+            for(let i in conditions)
+            { 
+                if(conditions[i].formId == formidConfig.formIdOrganizationType)
+                { 
+                    conditionsConf.organizationIds = conditions[i].conditionValue
+                }
+                else if(conditions[i].formId == formidConfig.formIdeducationType)
+                { 
+                     conditionsConf.educationType.push(conditions[i].conditionValue)
+                }else
+                {
+                    console.log("FormatUtils.createNode 未匹配到formId对应的值",JSON.stringify(conditions[i]))
+                } 
+            }  
+
+            conditionsConf.isDefault= properties.isDefault ? 1 : 0;
             property.conditionsConf=conditionsConf;
             node.property=property;
         }else{
