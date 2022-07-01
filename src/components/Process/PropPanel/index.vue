@@ -1108,4 +1108,7 @@ export default {
   height 100%
   overflow scroll
 }
+.el-checkbox { 
+  margin-bottom: 30px;
+}
 </style>
