@@ -5,6 +5,7 @@ import DateDuration from './DateDuration'
 import OrgTransfer from './OrgTransfer'
 import OrgSelect from './OrgSelect'
 import InputTable from './InputTable'
+import SelectMultiple from './SelectMultiple'
 const components = [
   Amount,
   Calculation,
@@ -12,7 +13,8 @@ const components = [
   DateDuration,
   OrgTransfer,
   OrgSelect,
-  InputTable
+  InputTable,
+  SelectMultiple
 ]
 
 const install = function ( Vue ) {

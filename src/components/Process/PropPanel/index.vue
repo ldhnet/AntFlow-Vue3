@@ -69,7 +69,7 @@
               'fc-date-duration',
               'fc-time-duration',
               'fc-amount',
-              'fc-calculate'
+              'fc-calculate',
             )
           "
         >
@@ -154,6 +154,43 @@
               @click="onDelCondition(item)"
             ></i>
           </template>
+        </row-wrapper>
+        <!-- 公司选择 -->
+        <row-wrapper
+          :key="index"
+          :title="item.label"
+          v-if="couldShowIt(item, 'el-select-multiple')"
+        > 
+         <el-select-multiple>
+            <template v-slot:selectMultiple>
+               <el-select
+                      v-model="item.conditionValue"
+                      multiple
+                      filterable
+                      remote
+                      reserve-keyword
+                      placeholder="请输入关键词"
+                      :remote-method="remoteMethodOrganization"
+                      :loading="loading"
+                      style="width:100%"
+                    >
+                      <el-option
+                        v-for="item in organizationOptions"
+                        :key="item.deptId"
+                        :label="item.deptName"
+                        :value="item.deptId"
+                      >
+                      </el-option>
+                </el-select>
+            </template> 
+         </el-select-multiple> 
+         <template v-slot:action>
+            <i
+              class="el-icon-delete"
+              style="cursor: pointer"
+              @click="onDelCondition(item)"
+            ></i>
+        </template>
         </row-wrapper>
       </template>
       <div style="padding-left: 10px; margin-top: 2em">
@@ -258,28 +295,33 @@
                 </div>
               </div>
               <div v-else-if="approverForm.assigneeType === 'user'">
-                <div style="font-size: 14px; padding-left: 1rem;">
-                  选择人员
-                  <el-select
-                    v-model="approverUserIds"
-                    multiple
-                    filterable
-                    remote
-                    reserve-keyword
-                    placeholder="请输入关键词"
-                    :remote-method="remoteMethod"
-                    :loading="loading"
-                    style="width:90%"
-                  >
-                    <el-option
-                      v-for="item in approverUserOptions"
-                      :key="item.userId"
-                      :label="item.userName"
-                      :value="item.userId"
-                    >
-                    </el-option>
-                  </el-select>
-                </div>
+               <el-select-multiple>
+                  <template v-slot:selectMultiple> 
+                     <div style="font-size: 14px; padding-left: 1rem;">
+                        选择人员
+                            <el-select
+                              v-model="approverUserIds"
+                              multiple
+                              filterable
+                              remote
+                              reserve-keyword
+                              placeholder="请输入关键词"
+                              :remote-method="remoteMethod"
+                              :loading="loading"
+                              style="width:90%"
+                            >
+                              <el-option
+                                v-for="item in approverUserOptions"
+                                :key="item.userId"
+                                :label="item.userName"
+                                :value="item.userId"
+                              >
+                              </el-option>
+                            </el-select>
+                      </div>                     
+                  </template>
+               </el-select-multiple>
+              
               </div>
               <div v-else class="option-box">
                 <fc-org-select
@@ -413,7 +455,7 @@ import Clickoutside from "element-ui/src/utils/clickoutside";
 import { NodeUtils } from "../FlowCard/util.js";
 import RowWrapper from "./RowWrapper";
 import NumInput from "./NumInput";
-import { GET_PAGE_EMPLOYEE } from "@/api/index.js";
+import { GET_PAGE_EMPLOYEE,GET_DEPT_TREE } from "@/api/index.js";
 const rangeType = {
   lt: "<",
   lte: "≤",
@@ -463,6 +505,11 @@ export default {
       approverUserOptions: [],
       approverUserIds: [], //指定审批人
       Userlist: [],
+
+      organizationOptions: [],//公司选择
+      organizationIds: [], //指定公司
+      organizationlist: [],
+
       loading: false,
 
       startForm: {
@@ -536,25 +583,49 @@ export default {
   directives: {
     Clickoutside,
   },
-  mounted() {
+  mounted() { 
     GET_PAGE_EMPLOYEE().then((res) => {
       //console.log("mounted====",JSON.stringify(res.data))
-      this.approverUserOptions = res.data;
-    });
-    GET_PAGE_EMPLOYEE().then((res) => {
-      console.log("GET_PAGE_EMPLOYEE====", JSON.stringify(res));
+      this.Userlist = res.data; 
       if (res.code == 200) {
-        this.Userlist = res.data.map((item) => {
+        this.approverUserOptions = res.data.map((item) => {
           //返回自己想要的数据格式
           return {
-            userId: `${item.userId}`,
-            userName: `${item.userName}`,
+            userId: item.userId,
+            userName: item.userName,
+          };
+        });
+      }
+    }); 
+    GET_DEPT_TREE().then((res) => {
+      if (res.code == 200) {
+        this.organizationlist = res.data
+        this.organizationOptions = res.data.map((item) => {
+          //返回自己想要的数据格式
+          return {
+            deptId: item.deptId,
+            deptName: item.deptName,
           };
         });
       }
     });
   },
   methods: {
+    remoteMethodOrganization(query){ 
+      if (query.trim() !== "") {
+        this.loading = true;
+        setTimeout(() => {
+          this.loading = false;
+          this.organizationOptions = this.organizationlist.filter((item) => {
+            return (
+              item.deptName.toLowerCase().indexOf(query.toLowerCase()) > -1
+            );
+          });
+        }, 200);
+      } else {
+        this.organizationOptions = this.organizationlist;
+      }
+    },
     remoteMethod(query) {
       if (query !== "") {
         this.loading = true;
@@ -567,7 +638,7 @@ export default {
           });
         }, 200);
       } else {
-        this.approverUserOptions = [];
+        this.approverUserOptions = this.Userlist;
       }
     },
     getFormOperates() {
@@ -656,12 +727,13 @@ export default {
     /**
      * 条件节点确认保存得回调
      */
-    conditionNodeComfirm() {
+    conditionNodeComfirm() { 
       let nodeContent = "";
       const conditions = [];
       this.showingPCons
         .map((fid) => this.pconditions.find((t) => t.formId === fid))
         .forEach((t) => {
+          console.log('conditionNodeComfirm===t111===',JSON.stringify(t))
           if (!t) return; // 发起人条件时 t 为空 发起人在其他地方获取
           const cValue = t.conditionValue;
           if (cValue === undefined || cValue === null) {
@@ -672,8 +744,9 @@ export default {
             "fc-date-duration",
             "fc-time-duration",
             "fc-amount",
-            "fc-calculate",
+            "fc-calculate"
           ];
+          console.log('conditionNodeComfirm===t222===',JSON.stringify(t))
           if (numberTypeCmp.includes(t.tag)) {
             if (cValue.type === "bet") {
               const numVal = cValue.value;
@@ -692,7 +765,13 @@ export default {
             );
             const labels = this.$refs["org" + index][0].selectedLabels;
             nodeContent += `[${t.label} = ${labels}] ` + "\n";
-          } else {
+          } 
+          else if (t.tag === "el-select-multiple")
+          { 
+             console.log('nodeContent======',t.label + cValue)
+             nodeContent += `[${t.label} = ${cValue}] ` + "\n"; 
+          }
+          else {
             nodeContent += `[${t.label} = ${cValue}] ` + "\n";
           }
           const res = { formId: t.formId, conditionValue: cValue };
@@ -795,6 +874,7 @@ export default {
      * 删除流程条件
      */
     onDelCondition(condition) {
+      console.log('onDelCondition=========',JSON.stringify(condition))
       const index = this.showingPCons.findIndex(
         (id) => id === condition.formId
       );
@@ -866,9 +946,12 @@ export default {
       // 初始化条件表单数据
       let nodeConditions =
         this.value.properties && this.value.properties.conditions;
+
+       console.log('nodeConditions=====1111====',JSON.stringify(this.nodeConditions))
       this.pconditions = JSON.parse(
         JSON.stringify(this.$store.state.processConditions)
       );
+         console.log('pconditions===11111======',JSON.stringify(this.pconditions))
       this.initiator["dep&user"] = this.value.properties.initiator;
       if (Array.isArray(this.pconditions)) {
         this.showingPCons = [-1]; // 默认显示发起人
@@ -881,8 +964,10 @@ export default {
               ((temp = con.conditionValue), this.showingPCons.push(t.formId));
           }
           this.$set(t, "conditionValue", temp);
+          console.log('pconditions===22222======',JSON.stringify(this.pconditions))
         });
       }
+      console.log('showingPCons=========',JSON.stringify(this.showingPCons))
     },
   },
   watch: {
