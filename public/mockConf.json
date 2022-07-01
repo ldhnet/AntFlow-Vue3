@@ -91,15 +91,15 @@
         "options": [
           {
             "label": "百度云",
-            "value": "1"
+            "value": 1
           },
           {
             "label": "腾讯云",
-            "value": "2"
+            "value": 2
           },
           {
             "label": "中通云",
-            "value": "3"
+            "value": 3
           }
         ],
         "regList": [],

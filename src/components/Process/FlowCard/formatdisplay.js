@@ -1,6 +1,7 @@
 import nodeConfig from "./configdisplay.js";
+import formidConfig from "@/config/flowformid.config.js";
 const isEmpty = data => data === null || data === undefined || data === ''
-const isEmptyArray = data => Array.isArray( data ) ? data.length === 0 : true
+const isEmptyArray = data => Array.isArray( data ) ? data.length === 0 : true 
 
 export class FormatDisplayUtils {
     static depthConverterToTree(parmData)
@@ -52,10 +53,45 @@ export class FormatDisplayUtils {
         {
             res.content = nodeData.nodeName
         } 
-        if(!isEmpty(nodeData.property))
+        
+        let nodeProperty=nodeData.property
+        if(isEmpty(nodeProperty)) return res
+
+        if(!isEmptyArray(nodeData.property.emplIds))
         {
             res.properties.approvers = nodeData.property.emplIds.map(key=>({userId: key,userName: ''}))             
         }  
+        if(res.type == 'condition')
+        {
+            if(nodeProperty.hasOwnProperty('conditionsConf') && !isEmpty(nodeProperty.conditionsConf))
+            { 
+                res.content = nodeProperty.conditionsConf.isDefault == 1? '其他情况进入此流程' : nodeData.nodeName
+                res.properties.title = nodeData.nodeName
+                res.properties.priority = nodeProperty.conditionsConf.sort
+                res.properties.isDefault=nodeProperty.conditionsConf.isDefault == 1? true :false
+                
+                let paramTypes= nodeProperty.conditionsConf.conditionParamTypes
+                if(!isEmptyArray(paramTypes))
+                { 
+                    for(let i_type in paramTypes)
+                    {  
+                        switch(paramTypes[i_type]){
+                            case formidConfig.formIdOrganizationType:
+                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty.conditionsConf.organizationIds })  
+                              break
+                            case formidConfig.formIdeducationType: 
+                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty.conditionsConf.educationType[0] })  
+                              break
+                            case formidConfig.formIdAccountType: 
+                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty.conditionsConf.accountType[0] })  
+                              break
+                            default:
+                              console.log("FormatDisplayUtils.createNodeDisplay 未匹配到formId对应的值",JSON.stringify(i_type))
+                        }  
+                    }
+                }
+            }
+        } 
         return res           
     }
     /**

@@ -768,11 +768,21 @@ export default {
           } 
           else if (t.tag === "el-select-multiple")
           { 
-             console.log('nodeContent======',t.label + cValue)
-             nodeContent += `[${t.label} = ${cValue}] ` + "\n"; 
+             if(!Array.isArray( cValue ) || cValue.length > 0)
+             {
+                
+             }else{
+                for(let i in cValue)
+                {
+                    let cValueName= this.getOrganizationNameFromArray(cValue[i],this.organizationlist) 
+                    nodeContent += `[${t.label} = ${cValueName}] ` + "\n";       
+                }  
+             }
+            
           }
           else {
-            nodeContent += `[${t.label} = ${cValue}] ` + "\n";
+            let cValueLabel=  this.getLableFromOptionsArray(cValue,t.options) 
+            nodeContent += `[${t.label} = ${cValueLabel}] ` + "\n"; 
           }
           const res = { formId: t.formId, conditionValue: cValue };
           conditions.push(res);
@@ -888,6 +898,16 @@ export default {
     clearApproverForm() {
       this.approverForm = JSON.parse(JSON.stringify(defaultApproverForm));
     },
+
+    getOrganizationNameFromArray(organizationId,sourceArray) {
+      return NodeUtils.getOrganizationNameFromArray(organizationId, sourceArray);
+    }, 
+    getUserNameFromArray(userId,sourceArray) {
+      return NodeUtils.getUserNameFromArray(userId, sourceArray);
+    },
+    getLableFromOptionsArray(key,sourceArray) {
+      return NodeUtils.getLableFromOptionsArray(key, sourceArray);
+    },
     // 配合getPriorityLength 获取前一个节点条件数组长度 用于设置优先级
     getPrevData() {
       return NodeUtils.getPreviousNode(this.value.prevId, this.processData);
@@ -946,8 +966,6 @@ export default {
       // 初始化条件表单数据
       let nodeConditions =
         this.value.properties && this.value.properties.conditions;
-
-       console.log('nodeConditions=====1111====',JSON.stringify(this.nodeConditions))
       this.pconditions = JSON.parse(
         JSON.stringify(this.$store.state.processConditions)
       );

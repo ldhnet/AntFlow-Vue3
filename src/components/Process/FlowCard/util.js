@@ -42,6 +42,39 @@ export class NodeUtils {
   static isGatewayNode ( node ) {
     return node && node.type === 'gateway'
   }
+     /**
+   * 根据组织架构ID获取组织架构名称
+   * @param { int } organizationId - 节点类型
+   * @param { Array } sourceArray - 父节点id
+   * @returns { String } 名称
+   */
+      static getOrganizationNameFromArray ( organizationId, sourceArray ) { 
+        if(isEmptyArray(sourceArray)) return ""
+        let res = sourceArray.find(c=>c.deptId == organizationId)  
+        return isEmpty(res) ? "" : res.deptName
+      }
+   /**
+   * 根据用户ID获取用户名称
+   * @param { int } userId - 节点类型
+   * @param { Array } sourceArray - 父节点id
+   * @returns { String } 名称
+   */
+    static getUserNameFromArray ( userId, sourceArray ) { 
+      if(isEmptyArray(sourceArray)) return ""
+      let res = sourceArray.find(c=>c.userId == userId)  
+      return isEmpty(res) ? "" : res.userName
+    }
+  /**
+   * 获取键值对的名称
+   * @param { int } key - 节点类型
+   * @param { Array } sourceArray - 父节点id
+   * @returns { String } 名称
+   */
+   static getLableFromOptionsArray ( key, sourceArray ) { 
+    if(isEmptyArray(sourceArray)) return ""
+    let res = sourceArray.find(c=>c.value == key)  
+    return isEmpty(res) ? "" : res.label
+  }
   /**
    * 创建指定节点
    * @param { String } type - 节点类型
