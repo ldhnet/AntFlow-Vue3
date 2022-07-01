@@ -145,7 +145,12 @@ const createNode = (nodeinfo)=>{
                 else if(conditions[i].formId == formidConfig.formIdeducationType)
                 { 
                      conditionsConf.educationType.push(conditions[i].conditionValue)
-                }else
+                }
+                else if(conditions[i].formId == formidConfig.formIdAccountType)
+                { 
+                     conditionsConf.accountType.push(conditions[i].conditionValue)
+                }
+                else
                 {
                     console.log("FormatUtils.createNode 未匹配到formId对应的值",JSON.stringify(conditions[i]))
                 } 
