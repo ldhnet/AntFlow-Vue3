@@ -456,6 +456,7 @@ import { NodeUtils } from "../FlowCard/util.js";
 import RowWrapper from "./RowWrapper";
 import NumInput from "./NumInput";
 import { GET_PAGE_EMPLOYEE,GET_DEPT_TREE } from "@/api/index.js";
+import { getUserList } from "@/api/userapi.js";
 const rangeType = {
   lt: "<",
   lte: "≤",
@@ -584,19 +585,42 @@ export default {
     Clickoutside,
   },
   mounted() { 
-    GET_PAGE_EMPLOYEE().then((res) => {
-      //console.log("mounted====",JSON.stringify(res.data))
-      this.Userlist = res.data; 
+    
+        
+    getUserList().then((res) => {
+      console.log("mounted====",JSON.stringify(res.data))
+      this.Userlist = res.data.map((item) => {
+          //返回自己想要的数据格式
+          return {
+            userId: item.id,
+            userName: item.userName,
+          };
+        });
+
       if (res.code == 200) {
         this.approverUserOptions = res.data.map((item) => {
           //返回自己想要的数据格式
           return {
-            userId: item.userId,
+            userId: item.id,
             userName: item.userName,
           };
         });
       }
     }); 
+
+    // GET_PAGE_EMPLOYEE().then((res) => {
+    //   //console.log("mounted====",JSON.stringify(res.data))
+    //   this.Userlist = res.data; 
+    //   if (res.code == 200) {
+    //     this.approverUserOptions = res.data.map((item) => {
+    //       //返回自己想要的数据格式
+    //       return {
+    //         userId: item.userId,
+    //         userName: item.userName,
+    //       };
+    //     });
+    //   }
+    // }); 
     GET_DEPT_TREE().then((res) => {
       if (res.code == 200) {
         this.organizationlist = res.data
