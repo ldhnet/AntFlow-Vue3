@@ -652,6 +652,26 @@ export default {
     },
     remoteMethod(query) {
       if (query !== "") {
+        getUserList(query).then((res) => {
+          console.log("mounted====",JSON.stringify(res.data))
+          this.Userlist = res.data.map((item) => {
+            //返回自己想要的数据格式
+            return {
+              userId: item.id,
+              userName: item.userName,
+            };
+          });
+
+          if (res.code == 200) {
+            this.approverUserOptions = res.data.map((item) => {
+              //返回自己想要的数据格式
+              return {
+                userId: item.id,
+                userName: item.userName,
+              };
+            });
+          }
+        });
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
