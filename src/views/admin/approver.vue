@@ -97,8 +97,8 @@ export default {
 
     getApprovalFlowData().then(res => { 
       console.log('this.getApprovalFlowData=======res=========', JSON.stringify(res)) 
-      console.log('this.getApprovalFlowData=======res=========', JSON.stringify(res.deta.nodes))  
-      console.log('前端预览需要的格式==',{code:200,msg:'获取数据成功',data: res.deta.nodes})
+      // console.log('this.getApprovalFlowData=======res=========', JSON.stringify(res.deta.nodes))  
+      // console.log('前端预览需要的格式==',{code:200,msg:'获取数据成功',data: res.deta.nodes})
     });
     
     GET_TEST_DATA().then(c => {
