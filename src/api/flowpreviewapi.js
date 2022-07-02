@@ -1,8 +1,31 @@
 import request from '@/utils/request.js'; 
-export const getTestData = () => {
+
+ 
+ /**
+  * 审批流程反向渲染
+ */
+export const getApprovalFlowData = (flowId) => {
   return request({
-    url: '/apiFlowData.json ',
+    url: '/api/Demo/Get/' + flowId,
     method: 'get',
+  });
+};
+ 
+export const getBpmnconfDetail = (id) => {
+  return request({
+    url: '/bpmnconf/detail/' +id,
+    method: 'get',
+  });
+};
+
+/**
+* 保存审批流程
+*/ 
+export const postApprovalFlowData = (data) => {
+  return request({
+    url: '/ApprovalFlow/save/',
+    method: 'post',
+    data
   });
 };
  

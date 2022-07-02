@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { netConfig } from '@/config/net.config';
-const { baseURL, contentType, invalidCode, noPermissionCode, requestTimeout, successCode } = netConfig;
+const { contentType, invalidCode, noPermissionCode, requestTimeout, successCode } = netConfig;
 //import store from '@/store/index.js';
 import router from '@/router/index.js';
 import qs from 'qs';
@@ -42,7 +42,7 @@ const handleCode = (code, msg) => {
 };
 
 const instance = axios.create({
-  baseURL,
+  baseURL:"http://localhost:9010/",
   timeout: requestTimeout,
   headers: {
     'Content-Type': contentType,

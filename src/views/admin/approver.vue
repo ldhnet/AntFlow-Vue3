@@ -47,9 +47,9 @@ import Process from "@/components/Process";
 import DynamicForm from "@/components/DynamicForm";
 import BasicSetting from '@/components/BasicSetting'
 import AdvancedSetting from '@/components/AdvancedSetting'
-import { GET_MOCK_CONF } from '../../api'
+import { GET_MOCK_CONF,GET_TEST_DATA } from '@/api/index.js'
 import { FormatUtils } from '@/components/Process/FlowCard/formatdata.js'
-import { getTestData } from '@/api/flowpreviewapi.js'
+import { getApprovalFlowData } from '@/api/flowpreviewapi.js'
 import { FormatDisplayUtils } from '@/components/Process/FlowCard/formatdisplay.js'
 const beforeUnload = function (e) {
   var confirmationMessage = '离开网站可能会丢失您编辑得内容';
@@ -92,8 +92,16 @@ export default {
     }
   },
   mounted() {
+    //初始化 流程节点 条件 类型
     this.onInitiatorConditionType()
-    getTestData().then(c => {
+
+    getApprovalFlowData().then(res => { 
+      console.log('this.getApprovalFlowData=======res=========', JSON.stringify(res)) 
+      console.log('this.getApprovalFlowData=======res=========', JSON.stringify(res.deta.nodes))  
+      console.log('前端预览需要的格式==',{code:200,msg:'获取数据成功',data: res.deta.nodes})
+    });
+    
+    GET_TEST_DATA().then(c => {
       this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data);
       console.log('this.nodeDate================', JSON.stringify(this.nodeDate))
       GET_MOCK_CONF().then(data => {
