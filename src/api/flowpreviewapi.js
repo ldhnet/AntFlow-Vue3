@@ -6,7 +6,7 @@ import request from '@/utils/request.js';
  */
 export const getApprovalFlowData = (flowId) => {
   return request({
-    url: '/api/Demo/Get/' + flowId,
+    url: '/bpmnConf/detail/65',
     method: 'get',
   });
 };
@@ -23,7 +23,7 @@ export const getBpmnconfDetail = (id) => {
 */ 
 export const postApprovalFlowData = (data) => {
   return request({
-    url: '/ApprovalFlow/save/',
+    url: '/bpmnConf/edit',
     method: 'post',
     data
   });

@@ -49,7 +49,7 @@ import BasicSetting from '@/components/BasicSetting'
 import AdvancedSetting from '@/components/AdvancedSetting'
 import { GET_MOCK_CONF,GET_TEST_DATA } from '@/api/index.js'
 import { FormatUtils } from '@/components/Process/FlowCard/formatdata.js'
-import { getApprovalFlowData } from '@/api/flowpreviewapi.js'
+import {getApprovalFlowData, postApprovalFlowData} from '@/api/flowpreviewapi.js'
 import { FormatDisplayUtils } from '@/components/Process/FlowCard/formatdisplay.js'
 const beforeUnload = function (e) {
   var confirmationMessage = '离开网站可能会丢失您编辑得内容';
@@ -140,8 +140,8 @@ export default {
             formData: res[1].formData,
             advancedSetting: getCmpData('advancedSetting')
           }
-          this.formatProcessData(param)
-          this.sendToServer(param)
+          var formattedObj=this.formatProcessData(param)
+          this.sendToServer(formattedObj)
         })
         .catch(err => {
           err.target && (this.activeStep = err.target)
@@ -162,7 +162,9 @@ export default {
         message: '请在控制台中查看数据输出',
         position: 'bottom-right'
       });
-      console.log('配置数据', param)
+      const promises=[postApprovalFlowData(param)]
+      const result= Promise.all(promises);
+      console.log("result is"+result);
     },
     exit() {
       this.$confirm('离开此页面您得修改将会丢失, 是否继续?', '提示', {
