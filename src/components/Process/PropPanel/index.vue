@@ -769,18 +769,17 @@ export default {
              }
           } 
           else if (t.tag === "el-select-multiple")
-          { 
-             if(!Array.isArray( cValue ) || cValue.length > 0)
+          {  
+             if(!Array.isArray( cValue ) || cValue.length <= 0)
              {
-                
+                nodeContent +=`${cValueName}] ` + "\n"; 
              }else{
                 for(let i in cValue)
                 {
                     let cValueName= this.getOrganizationNameFromArray(cValue[i],this.organizationlist) 
-                    nodeContent += `[${t.label} = ${cValueName}] ` + "\n";       
+                    nodeContent += `[${t.label} = ${cValueName}] ` + "\n";        
                 }  
-             }
-            
+             } 
           }
           else {
             let cValueLabel=  this.getLableFromOptionsArray(cValue,t.options) 

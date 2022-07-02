@@ -17,9 +17,10 @@ const store = new Vuex.Store( {
       state.processConditions = data
     },
     addPCondition ( state, data ) {
+      //console.log('store============addPCondition=========data=========',JSON.stringify(data))
       if ( data.formId === null || data.formId === undefined ) return
       if ( !hasCondition( state, data.formId ) ) {
-        state.processConditions.unshift( data )
+        state.processConditions.unshift( data ) 
       }
     },
     delPCondition ( state, formId ) {

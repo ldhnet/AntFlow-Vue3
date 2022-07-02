@@ -8,44 +8,26 @@
         <div>{{ title }}</div>
       </div>
       <div class="step-tab">
-        <div
-          v-for="(item, index) in steps"
-          :key="index"
-          class="step"
-          :class="[activeStep==item.key?'active':'']"
-          @click="changeSteps(item)"
-        >
-          <span class="step-index">{{index+1}}</span>
-          {{item.label}}
+        <div v-for="(item, index) in steps" :key="index" class="step" :class="[activeStep == item.key ? 'active' : '']"
+          @click="changeSteps(item)">
+          <span class="step-index">{{ index + 1 }}</span>
+          {{ item.label }}
         </div>
-        <div class="ghost-step step" :style="{transform: translateX}"></div>
+        <div class="ghost-step step" :style="{ transform: translateX }"></div>
       </div>
       <el-button size="small" class="publish-btn" @click="publish">发布</el-button>
     </header>
     <section class="page__content" v-if="mockData">
-      <BasicSetting
-        ref="basicSetting" 
-        :conf="mockData.basicSetting"
-        v-show="activeStep === 'basicSetting'" 
-        tabName="basicSetting"
-        @initiatorChange="onInitiatorChange" /> 
+      <BasicSetting ref="basicSetting" :conf="mockData.basicSetting" v-show="activeStep === 'basicSetting'"
+        tabName="basicSetting" @initiatorChange="onInitiatorChange" />
 
-      <DynamicForm
-        ref="formDesign"
-        :conf="mockData.formData"
-        v-show="activeStep === 'formDesign'" 
+      <DynamicForm ref="formDesign" :conf="mockData.formData" v-show="activeStep === 'formDesign'"
         tabName="formDesign" />
 
-      <Process  
-        ref="processDesign"
-        :conf="mockData.processData"
-        tabName="processDesign" 
-        v-show="activeStep === 'processDesign'" 
-        @startNodeChange="onStartChange"/>
+      <Process ref="processDesign" :conf="mockData.processData" tabName="processDesign"
+        v-show="activeStep === 'processDesign'" @startNodeChange="onStartChange" />
 
-      <AdvancedSetting
-        ref="advancedSetting"
-        :conf="mockData.advancedSetting"
+      <AdvancedSetting ref="advancedSetting" :conf="mockData.advancedSetting"
         v-show="activeStep === 'advancedSetting'" />
 
     </section>
@@ -65,7 +47,7 @@ import Process from "@/components/Process";
 import DynamicForm from "@/components/DynamicForm";
 import BasicSetting from '@/components/BasicSetting'
 import AdvancedSetting from '@/components/AdvancedSetting'
-import { GET_MOCK_CONF,PUBLISH_DATA } from '../../api'
+import { GET_MOCK_CONF } from '../../api'
 import { FormatUtils } from '@/components/Process/FlowCard/formatdata.js'
 import { getTestData } from '@/api/flowpreviewapi.js'
 import { FormatDisplayUtils } from '@/components/Process/FlowCard/formatdisplay.js'
@@ -86,7 +68,7 @@ export default {
   data() {
     return {
       mockData: null, // 可选择诸如 $route.param，Ajax获取数据等方式自行注入
-      nodeDate:null,
+      nodeDate: null,
       activeStep: "basicSetting", // 激活的步骤面板
       steps: [
         { label: "基础设置", key: "basicSetting" },
@@ -96,29 +78,30 @@ export default {
       ]
     };
   },
-  beforeRouteEnter(to, from, next){
+  beforeRouteEnter(to, from, next) {
     window.addEventListener('beforeunload', beforeUnload)
     next()
   },
-  beforeRouteLeave(to, from, next){
+  beforeRouteLeave(to, from, next) {
     window.removeEventListener('beforeunload', beforeUnload)
     next()
   },
-  computed:{
-    translateX () {
+  computed: {
+    translateX() {
       return `translateX(${this.steps.findIndex(t => t.key === this.activeStep) * 100}%)`
     }
   },
-  mounted() { 
-    getTestData().then(c=> { 
+  mounted() {
+    this.onInitiatorConditionType()
+    getTestData().then(c => {
       this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data);
-      console.log('this.nodeDate================',JSON.stringify(this.nodeDate))
-       GET_MOCK_CONF().then(data => { 
-        data.processData = this.nodeDate 
+      console.log('this.nodeDate================', JSON.stringify(this.nodeDate))
+      GET_MOCK_CONF().then(data => {
+        data.processData = this.nodeDate
         this.mockData = data
       });
     });
-   
+
   },
   methods: {
     changeSteps(item) {
@@ -128,70 +111,80 @@ export default {
       const getCmpData = name => this.$refs[name].getData()
       // basicSetting  formDesign processDesign 返回的是Promise 因为要做校验
       // advancedSetting返回的就是值
-      const p1 = getCmpData('basicSetting') 
+      const p1 = getCmpData('basicSetting')
       const p2 = getCmpData('formDesign')
-      const p3 = getCmpData('processDesign') 
+      const p3 = getCmpData('processDesign')
       Promise.all([p1, p2, p3])
-      .then(res => {
-        //console.log('配置数据===formData====', JSON.stringify(res[1].formData));
-        const param = {
-          basicSetting: res[0].formData,
-          processData: res[2].formData,
-          formData: res[1].formData,
-          advancedSetting: getCmpData('advancedSetting')
-        }
-        let formattedObj= this.formatProcessData(param)
-        this.sendToServer(formattedObj)
-      })
-      .catch(err => {
-        err.target && (this.activeStep = err.target)
-        err.msg && this.$message.warning(err.msg)
-      })
+        .then(res => {
+          //console.log('配置数据===formData====', JSON.stringify(res[1].formData));
+          const param = {
+            basicSetting: res[0].formData,
+            processData: res[2].formData,
+            formData: res[1].formData,
+            advancedSetting: getCmpData('advancedSetting')
+          }
+          this.formatProcessData(param)
+          this.sendToServer(param)
+        })
+        .catch(err => {
+          err.target && (this.activeStep = err.target)
+          err.msg && this.$message.warning(err.msg)
+        })
     },
-    formatProcessData(param){
-      console.log('开始Format'); 
-      console.log('原始数据==processData==',JSON.stringify(param.processData)); 
+    formatProcessData(param) {
+      console.log('开始Format');
+      console.log('原始数据==processData==', JSON.stringify(param.processData));
       let treeList = FormatUtils.depthMapTree(param.processData);
       const formattedSettings = FormatUtils.formatSettings(param, treeList);
       return formattedSettings;
     },
-    
-    sendToServer(finalObj){
+
+    sendToServer(param) {
       this.$notify({
         title: '数据已整合完成',
         message: '请在控制台中查看数据输出',
         position: 'bottom-right'
       });
-      const promises=[PUBLISH_DATA(finalObj)]
-      const result= Promise.all(promises);
-      console.log("result is"+result);
+      console.log('配置数据', param)
     },
     exit() {
       this.$confirm('离开此页面您得修改将会丢失, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '模拟返回!'
-          });
-        }).catch(() => { });
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '模拟返回!'
+        });
+      }).catch(() => { });
     },
     /**
      * 同步基础设置发起人和流程节点发起人
      */
-    onInitiatorChange (val, labels) {
+    onInitiatorChange(val, labels) {
       const processCmp = this.$refs.processDesign
       const startNode = processCmp.data
       startNode.properties.initiator = val['dep&user']
-      startNode.content =  labels  || '所有人'
+      startNode.content = labels || '所有人'
       processCmp.forceUpdate()
+    },
+    /**
+   * 同步基础设置 流程条件节点 条件类型
+   */
+    onInitiatorConditionType() {
+      GET_MOCK_CONF().then(data => {
+        data.formData.fields.forEach((t) => {
+          setTimeout(() => {
+            this.$store.commit("addPCondition", t);
+          }, 200);
+        })
+      });
     },
     /**
      * 监听 流程节点发起人改变 并同步到基础设置 发起人数据
      */
-    onStartChange(node){
+    onStartChange(node) {
       const basicSetting = this.$refs.basicSetting
       basicSetting.formData.initiator = { 'dep&user': node.properties.initiator }
     }
