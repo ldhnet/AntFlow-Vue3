@@ -47,7 +47,7 @@ import Process from "@/components/Process";
 import DynamicForm from "@/components/DynamicForm";
 import BasicSetting from '@/components/BasicSetting'
 import AdvancedSetting from '@/components/AdvancedSetting'
-import { GET_MOCK_CONF } from '../../api'
+import {GET_MOCK_CONF, PUBLISH_DATA} from '../../api'
 import { FormatUtils } from '@/components/Process/FlowCard/formatdata.js'
 import { getTestData } from '@/api/flowpreviewapi.js'
 import { FormatDisplayUtils } from '@/components/Process/FlowCard/formatdisplay.js'
@@ -123,8 +123,8 @@ export default {
             formData: res[1].formData,
             advancedSetting: getCmpData('advancedSetting')
           }
-          this.formatProcessData(param)
-          this.sendToServer(param)
+          var formattedObj = this.formatProcessData(param)
+          this.sendToServer(formattedObj)
         })
         .catch(err => {
           err.target && (this.activeStep = err.target)
@@ -139,13 +139,15 @@ export default {
       return formattedSettings;
     },
 
-    sendToServer(param) {
+    sendToServer(finalObj) {
       this.$notify({
         title: '数据已整合完成',
         message: '请在控制台中查看数据输出',
         position: 'bottom-right'
       });
-      console.log('配置数据', param)
+      const promises=[PUBLISH_DATA(finalObj)]
+      const result= Promise.all(promises);
+      console.log("result is"+result);
     },
     exit() {
       this.$confirm('离开此页面您得修改将会丢失, 是否继续?', '提示', {

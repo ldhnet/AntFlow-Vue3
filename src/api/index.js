@@ -15,7 +15,7 @@ export const GET_DEPT_TREE = data => get( BASE_URL + 'depChild.json', data )
 export const GET_USER_BY_DEPT = data => get( BASE_URL + 'userData.json', data )
 
 // 获取Mock数据
-export const GET_MOCK_CONF = () => get(BASE_URL + 'mockConf.json')
+export const GET_MOCK_CONF = () => get("http://localhost:7001/bpmnConf/detail/62")
 // 获取Mock数据
 export const GET_MOCK_CONF2 = () => {
     axios.post("http://localhost:9010/Test/PostTest?Id=1"); 
