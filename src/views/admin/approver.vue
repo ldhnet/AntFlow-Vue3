@@ -47,9 +47,9 @@ import Process from "@/components/Process";
 import DynamicForm from "@/components/DynamicForm";
 import BasicSetting from '@/components/BasicSetting'
 import AdvancedSetting from '@/components/AdvancedSetting'
-import {GET_MOCK_CONF, PUBLISH_DATA} from '../../api'
+import { GET_MOCK_CONF,GET_TEST_DATA } from '@/api/index.js'
 import { FormatUtils } from '@/components/Process/FlowCard/formatdata.js'
-import { getTestData } from '@/api/flowpreviewapi.js'
+import { getApprovalFlowData } from '@/api/flowpreviewapi.js'
 import { FormatDisplayUtils } from '@/components/Process/FlowCard/formatdisplay.js'
 const beforeUnload = function (e) {
   var confirmationMessage = '离开网站可能会丢失您编辑得内容';
@@ -92,15 +92,32 @@ export default {
     }
   },
   mounted() {
+    //初始化 流程节点 条件 类型
     this.onInitiatorConditionType()
-    getTestData().then(c => {
-      this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data);
+
+    // getApprovalFlowData().then(res => { 
+    //   console.log('this.getApprovalFlowData=======res=========', JSON.stringify(res)) 
+    //   // console.log('this.getApprovalFlowData=======res=========', JSON.stringify(res.deta.nodes))  
+    //   // console.log('前端预览需要的格式==',{code:200,msg:'获取数据成功',data: res.deta.nodes})
+    // });
+    
+     getApprovalFlowData().then(c => {
+      this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data.nodes);
       console.log('this.nodeDate================', JSON.stringify(this.nodeDate))
       GET_MOCK_CONF().then(data => {
         data.processData = this.nodeDate
         this.mockData = data
       });
     });
+
+    // GET_TEST_DATA().then(c => {
+    //   this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data);
+    //   console.log('this.nodeDate================', JSON.stringify(this.nodeDate))
+    //   GET_MOCK_CONF().then(data => {
+    //     data.processData = this.nodeDate
+    //     this.mockData = data
+    //   });
+    // });
 
   },
   methods: {
@@ -123,8 +140,8 @@ export default {
             formData: res[1].formData,
             advancedSetting: getCmpData('advancedSetting')
           }
-          var formattedObj = this.formatProcessData(param)
-          this.sendToServer(formattedObj)
+          this.formatProcessData(param)
+          this.sendToServer(param)
         })
         .catch(err => {
           err.target && (this.activeStep = err.target)
@@ -139,15 +156,13 @@ export default {
       return formattedSettings;
     },
 
-    sendToServer(finalObj) {
+    sendToServer(param) {
       this.$notify({
         title: '数据已整合完成',
         message: '请在控制台中查看数据输出',
         position: 'bottom-right'
       });
-      const promises=[PUBLISH_DATA(finalObj)]
-      const result= Promise.all(promises);
-      console.log("result is"+result);
+      console.log('配置数据', param)
     },
     exit() {
       this.$confirm('离开此页面您得修改将会丢失, 是否继续?', '提示', {
