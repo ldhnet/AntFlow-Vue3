@@ -105,6 +105,7 @@ const createNode = (nodeinfo)=>{
     }
     let node = {
         nodeType: transformedType,
+        nodeDisplayName:nodeinfo.content,
         nodeName: nodeinfo.properties?.title,
         nodeId: nodeinfo.nodeId,
         nodeFrom: nodeinfo.prevId,

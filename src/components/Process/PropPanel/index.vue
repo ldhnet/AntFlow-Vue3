@@ -744,8 +744,7 @@ export default {
             "fc-time-duration",
             "fc-amount",
             "fc-calculate"
-          ];
-          console.log('conditionNodeComfirm===t222===',JSON.stringify(t))
+          ]; 
           if (numberTypeCmp.includes(t.tag)) {
             if (cValue.type === "bet") {
               const numVal = cValue.value;
@@ -887,8 +886,7 @@ export default {
     /**
      * 删除流程条件
      */
-    onDelCondition(condition) {
-      console.log('onDelCondition=========',JSON.stringify(condition))
+    onDelCondition(condition) { 
       const index = this.showingPCons.findIndex(
         (id) => id === condition.formId
       );
@@ -972,8 +970,7 @@ export default {
         this.value.properties && this.value.properties.conditions;
       this.pconditions = JSON.parse(
         JSON.stringify(this.$store.state.processConditions)
-      );
-         console.log('pconditions===11111======',JSON.stringify(this.pconditions))
+      ); 
       this.initiator["dep&user"] = this.value.properties.initiator;
       if (Array.isArray(this.pconditions)) {
         this.showingPCons = [-1]; // 默认显示发起人
@@ -985,11 +982,9 @@ export default {
               con.conditionValue &&
               ((temp = con.conditionValue), this.showingPCons.push(t.formId));
           }
-          this.$set(t, "conditionValue", temp);
-          console.log('pconditions===22222======',JSON.stringify(this.pconditions))
+          this.$set(t, "conditionValue", temp); 
         });
-      }
-      console.log('showingPCons=========',JSON.stringify(this.showingPCons))
+      } 
     },
   },
   watch: {

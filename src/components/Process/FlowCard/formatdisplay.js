@@ -42,18 +42,15 @@ export class FormatDisplayUtils {
    * @param { Object } nodeData - 源节点数据
    * @returns Object
    */
-   static createNodeDisplay (nodeData) {     
+   static createNodeDisplay (nodeData) {      
         let type= this.getNodeType(nodeData)
         let res = JSON.parse( JSON.stringify( nodeConfig[type] ) )
         res.nodeId = nodeData.nodeId
         res.prevId = nodeData.nodeFrom?nodeData.nodeFrom:'' 
+        res.content  = nodeData.nodeDisplayName
         res.nodeFrom = [res.prevId]
-        res.nodeTo = nodeData.nodeTo? nodeData.nodeTo:[]
-        if(!isEmpty(nodeData.nodeName))
-        {
-            res.content = nodeData.nodeName
-        } 
-        
+        res.nodeTo = nodeData.nodeTo? nodeData.nodeTo:[] 
+
         let nodeProperty=nodeData.property
         if(isEmpty(nodeProperty)) return res
 
@@ -65,7 +62,7 @@ export class FormatDisplayUtils {
         {
             if(nodeProperty.hasOwnProperty('conditionsConf') && !isEmpty(nodeProperty.conditionsConf))
             { 
-                res.content = nodeProperty.conditionsConf.isDefault == 1? '其他情况进入此流程' : nodeData.nodeName
+                res.content = nodeProperty.conditionsConf.isDefault == 1? '其他情况进入此流程' : nodeData.nodeDisplayName
                 res.properties.title = nodeData.nodeName
                 res.properties.priority = nodeProperty.conditionsConf.sort
                 res.properties.isDefault=nodeProperty.conditionsConf.isDefault == 1? true :false

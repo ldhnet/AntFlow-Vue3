@@ -299,7 +299,7 @@ export class NodeUtils {
             //修改子节点的 nodeFrom 数据
             cons.splice( index, 1 ) 
             updateChildNodeFrom(prevNode, nodeData)   
-            console.log('delete=====processData==1111==',JSON.stringify(processData));       
+            //console.log('delete=====processData==1111==',JSON.stringify(processData));       
           } else { 
             // //方案一全删节点
             // v1_updateChildNodeForGateway(prevNode,processData) 
@@ -309,18 +309,18 @@ export class NodeUtils {
             delete prevNode.conditionNodes
             V2_updateChildNodeFrom(prevNode,anotherCon)
 
-            console.log('delete=====processData==2222==',JSON.stringify(processData));
+            //console.log('delete=====processData==2222==',JSON.stringify(processData));
             return
           }
           // 重新编排优先级
           cons.forEach( ( c, i ) => c.properties.priority = i )
-          console.log('delete=====processData==3333==',JSON.stringify(processData));
+          //console.log('delete=====processData==3333==',JSON.stringify(processData));
           return
         }
         else
         { 
            updateGatewayChildNode(prevNode,nodeData) 
-           console.log('delete=====processData==4444==',JSON.stringify(processData));
+           //console.log('delete=====processData==4444==',JSON.stringify(processData));
            return
         }
     }
