@@ -584,11 +584,8 @@ export default {
   directives: {
     Clickoutside,
   },
-  mounted() { 
-    
-        
-    getUserList().then((res) => {
-      console.log("mounted====",JSON.stringify(res.data))
+  mounted() {  
+    getUserList().then((res) => { 
       this.Userlist = res.data.map((item) => {
           //返回自己想要的数据格式
           return {
@@ -650,28 +647,9 @@ export default {
         this.organizationOptions = this.organizationlist;
       }
     },
-    remoteMethod(query) {
-      if (query !== "") {
-        getUserList(query).then((res) => {
-          console.log("mounted====",JSON.stringify(res.data))
-          this.Userlist = res.data.map((item) => {
-            //返回自己想要的数据格式
-            return {
-              userId: item.id,
-              userName: item.userName,
-            };
-          });
-
-          if (res.code == 200) {
-            this.approverUserOptions = res.data.map((item) => {
-              //返回自己想要的数据格式
-              return {
-                userId: item.id,
-                userName: item.userName,
-              };
-            });
-          }
-        });
+    remoteMethod(query) { 
+      console.log('query=================',query)
+      if (query.trim() !== "") {
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
@@ -680,10 +658,14 @@ export default {
               item.userName.toLowerCase().indexOf(query.toLowerCase()) > -1
             );
           });
-        }, 200);
+        }, 200);  
       } else {
         this.approverUserOptions = this.Userlist;
       }
+
+      setTimeout(() => {
+          this.approverUserOptions = this.Userlist;
+      }, 5000); 
     },
     getFormOperates() {
       let res = [];
