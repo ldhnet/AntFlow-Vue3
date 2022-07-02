@@ -49,7 +49,7 @@
 
     <!-- 条件  -->
     <section class="condition-pane" v-if="value && isConditionNode()">
-      <row-wrapper title="发起人" v-if="showingPCons.includes(-1)">
+      <row-wrapper title="发起人" v-if="showingPCons.includes(-111111)">
         <fc-org-select
           ref="condition-org"
           :tabList="['dep&user']"
@@ -433,7 +433,7 @@
     >
       <el-checkbox-group v-model="showingPCons">
         <!-- 发起人默认就有 -->
-        <el-checkbox :label="-1">发起人</el-checkbox>
+        <!-- <el-checkbox :label="-1">发起人</el-checkbox> -->
         <el-checkbox
           v-for="(item, index) in pconditions"
           :key="index"
@@ -733,9 +733,8 @@ export default {
       this.showingPCons
         .map((fid) => this.pconditions.find((t) => t.formId === fid))
         .forEach((t) => {
-          console.log('conditionNodeComfirm===t111===',JSON.stringify(t))
           if (!t) return; // 发起人条件时 t 为空 发起人在其他地方获取
-          const cValue = t.conditionValue;
+          let cValue = t.conditionValue;
           if (cValue === undefined || cValue === null) {
             return;
           }
@@ -765,6 +764,10 @@ export default {
             );
             const labels = this.$refs["org" + index][0].selectedLabels;
             nodeContent += `[${t.label} = ${labels}] ` + "\n";
+             if(cValue.hasOwnProperty('dep') && Array.isArray(cValue['dep']))
+             {
+                cValue = cValue['dep'].map(c=>c.deptId)
+             }
           } 
           else if (t.tag === "el-select-multiple")
           { 
@@ -789,13 +792,14 @@ export default {
         }, []);
 
       this.properties.conditions = conditions;
-      // 发起人虽然是条件 但是这里把发起人放到外部单独判断
+ 
+      // 发起人虽然是条件 但是这里把发起人放到外部单独判断 //20022-07-02去掉发起人
       this.properties.initiator = this.initiator["dep&user"];
-      this.initiator["dep&user"] &&
-        (nodeContent =
-          `[发起人: ${this.getOrgSelectLabel("condition")}]` +
-          "\n" +
-          nodeContent);
+      // this.initiator["dep&user"] &&
+      //   (nodeContent =
+      //     `[发起人: ${this.getOrgSelectLabel("condition")}]` +
+      //     "\n" +
+      //     nodeContent);
       this.$emit("confirm", this.properties, nodeContent || "请设置条件");
       this.visible = false;
     },
