@@ -42,6 +42,39 @@ export class NodeUtils {
   static isGatewayNode ( node ) {
     return node && node.type === 'gateway'
   }
+     /**
+   * 根据组织架构ID获取组织架构名称
+   * @param { int } organizationId - 节点类型
+   * @param { Array } sourceArray - 父节点id
+   * @returns { String } 名称
+   */
+      static getOrganizationNameFromArray ( organizationId, sourceArray ) { 
+        if(isEmptyArray(sourceArray)) return ""
+        let res = sourceArray.find(c=>c.deptId == organizationId)  
+        return isEmpty(res) ? "" : res.deptName
+      }
+   /**
+   * 根据用户ID获取用户名称
+   * @param { int } userId - 节点类型
+   * @param { Array } sourceArray - 父节点id
+   * @returns { String } 名称
+   */
+    static getUserNameFromArray ( userId, sourceArray ) { 
+      if(isEmptyArray(sourceArray)) return ""
+      let res = sourceArray.find(c=>c.userId == userId)  
+      return isEmpty(res) ? "" : res.userName
+    }
+  /**
+   * 获取键值对的名称
+   * @param { int } key - 节点类型
+   * @param { Array } sourceArray - 父节点id
+   * @returns { String } 名称
+   */
+   static getLableFromOptionsArray ( key, sourceArray ) { 
+    if(isEmptyArray(sourceArray)) return ""
+    let res = sourceArray.find(c=>c.value == key)  
+    return isEmpty(res) ? "" : res.label
+  }
   /**
    * 创建指定节点
    * @param { String } type - 节点类型
@@ -266,7 +299,7 @@ export class NodeUtils {
             //修改子节点的 nodeFrom 数据
             cons.splice( index, 1 ) 
             updateChildNodeFrom(prevNode, nodeData)   
-            console.log('delete=====processData==1111==',JSON.stringify(processData));       
+            //console.log('delete=====processData==1111==',JSON.stringify(processData));       
           } else { 
             // //方案一全删节点
             // v1_updateChildNodeForGateway(prevNode,processData) 
@@ -276,18 +309,18 @@ export class NodeUtils {
             delete prevNode.conditionNodes
             V2_updateChildNodeFrom(prevNode,anotherCon)
 
-            console.log('delete=====processData==2222==',JSON.stringify(processData));
+            //console.log('delete=====processData==2222==',JSON.stringify(processData));
             return
           }
           // 重新编排优先级
           cons.forEach( ( c, i ) => c.properties.priority = i )
-          console.log('delete=====processData==3333==',JSON.stringify(processData));
+          //console.log('delete=====processData==3333==',JSON.stringify(processData));
           return
         }
         else
         { 
            updateGatewayChildNode(prevNode,nodeData) 
-           console.log('delete=====processData==4444==',JSON.stringify(processData));
+           //console.log('delete=====processData==4444==',JSON.stringify(processData));
            return
         }
     }

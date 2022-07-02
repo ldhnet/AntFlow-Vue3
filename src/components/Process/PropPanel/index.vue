@@ -49,7 +49,7 @@
 
     <!-- 条件  -->
     <section class="condition-pane" v-if="value && isConditionNode()">
-      <row-wrapper title="发起人" v-if="showingPCons.includes(-1)">
+      <row-wrapper title="发起人" v-if="showingPCons.includes(-111111)">
         <fc-org-select
           ref="condition-org"
           :tabList="['dep&user']"
@@ -433,7 +433,7 @@
     >
       <el-checkbox-group v-model="showingPCons">
         <!-- 发起人默认就有 -->
-        <el-checkbox :label="-1">发起人</el-checkbox>
+        <!-- <el-checkbox :label="-1">发起人</el-checkbox> -->
         <el-checkbox
           v-for="(item, index) in pconditions"
           :key="index"
@@ -733,9 +733,8 @@ export default {
       this.showingPCons
         .map((fid) => this.pconditions.find((t) => t.formId === fid))
         .forEach((t) => {
-          console.log('conditionNodeComfirm===t111===',JSON.stringify(t))
           if (!t) return; // 发起人条件时 t 为空 发起人在其他地方获取
-          const cValue = t.conditionValue;
+          let cValue = t.conditionValue;
           if (cValue === undefined || cValue === null) {
             return;
           }
@@ -745,8 +744,7 @@ export default {
             "fc-time-duration",
             "fc-amount",
             "fc-calculate"
-          ];
-          console.log('conditionNodeComfirm===t222===',JSON.stringify(t))
+          ]; 
           if (numberTypeCmp.includes(t.tag)) {
             if (cValue.type === "bet") {
               const numVal = cValue.value;
@@ -765,27 +763,42 @@ export default {
             );
             const labels = this.$refs["org" + index][0].selectedLabels;
             nodeContent += `[${t.label} = ${labels}] ` + "\n";
+             if(cValue.hasOwnProperty('dep') && Array.isArray(cValue['dep']))
+             {
+                cValue = cValue['dep'].map(c=>c.deptId)
+             }
           } 
           else if (t.tag === "el-select-multiple")
           { 
-             console.log('nodeContent======',t.label + cValue)
-             nodeContent += `[${t.label} = ${cValue}] ` + "\n"; 
+             if(!Array.isArray( cValue ) || cValue.length > 0)
+             {
+                
+             }else{
+                for(let i in cValue)
+                {
+                    let cValueName= this.getOrganizationNameFromArray(cValue[i],this.organizationlist) 
+                    nodeContent += `[${t.label} = ${cValueName}] ` + "\n";       
+                }  
+             }
+            
           }
           else {
-            nodeContent += `[${t.label} = ${cValue}] ` + "\n";
+            let cValueLabel=  this.getLableFromOptionsArray(cValue,t.options) 
+            nodeContent += `[${t.label} = ${cValueLabel}] ` + "\n"; 
           }
           const res = { formId: t.formId, conditionValue: cValue };
           conditions.push(res);
         }, []);
 
       this.properties.conditions = conditions;
-      // 发起人虽然是条件 但是这里把发起人放到外部单独判断
+ 
+      // 发起人虽然是条件 但是这里把发起人放到外部单独判断 //20022-07-02去掉发起人
       this.properties.initiator = this.initiator["dep&user"];
-      this.initiator["dep&user"] &&
-        (nodeContent =
-          `[发起人: ${this.getOrgSelectLabel("condition")}]` +
-          "\n" +
-          nodeContent);
+      // this.initiator["dep&user"] &&
+      //   (nodeContent =
+      //     `[发起人: ${this.getOrgSelectLabel("condition")}]` +
+      //     "\n" +
+      //     nodeContent);
       this.$emit("confirm", this.properties, nodeContent || "请设置条件");
       this.visible = false;
     },
@@ -873,8 +886,7 @@ export default {
     /**
      * 删除流程条件
      */
-    onDelCondition(condition) {
-      console.log('onDelCondition=========',JSON.stringify(condition))
+    onDelCondition(condition) { 
       const index = this.showingPCons.findIndex(
         (id) => id === condition.formId
       );
@@ -887,6 +899,16 @@ export default {
     },
     clearApproverForm() {
       this.approverForm = JSON.parse(JSON.stringify(defaultApproverForm));
+    },
+
+    getOrganizationNameFromArray(organizationId,sourceArray) {
+      return NodeUtils.getOrganizationNameFromArray(organizationId, sourceArray);
+    }, 
+    getUserNameFromArray(userId,sourceArray) {
+      return NodeUtils.getUserNameFromArray(userId, sourceArray);
+    },
+    getLableFromOptionsArray(key,sourceArray) {
+      return NodeUtils.getLableFromOptionsArray(key, sourceArray);
     },
     // 配合getPriorityLength 获取前一个节点条件数组长度 用于设置优先级
     getPrevData() {
@@ -946,12 +968,9 @@ export default {
       // 初始化条件表单数据
       let nodeConditions =
         this.value.properties && this.value.properties.conditions;
-
-       console.log('nodeConditions=====1111====',JSON.stringify(this.nodeConditions))
       this.pconditions = JSON.parse(
         JSON.stringify(this.$store.state.processConditions)
-      );
-         console.log('pconditions===11111======',JSON.stringify(this.pconditions))
+      ); 
       this.initiator["dep&user"] = this.value.properties.initiator;
       if (Array.isArray(this.pconditions)) {
         this.showingPCons = [-1]; // 默认显示发起人
@@ -963,11 +982,9 @@ export default {
               con.conditionValue &&
               ((temp = con.conditionValue), this.showingPCons.push(t.formId));
           }
-          this.$set(t, "conditionValue", temp);
-          console.log('pconditions===22222======',JSON.stringify(this.pconditions))
+          this.$set(t, "conditionValue", temp); 
         });
-      }
-      console.log('showingPCons=========',JSON.stringify(this.showingPCons))
+      } 
     },
   },
   watch: {
@@ -1107,5 +1124,8 @@ export default {
 .condition-pane{
   height 100%
   overflow scroll
+}
+.el-checkbox { 
+  margin-bottom: 30px;
 }
 </style>

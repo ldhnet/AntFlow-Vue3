@@ -21,7 +21,7 @@ export class FormatUtils {
 
         console.log("final object最终对象"+JSON.stringify(finalObj));
 
-        console.log("formatSettings-2", JSON.stringify(treeList));
+        //console.log("formatSettings-2", JSON.stringify(treeList));
         return finalObj;
     }
 
@@ -31,7 +31,7 @@ export class FormatUtils {
    * @returns Array
    */
     static depthMapTree (treeData) {
-        console.log('treeData====',JSON.stringify(treeData)); 
+        //console.log('treeData====',JSON.stringify(treeData)); 
         let  arrList=[];
         let  node = createNode(treeData);
         arrList.push(node);
@@ -105,6 +105,7 @@ const createNode = (nodeinfo)=>{
     }
     let node = {
         nodeType: transformedType,
+        nodeDisplayName:nodeinfo.content,
         nodeName: nodeinfo.properties?.title,
         nodeId: nodeinfo.nodeId,
         nodeFrom: nodeinfo.prevId,
@@ -138,19 +139,20 @@ const createNode = (nodeinfo)=>{
 
             for(let i in conditions)
             { 
-                if(conditions[i].formId == formidConfig.formIdOrganizationType)
-                { 
-                    conditionsConf.organizationIds = conditions[i].conditionValue
-                }
-                else if(conditions[i].formId == formidConfig.formIdeducationType)
-                { 
-                     conditionsConf.educationType.push(conditions[i].conditionValue)
-                }else
-                {
-                    console.log("FormatUtils.createNode 未匹配到formId对应的值",JSON.stringify(conditions[i]))
-                } 
+                switch(conditions[i].formId){
+                    case formidConfig.formIdOrganizationType:
+                        conditionsConf.organizationIds = conditions[i].conditionValue
+                      break
+                    case formidConfig.formIdeducationType: 
+                        conditionsConf.educationType.push(conditions[i].conditionValue)
+                      break
+                    case formidConfig.formIdAccountType: 
+                        conditionsConf.accountType.push(conditions[i].conditionValue) 
+                      break
+                    default:
+                       console.log("FormatUtils.createNode 未匹配到formId对应的值",JSON.stringify(conditions[i]))
+                }   
             }  
-
             conditionsConf.isDefault= properties.isDefault ? 1 : 0;
             property.conditionsConf=conditionsConf;
             node.property=property;

@@ -112,6 +112,7 @@ export default {
   mounted() { 
     getTestData().then(c=> { 
       this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data);
+      console.log('this.nodeDate================',JSON.stringify(this.nodeDate))
        GET_MOCK_CONF().then(data => { 
         data.processData = this.nodeDate 
         this.mockData = data
