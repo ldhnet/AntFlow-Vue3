@@ -882,17 +882,17 @@ export default {
             ? "直接主管"
             : `第${this.directorLevel}级主管`;
       } else if ("user" === assigneeType) {
-        //指定人员 下拉选择
+        //指定人员 下拉选择 
         const approverInfo = [];
         for (let i in this.approverUserIds) {
-          const info = this.approverUserOptions.filter((key) => {
+          const info = this.Userlist.filter((key) => {
             return key.userId == this.approverUserIds[i];
           });
+       
           if (Array.isArray(info) && info.length > 0) {
             approverInfo.push(info[0]);
           }
-        }
-
+        } 
         if (approverInfo.length > 0) {
           content = approverInfo.map((t) => t.userName).join(","); //approverInfo[0].userName
           this.approverForm.approvers = approverInfo;
