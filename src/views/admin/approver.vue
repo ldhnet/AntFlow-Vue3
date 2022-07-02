@@ -115,6 +115,7 @@ export default {
       console.log('this.nodeDate================', JSON.stringify(this.nodeDate))
       GET_MOCK_CONF().then(data => {
         data.processData = this.nodeDate
+        data.basicSetting.flowName=c.data.bpmnName
         this.mockData = data
       });
     });
