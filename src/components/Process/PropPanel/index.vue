@@ -345,7 +345,7 @@
               v-if="
                 (orgCollection[approverForm.assigneeType] &&
                   orgCollection[approverForm.assigneeType].length > 1) ||
-                ['optional'].includes(approverForm.assigneeType)
+                ['optional'].includes(approverForm.assigneeType) ||  ['user'].includes(approverForm.assigneeType)
               "
             >
               <p>多人审批时采用的审批方式</p>

@@ -130,7 +130,7 @@
                     "name": "sinoadmin"
                 }
             ],
-            "signType": 1,
+            "signType": 2,
             "conditionsConf": null,
             "configurationTableType": null,
             "tableFieldType": null,
