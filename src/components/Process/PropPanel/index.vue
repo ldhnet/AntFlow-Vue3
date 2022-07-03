@@ -584,6 +584,11 @@ export default {
   directives: {
     Clickoutside,
   },
+  updated()
+  {
+    this.approverUserOptions = this.Userlist;
+    this.organizationOptions = this.organizationlist;
+  },
   mounted() {  
     getUserList().then((res) => { 
       this.Userlist = res.data.map((item) => {
@@ -620,7 +625,12 @@ export default {
     // }); 
     GET_DEPT_TREE().then((res) => {
       if (res.code == 200) {
-        this.organizationlist = res.data
+        this.organizationlist = res.data.map((item) => { 
+          return {
+            deptId: item.deptId,
+            deptName: item.deptName,
+          };
+        });
         this.organizationOptions = res.data.map((item) => {
           //返回自己想要的数据格式
           return {
@@ -648,7 +658,6 @@ export default {
       }
     },
     remoteMethod(query) { 
-      console.log('query=================',query)
       if (query.trim() !== "") {
         this.loading = true;
         setTimeout(() => {
@@ -661,11 +670,7 @@ export default {
         }, 200);  
       } else {
         this.approverUserOptions = this.Userlist;
-      }
-
-      setTimeout(() => {
-          this.approverUserOptions = this.Userlist;
-      }, 5000); 
+      } 
     },
     getFormOperates() {
       let res = [];
