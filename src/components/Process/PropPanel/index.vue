@@ -309,6 +309,7 @@
                               :remote-method="remoteMethod"
                               :loading="loading"
                               style="width:90%"
+                              @click.native="clickApproverUserSelect"
                             >
                               <el-option
                                 v-for="item in approverUserOptions"
@@ -590,17 +591,9 @@ export default {
     this.organizationOptions = this.organizationlist;
   },
   mounted() {  
-    getUserList().then((res) => { 
-      this.Userlist = res.data.map((item) => {
-          //返回自己想要的数据格式
-          return {
-            userId: item.id,
-            userName: item.userName,
-          };
-        });
-
+    getUserList().then((res) => {  
       if (res.code == 200) {
-        this.approverUserOptions = res.data.map((item) => {
+        this.Userlist = res.data.map((item) => {
           //返回自己想要的数据格式
           return {
             userId: item.id,
@@ -658,6 +651,7 @@ export default {
       }
     },
     remoteMethod(query) { 
+      console.log('query========================',query)
       if (query.trim() !== "") {
         this.loading = true;
         setTimeout(() => {
@@ -671,6 +665,11 @@ export default {
       } else {
         this.approverUserOptions = this.Userlist;
       } 
+    },
+    //多选审批人员下拉 列表展示优化
+    clickApproverUserSelect(item)
+    {
+        this.remoteMethod('')
     },
     getFormOperates() {
       let res = [];
