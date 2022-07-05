@@ -61,6 +61,7 @@
   </div>
 </template>
 <script>
+import { getFlowOptions } from "@/api/flow_config_api.js"; 
 export default {
   components: {},
   props: ['tabName', 'initiator', 'conf'],
@@ -87,13 +88,7 @@ export default {
         "label": "启用自动去重",
         "value": 2
       }],
-      flowOptions: [{
-        "label": "立项申请",
-        "value": "LXSQ_WMA"
-      }, {
-        "label": "第三方账号申请",
-        "value": "DSFZH_WMA"
-      }],
+      flowOptions: [],
       rules: {
         flowName: [{
           required: true,
@@ -141,6 +136,19 @@ export default {
     if (typeof this.conf === 'object' && this.conf !== null) {
       Object.assign(this.formData, this.conf)
     }
+  },
+  mounted(){
+    getFlowOptions().then((res) => {  
+      if (res.code == 200) {
+        this.flowOptions = res.data.map((item) => {
+          //返回自己想要的数据格式
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        });
+      }
+    }); 
   },
   methods: {
     emitInitiator(){
