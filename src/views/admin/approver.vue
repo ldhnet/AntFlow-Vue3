@@ -74,7 +74,7 @@ export default {
         { label: "基础设置", key: "basicSetting" },
         // { label: "表单设计", key: "formDesign" },
         { label: "流程设计", key: "processDesign" },
-        { label: "高级设置", key: "advancedSetting" }
+        //{ label: "高级设置", key: "advancedSetting" }
       ]
     };
   },

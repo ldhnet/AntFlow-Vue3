@@ -6,6 +6,13 @@
         <el-input v-model="formData.flowName" placeholder="请输入审批名称" clearable :style="{width: '100%'}">
         </el-input>
       </el-form-item>
+
+      <el-form-item label="审批人去重" prop="deduplicationType">
+        <el-select v-model="formData.deduplicationType" placeholder="请选择去重类型" :style="{width: '100%'}">
+          <el-option v-for="(item, index) in autoRepeatOptions" :key="index" :label="item.label"
+                     :value="item.value" :disabled="item.disabled"></el-option>
+        </el-select>
+      </el-form-item>
 <!--      <el-form-item label="选择分组" prop="flowGroup">
         <el-select v-model="formData.flowGroup" placeholder="请选择选择分组" clearable :style="{width: '100%'}">
           <el-option v-for="(item, index) in flowGroupOptions" :key="index" :label="item.label"
@@ -63,8 +70,16 @@ export default {
         flowImg: '',
         flowGroup: undefined,
         flowRemark: undefined,
+        deduplicationType: 1,
         initiator: null
       },
+      autoRepeatOptions: [{
+        "label": "不启用自动去重",
+        "value": 1
+      }, {
+        "label": "启用自动去重",
+        "value": 2
+      }],
       rules: {
         flowName: [{
           required: true,
