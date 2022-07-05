@@ -143,8 +143,8 @@ export default {
         this.flowOptions = res.data.map((item) => {
           //返回自己想要的数据格式
           return {
-            label: item.name,
-            value: item.id,
+            label: item.businessName,
+            value: item.fromCode,
           };
         });
       }
