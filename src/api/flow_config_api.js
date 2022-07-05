@@ -6,7 +6,7 @@ import request from '@/utils/request.js';
  */
   export const getFlowOptions = () => {
     return request({
-      url: '/bpmnconf/listOutsideConfs',
+      url: '/bpmnConf/listOutsideConfs',
       method: 'get',
     });
   };
