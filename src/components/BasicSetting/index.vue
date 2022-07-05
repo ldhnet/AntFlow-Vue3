@@ -2,9 +2,22 @@
   <div class="setting-container">
     <el-form ref="elForm" :model="formData" :rules="rules" size="medium" label-width="100px"
       label-position="top">
+      <el-form-item label="审批流程" prop="deduplicationType">
+        <el-select v-model="formData.formCode" placeholder="请选择流程" :style="{width: '100%'}">
+          <el-option v-for="(item, index) in flowOptions" :key="index" :label="item.label"
+                     :value="item.value" :disabled="item.disabled"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="审批名称" prop="flowName">
         <el-input v-model="formData.flowName" placeholder="请输入审批名称" clearable :style="{width: '100%'}">
         </el-input>
+      </el-form-item>
+
+      <el-form-item label="审批人去重" prop="deduplicationType">
+        <el-select v-model="formData.deduplicationType" placeholder="请选择去重类型" :style="{width: '100%'}">
+          <el-option v-for="(item, index) in autoRepeatOptions" :key="index" :label="item.label"
+                     :value="item.value" :disabled="item.disabled"></el-option>
+        </el-select>
       </el-form-item>
 <!--      <el-form-item label="选择分组" prop="flowGroup">
         <el-select v-model="formData.flowGroup" placeholder="请选择选择分组" clearable :style="{width: '100%'}">
@@ -48,6 +61,7 @@
   </div>
 </template>
 <script>
+import { getFlowOptions } from "@/api/flow_config_api.js"; 
 export default {
   components: {},
   props: ['tabName', 'initiator', 'conf'],
@@ -63,8 +77,18 @@ export default {
         flowImg: '',
         flowGroup: undefined,
         flowRemark: undefined,
+        formCode:undefined,
+        deduplicationType: 1,
         initiator: null
       },
+      autoRepeatOptions: [{
+        "label": "不启用自动去重",
+        "value": 1
+      }, {
+        "label": "启用自动去重",
+        "value": 2
+      }],
+      flowOptions: [],
       rules: {
         flowName: [{
           required: true,
@@ -112,6 +136,19 @@ export default {
     if (typeof this.conf === 'object' && this.conf !== null) {
       Object.assign(this.formData, this.conf)
     }
+  },
+  mounted(){
+    getFlowOptions().then((res) => {  
+      if (res.code == 200) {
+        this.flowOptions = res.data.map((item) => {
+          //返回自己想要的数据格式
+          return {
+            label: item.businessName,
+            value: item.fromCode,
+          };
+        });
+      }
+    }); 
   },
   methods: {
     emitInitiator(){
