@@ -20,7 +20,7 @@ export const getBpmnconfDetail = (id) => {
 
 /**
 * 保存审批流程
-*/ 
+ */ 
 export const postApprovalFlowData = (data) => {
   return request({
     url: '/bpmnConf/edit',
@@ -29,3 +29,4 @@ export const postApprovalFlowData = (data) => {
   });
 };
  
+

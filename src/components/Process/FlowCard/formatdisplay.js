@@ -52,12 +52,15 @@ export class FormatDisplayUtils {
         res.nodeTo = nodeData.nodeTo? nodeData.nodeTo:[] 
 
         let nodeProperty=nodeData.property
-        if(isEmpty(nodeProperty)) return res
-
-        if(!isEmptyArray(nodeData.property.emplIds))
+        if(isEmpty(nodeProperty)) return res 
+        if(res.type == 'approver')
         {
-            res.properties.approvers = nodeData.property.emplIds.map(key=>({userId: key,userName: ''}))             
-        }  
+            res.properties.counterSign = nodeProperty.signType == 1? true :false
+            if(!isEmptyArray(nodeData.property.emplIds))
+            {
+                res.properties.approvers = nodeData.property.emplIds.map(key=>({userId: key,userName: ''}))             
+            }  
+        }
         if(res.type == 'condition')
         {
             if(nodeProperty.hasOwnProperty('conditionsConf') && !isEmpty(nodeProperty.conditionsConf))

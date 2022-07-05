@@ -99,7 +99,7 @@
         "batchStatus": 0,
         "approvalStandard": 2,
         "nodeName": "王五审批",
-        "nodeDisplayName" :"王五",
+        "nodeDisplayName" :"胡斐",
         "annotation": null,
         "isDeduplication": 0,
         "isSignUp": 0,
@@ -122,15 +122,15 @@
             "roleIds": null,
             "roleList": null,
             "emplIds": [
-                3
+                1308
             ],
             "emplList": [
                 {
-                    "id": 3,
+                    "id": 1308,
                     "name": "sinoadmin"
                 }
             ],
-            "signType": 1,
+            "signType": 2,
             "conditionsConf": null,
             "configurationTableType": null,
             "tableFieldType": null,

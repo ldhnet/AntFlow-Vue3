@@ -309,6 +309,7 @@
                               :remote-method="remoteMethod"
                               :loading="loading"
                               style="width:90%"
+                              @click.native="clickApproverUserSelect"
                             >
                               <el-option
                                 v-for="item in approverUserOptions"
@@ -344,7 +345,7 @@
               v-if="
                 (orgCollection[approverForm.assigneeType] &&
                   orgCollection[approverForm.assigneeType].length > 1) ||
-                ['optional'].includes(approverForm.assigneeType)
+                ['optional'].includes(approverForm.assigneeType) ||  ['user'].includes(approverForm.assigneeType)
               "
             >
               <p>多人审批时采用的审批方式</p>
@@ -456,6 +457,7 @@ import { NodeUtils } from "../FlowCard/util.js";
 import RowWrapper from "./RowWrapper";
 import NumInput from "./NumInput";
 import { GET_PAGE_EMPLOYEE,GET_DEPT_TREE } from "@/api/index.js";
+import { getUserList } from "@/api/userapi.js";
 const rangeType = {
   lt: "<",
   lte: "≤",
@@ -583,23 +585,45 @@ export default {
   directives: {
     Clickoutside,
   },
-  mounted() { 
-    GET_PAGE_EMPLOYEE().then((res) => {
-      //console.log("mounted====",JSON.stringify(res.data))
-      this.Userlist = res.data; 
+  updated()
+  {
+    this.approverUserOptions = this.Userlist;
+    this.organizationOptions = this.organizationlist;
+  },
+  mounted() {  
+    getUserList().then((res) => {  
       if (res.code == 200) {
-        this.approverUserOptions = res.data.map((item) => {
+        this.Userlist = res.data.map((item) => {
           //返回自己想要的数据格式
           return {
-            userId: item.userId,
+            userId: item.id,
             userName: item.userName,
           };
         });
       }
     }); 
+
+    // GET_PAGE_EMPLOYEE().then((res) => {
+    //   //console.log("mounted====",JSON.stringify(res.data))
+    //   this.Userlist = res.data; 
+    //   if (res.code == 200) {
+    //     this.approverUserOptions = res.data.map((item) => {
+    //       //返回自己想要的数据格式
+    //       return {
+    //         userId: item.userId,
+    //         userName: item.userName,
+    //       };
+    //     });
+    //   }
+    // }); 
     GET_DEPT_TREE().then((res) => {
       if (res.code == 200) {
-        this.organizationlist = res.data
+        this.organizationlist = res.data.map((item) => { 
+          return {
+            deptId: item.deptId,
+            deptName: item.deptName,
+          };
+        });
         this.organizationOptions = res.data.map((item) => {
           //返回自己想要的数据格式
           return {
@@ -626,8 +650,9 @@ export default {
         this.organizationOptions = this.organizationlist;
       }
     },
-    remoteMethod(query) {
-      if (query !== "") {
+    remoteMethod(query) { 
+      console.log('query========================',query)
+      if (query.trim() !== "") {
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
@@ -636,10 +661,15 @@ export default {
               item.userName.toLowerCase().indexOf(query.toLowerCase()) > -1
             );
           });
-        }, 200);
+        }, 200);  
       } else {
         this.approverUserOptions = this.Userlist;
-      }
+      } 
+    },
+    //多选审批人员下拉 列表展示优化
+    clickApproverUserSelect(item)
+    {
+        this.remoteMethod('')
     },
     getFormOperates() {
       let res = [];
@@ -838,17 +868,17 @@ export default {
             ? "直接主管"
             : `第${this.directorLevel}级主管`;
       } else if ("user" === assigneeType) {
-        //指定人员 下拉选择
+        //指定人员 下拉选择 
         const approverInfo = [];
         for (let i in this.approverUserIds) {
-          const info = this.approverUserOptions.filter((key) => {
+          const info = this.Userlist.filter((key) => {
             return key.userId == this.approverUserIds[i];
           });
+       
           if (Array.isArray(info) && info.length > 0) {
             approverInfo.push(info[0]);
           }
-        }
-
+        } 
         if (approverInfo.length > 0) {
           content = approverInfo.map((t) => t.userName).join(","); //approverInfo[0].userName
           this.approverForm.approvers = approverInfo;
