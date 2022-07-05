@@ -101,16 +101,17 @@ export default {
     //   // console.log('前端预览需要的格式==',{code:200,msg:'获取数据成功',data: res.deta.nodes})
     // });
     
-    //  getApprovalFlowData().then(c => {
-    //   this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data.nodes);
-    //   console.log('this.nodeDate================', JSON.stringify(this.nodeDate))
-    //   GET_MOCK_CONF().then(data => {
-    //     data.processData = this.nodeDate
-    //     this.mockData = data
-    //   });
-    // });
+     getApprovalFlowData().then(c => {
+      this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data.nodes);
+      //console.log('this.nodeDate================', JSON.stringify(this.nodeDate))
+      GET_MOCK_CONF().then(data => {
+        data.processData = this.nodeDate
+        data.basicSetting.flowName=c.data.bpmnName
+        this.mockData = data
+      });
+    });
 
-    GET_TEST_DATA().then(c => {
+   /* GET_TEST_DATA().then(c => {
       this.nodeDate = FormatDisplayUtils.depthConverterToTree(c.data);
       console.log('this.nodeDate================', JSON.stringify(this.nodeDate))
       GET_MOCK_CONF().then(data => {
@@ -118,7 +119,7 @@ export default {
         data.basicSetting.flowName=c.data.bpmnName
         this.mockData = data
       });
-    });
+    });*/
 
   },
   methods: {

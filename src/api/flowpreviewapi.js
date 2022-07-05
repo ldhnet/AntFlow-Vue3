@@ -6,7 +6,7 @@ import request from '@/utils/request.js';
  */
 export const getApprovalFlowData = (flowId) => {
   return request({
-    url: '/bpmnConf/detail/65',
+    url: '/bpmnConf/detail/69',
     method: 'get',
   });
 };
