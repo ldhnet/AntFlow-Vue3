@@ -2,6 +2,12 @@
   <div class="setting-container">
     <el-form ref="elForm" :model="formData" :rules="rules" size="medium" label-width="100px"
       label-position="top">
+      <el-form-item label="审批流程" prop="deduplicationType">
+        <el-select v-model="formData.formCode" placeholder="请选择流程" :style="{width: '100%'}">
+          <el-option v-for="(item, index) in flowOptions" :key="index" :label="item.label"
+                     :value="item.value" :disabled="item.disabled"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="审批名称" prop="flowName">
         <el-input v-model="formData.flowName" placeholder="请输入审批名称" clearable :style="{width: '100%'}">
         </el-input>
@@ -70,6 +76,7 @@ export default {
         flowImg: '',
         flowGroup: undefined,
         flowRemark: undefined,
+        formCode:"DSFZH_WMA",
         deduplicationType: 1,
         initiator: null
       },
@@ -79,6 +86,13 @@ export default {
       }, {
         "label": "启用自动去重",
         "value": 2
+      }],
+      flowOptions: [{
+        "label": "立项申请",
+        "value": "LXSQ_WMA"
+      }, {
+        "label": "第三方账号申请",
+        "value": "DSFZH_WMA"
       }],
       rules: {
         flowName: [{
