@@ -6,13 +6,13 @@
         <el-input v-model="formData.flowName" placeholder="请输入审批名称" clearable :style="{width: '100%'}">
         </el-input>
       </el-form-item>
-      <el-form-item label="选择分组" prop="flowGroup">
+<!--      <el-form-item label="选择分组" prop="flowGroup">
         <el-select v-model="formData.flowGroup" placeholder="请选择选择分组" clearable :style="{width: '100%'}">
           <el-option v-for="(item, index) in flowGroupOptions" :key="index" :label="item.label"
             :value="item.value" :disabled="item.disabled"></el-option>
         </el-select>
-      </el-form-item>
-      <el-form-item label="谁可以发起审批" prop="approver">
+      </el-form-item>-->
+<!--      <el-form-item label="谁可以发起审批" prop="approver">
         <fc-org-select
           ref="org-select"
           v-model="formData.initiator" 
@@ -20,11 +20,11 @@
           title="发起人" 
           @change="emitInitiator" />
           <span style="font-size: 12px; color: #aaa;">默认所有人</span>
-      </el-form-item>
-      <el-form-item label="模板图标" prop="icon">
+      </el-form-item>-->
+<!--      <el-form-item label="模板图标" prop="icon">
         <img :src="activeIconSrc" style="width: 28px;height: 28px;vertical-align: middle;">
         <el-button  plain size="mini" @click="dialogVisible = true" style="margin-left: 10px;">选择图标</el-button>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="审批说明" prop="flowRemark">
         <el-input v-model="formData.flowRemark" type="textarea" placeholder="请输入审批说明" :maxlength="100"
           show-word-limit :autosize="{minRows: 4, maxRows: 4}" :style="{width: '100%'}"></el-input>
