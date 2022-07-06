@@ -13,7 +13,7 @@ export const getApprovalFlowData = (flowId) => {
  
 export const getBpmnconfDetail = (id) => {
   return request({
-    url: '/bpmnconf/detail/' +id,
+    url: '/bpmnConf/detail/' +id,
     method: 'get',
   });
 };

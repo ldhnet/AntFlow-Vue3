@@ -73,9 +73,11 @@ import Process from "@/components/Process";
 import DynamicForm from "@/components/DynamicForm";
 import BasicSetting from "@/components/BasicSetting";
 import AdvancedSetting from "@/components/AdvancedSetting";
-import { GET_MOCK_CONF, GET_TEST_DATA } from "@/api/index.js";
+import { GET_MOCK_CONF } from "@/api/index.js";
 import { FormatUtils } from "@/components/Process/FlowCard/formatcommit_data.js";
 import { FormatDisplayUtils } from "@/components/Process/FlowCard/formatdisplay_data.js";
+import { getBpmnconfDetail } from "@/api/flow_preview_api.js";
+
 const beforeUnload = function (e) {
   var confirmationMessage = "离开网站可能会丢失您编辑得内容";
   (e || window.event).returnValue = confirmationMessage; // Gecko and Trident
@@ -128,36 +130,40 @@ export default {
         this.onInitiatorConditionType();
       });
 
-    //  getApprovalFlowData().then(opt => {
-    //     opt.processData = FormatDisplayUtils.depthConverterToTree(opt.data.nodes)
-    //     opt.basicSetting =  { //基础配置 数据
-    //           "bpmnCode": "SFZHSQ-00011",
-    //           "flowCode": opt.data.bpmnCode,
-    //           "flowName": opt.data.bpmnName,
-    //           "flowImg": 12,
-    //           "flowGroup": 2,
-    //           "deduplicationType": opt.data.deduplicationType,
-    //           "flowRemark": opt.data.remark,
-    //         },
-    //       opt.formData = this.configFormData
-    //       this.mockData = opt
-    // });
-
-    GET_TEST_DATA().then((c) => {
-      c.processData = FormatDisplayUtils.depthConverterToTree(c.data.nodes); //流程设计 数据
-      c.basicSetting = {
-        //基础配置 数据
-        bpmnCode: "SFZHSQ-00011",
-        flowCode: c.data.bpmnCode,
-        flowName: c.data.bpmnName,
-        flowImg: 12,
-        flowGroup: 2,
-        deduplicationType: c.data.deduplicationType,
-        flowRemark: c.data.remark,
-      },
-      c.formData = this.configFormData; //审批条件节点类型配置数据
-      this.mockData = c;
+    getBpmnconfDetail(1).then((res) => {
+      if (res.code == 200) {
+        let opt = {};
+        opt.processData = FormatDisplayUtils.depthConverterToTree(res.data.nodes);
+        opt.basicSetting = {
+          //基础配置 数据
+          bpmnCode: res.data.bpmnCode,
+          flowCode: res.data.bpmnCode,
+          flowName: res.data.bpmnName,
+          flowImg: 12,
+          flowGroup: 2,
+          deduplicationType: res.data.deduplicationType,
+          flowRemark: res.data.remark,
+        },
+        opt.formData = this.configFormData;
+        this.mockData = opt;
+      }
     });
+
+    // GET_TEST_DATA().then((c) => {
+    //   c.processData = FormatDisplayUtils.depthConverterToTree(c.data.nodes); //流程设计 数据
+    //   c.basicSetting = {
+    //     //基础配置 数据
+    //     bpmnCode: opt.data.bpmnCode,
+    //     flowCode: c.data.bpmnCode,
+    //     flowName: c.data.bpmnName,
+    //     flowImg: 12,
+    //     flowGroup: 2,
+    //     deduplicationType: c.data.deduplicationType,
+    //     flowRemark: c.data.remark,
+    //   },
+    //   c.formData = this.configFormData; //审批条件节点类型配置数据
+    //   this.mockData = c;
+    // });
   },
   methods: {
     changeSteps(item) {
