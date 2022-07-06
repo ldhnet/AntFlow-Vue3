@@ -48,8 +48,8 @@ import DynamicForm from "@/components/DynamicForm";
 import BasicSetting from '@/components/BasicSetting'
 import AdvancedSetting from '@/components/AdvancedSetting'
 import { GET_MOCK_CONF,GET_TEST_DATA } from '@/api/index.js'
-import { FormatUtils } from '@/components/Process/FlowCard/formatdata.js' 
-import { FormatDisplayUtils } from '@/components/Process/FlowCard/formatdisplay.js'
+import { FormatUtils } from '@/components/Process/FlowCard/formatcommit_data.js' 
+import { FormatDisplayUtils } from '@/components/Process/FlowCard/formatdisplay_data.js'
 const beforeUnload = function (e) {
   var confirmationMessage = '离开网站可能会丢失您编辑得内容';
   (e || window.event).returnValue = confirmationMessage;     // Gecko and Trident
