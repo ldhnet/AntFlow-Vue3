@@ -1,4 +1,4 @@
-import nodeConfig from "./configdisplay.js";
+import nodeConfig from "./config.js";
 import formidConfig from "@/config/flowformid.config.js";
 const isEmpty = data => data === null || data === undefined || data === ''
 const isEmptyArray = data => Array.isArray( data ) ? data.length === 0 : true 
