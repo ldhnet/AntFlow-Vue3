@@ -77,7 +77,7 @@ export default {
         flowImg: '',
         flowGroup: undefined,
         flowRemark: undefined,
-        formCode:"DSFZH_WMA",
+        formCode:"PROJECT_WMA",
         deduplicationType: 1,
         initiator: null
       },

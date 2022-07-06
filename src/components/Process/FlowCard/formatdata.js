@@ -8,19 +8,20 @@ export class FormatUtils {
      * 对基础设置,高级设置等设置页内容进行格式化
      * @param params
      */
-     static formatSettings(param,treeList){
-        let advancedSetting = param.advancedSetting;
-        let basicSetting=param.basicSetting;
-        let deduplicationType=basicSetting.deduplicationType;//2去重,1不去重
-        let bpmnName=basicSetting.flowName;
-        let formCode="DSFZH_WMA";//测试先写死,后面需要添加字段
-        let remark=basicSetting.flowRemark;
+     static formatSettings(param){
+        let treeList = this.depthMapTree(param.processData);
+        //let advancedSetting = param.advancedSetting;
+        let basicSetting=param.basicSetting; 
         let finalObj={
-            bpmnName,formCode,deduplicationType,remark,nodes:treeList
+            bpmnCode : basicSetting.bpmnCode,
+            bpmnName : basicSetting.flowName, 
+            formCode :basicSetting.formCode,
+            deduplicationType :basicSetting.deduplicationType,//2去重,1不去重
+            remark :basicSetting.flowRemark,
+            nodes:treeList
         }
 
-        console.log("final object最终对象"+JSON.stringify(finalObj));
-
+        console.log("final object最终对象"+JSON.stringify(finalObj)); 
         //console.log("formatSettings-2", JSON.stringify(treeList));
         return finalObj;
     }
@@ -44,7 +45,7 @@ export class FormatUtils {
             this.depthMapConditionNodes(treeData.conditionNodes,arrList);
         }  
         // console.log('arrList-length-2',arrList.length);
-        console.log('arrList-2',JSON.stringify(arrList)); 
+        //console.log('arrList-2',JSON.stringify(arrList)); 
         return arrList
     }
 

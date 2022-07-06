@@ -1,10 +1,4 @@
 {
-  "basicSetting": {
-    "flowName": "入职",
-    "flowImg": 12,
-    "flowGroup": 2,
-    "flowRemark": "简单入职背景填写"
-  },
   "formData": {
     "fields": [
       {
@@ -161,12 +155,5 @@
     "disabled": false,
     "span": 12,
     "formBtns": true
-  },
-  "advancedSetting": {
-    "autoRepeat": true,
-    "myAuditAutoPass": true,
-    "remarkTip": "这里是填写提示",
-    "remarkRequired": true,
-    "notVisibleForSponsor": true
   }
 }
