@@ -47,8 +47,8 @@ export class NodeUtils {
    * @param { Object } node - 节点数据
    * @returns String
    */
-     static getNodeTypeInt ( node ) {  
-      switch(node.nodeType) {
+   static getNodeTypeInt ( node ) {  
+      switch(node.type) {
           case 'start' :
               return 1
           case 'gateway':
