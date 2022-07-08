@@ -69,7 +69,7 @@
               'fc-date-duration',
               'fc-time-duration',
               'fc-amount',
-              'fc-calculate',
+              'fc-calculate'
             )
           "
         >
@@ -160,37 +160,37 @@
           :key="index"
           :title="item.label"
           v-if="couldShowIt(item, 'el-select-multiple')"
-        > 
-         <el-select-multiple>
+        >
+          <el-select-multiple>
             <template v-slot:selectMultiple>
-               <el-select
-                      v-model="item.conditionValue"
-                      multiple
-                      filterable
-                      remote
-                      reserve-keyword
-                      placeholder="请输入关键词"
-                      :remote-method="remoteMethodOrganization"
-                      :loading="loading"
-                      style="width:100%"
-                    >
-                      <el-option
-                        v-for="item in organizationOptions"
-                        :key="item.deptId"
-                        :label="item.deptName"
-                        :value="item.deptId"
-                      >
-                      </el-option>
-                </el-select>
-            </template> 
-         </el-select-multiple> 
-         <template v-slot:action>
+              <el-select
+                v-model="item.conditionValue"
+                multiple
+                filterable
+                remote
+                reserve-keyword
+                placeholder="请输入关键词"
+                :remote-method="remoteMethodOrganization"
+                :loading="loading"
+                style="width: 100%"
+              >
+                <el-option
+                  v-for="item in organizationOptions"
+                  :key="item.deptId"
+                  :label="item.deptName"
+                  :value="item.deptId"
+                >
+                </el-option>
+              </el-select>
+            </template>
+          </el-select-multiple>
+          <template v-slot:action>
             <i
               class="el-icon-delete"
               style="cursor: pointer"
               @click="onDelCondition(item)"
             ></i>
-        </template>
+          </template>
         </row-wrapper>
       </template>
       <div style="padding-left: 10px; margin-top: 2em">
@@ -247,6 +247,21 @@
               </el-radio-group>
             </div>
             <div style="border-bottom: 1px solid #e5e5e5; padding-bottom: 1rem">
+              <br />
+              <div
+                v-if="approverForm.assigneeType === 'RegionalHead'"
+                class="option-box"
+                style="color: #a5a5a5"
+              >
+                发起人所在大区的【负责人】处理审批单
+              </div>
+              <div
+                v-if="approverForm.assigneeType === 'BranchManager'"
+                class="option-box"
+                style="color: #a5a5a5"
+              >
+                发起人所在分公司的【分公司经理】处理审批单
+              </div>
               <div
                 v-if="approverForm.assigneeType === 'myself'"
                 class="option-box"
@@ -295,48 +310,33 @@
                 </div>
               </div>
               <div v-else-if="approverForm.assigneeType === 'user'">
-               <el-select-multiple>
-                  <template v-slot:selectMultiple> 
-                     <div style="font-size: 14px; padding-left: 1rem;">
-                        选择人员
-                            <el-select
-                              v-model="approverUserIds"
-                              multiple
-                              filterable
-                              remote
-                              reserve-keyword
-                              placeholder="请输入关键词"
-                              :remote-method="remoteMethod"
-                              :loading="loading"
-                              style="width:90%"
-                              @click.native="clickApproverUserSelect"
-                            >
-                              <el-option
-                                v-for="item in approverUserOptions"
-                                :key="item.userId"
-                                :label="item.userName"
-                                :value="item.userId"
-                              >
-                              </el-option>
-                            </el-select>
-                      </div>                     
+                <el-select-multiple>
+                  <template v-slot:selectMultiple>
+                    <div style="font-size: 14px; padding-left: 1rem">
+                      选择人员
+                      <el-select
+                        v-model="approverUserIds"
+                        multiple
+                        filterable
+                        remote
+                        reserve-keyword
+                        placeholder="请输入关键词"
+                        :remote-method="remoteMethod"
+                        :loading="loading"
+                        style="width: 90%"
+                        @click.native="clickApproverUserSelect"
+                      >
+                        <el-option
+                          v-for="item in approverUserOptions"
+                          :key="item.userId"
+                          :label="item.userName"
+                          :value="item.userId"
+                        >
+                        </el-option>
+                      </el-select>
+                    </div>
                   </template>
-               </el-select-multiple>
-              
-              </div>
-              <div v-else class="option-box">
-                <fc-org-select
-                  ref="approver-org"
-                  buttonType="button"
-                  v-model="orgCollection"
-                  :title="getAssignTypeLabel()"
-                  :tabList="
-                    fcOrgTabList.includes(approverForm.assigneeType)
-                      ? [approverForm.assigneeType]
-                      : ['dep']
-                  "
-                  @change="onOrgChange"
-                />
+                </el-select-multiple>
               </div>
             </div>
             <div
@@ -345,7 +345,8 @@
               v-if="
                 (orgCollection[approverForm.assigneeType] &&
                   orgCollection[approverForm.assigneeType].length > 1) ||
-                ['optional'].includes(approverForm.assigneeType) ||  ['user'].includes(approverForm.assigneeType)
+                ['optional'].includes(approverForm.assigneeType) ||
+                ['user'].includes(approverForm.assigneeType)
               "
             >
               <p>多人审批时采用的审批方式</p>
@@ -456,7 +457,7 @@ import Clickoutside from "element-ui/src/utils/clickoutside";
 import { NodeUtils } from "../FlowCard/util.js";
 import RowWrapper from "./RowWrapper";
 import NumInput from "./NumInput";
-import { GET_PAGE_EMPLOYEE,GET_DEPT_TREE } from "@/api/index.js";
+import { GET_PAGE_EMPLOYEE, GET_DEPT_TREE } from "@/api/index.js";
 import { getUserList } from "@/api/user_api.js";
 const rangeType = {
   lt: "<",
@@ -486,7 +487,7 @@ export default {
       activeName: "config", // or formAuth  Tab面板key
       showingPCons: [], // 用户选择了得条件  被选中的才会被展示在面板上编辑
       pconditions: [], // 从vuex中获取的可以作为流程图条件的集合
-      dialogVisible: false, // 控制流程条件选项Dialog显隐
+      dialogVisible: false, // 控制流程条件选项Dialog显隐 
       // 当前节点数据
       properties: {},
       // 发起人  start节点和condition节点需要
@@ -508,7 +509,7 @@ export default {
       approverUserIds: [], //指定审批人
       Userlist: [],
 
-      organizationOptions: [],//公司选择
+      organizationOptions: [], //公司选择
       organizationIds: [], //指定公司
       organizationlist: [],
 
@@ -550,24 +551,12 @@ export default {
           value: "user",
         },
         {
-          label: "主管",
-          value: "director",
+          label: "大区负责人",
+          value: "RegionalHead",
         },
         {
-          label: "角色",
-          value: "role",
-        },
-        {
-          label: "岗位",
-          value: "position",
-        },
-        {
-          label: "发起人自己",
-          value: "myself",
-        },
-        {
-          label: "发起人自选",
-          value: "optional",
+          label: "分公司总经理",
+          value: "BranchManager",
         },
       ],
     };
@@ -585,13 +574,12 @@ export default {
   directives: {
     Clickoutside,
   },
-  updated()
-  {
+  updated() {
     this.approverUserOptions = this.Userlist;
     this.organizationOptions = this.organizationlist;
   },
-  mounted() {  
-    getUserList().then((res) => {  
+  mounted() {
+    getUserList().then((res) => {
       if (res.code == 200) {
         this.Userlist = res.data.map((item) => {
           //返回自己想要的数据格式
@@ -601,20 +589,20 @@ export default {
           };
         });
       }
-    }); 
+    });
     GET_DEPT_TREE().then((res) => {
       if (res.code == 200) {
-        this.organizationlist = res.data.map((item) => { 
+        this.organizationlist = res.data.map((item) => {
           return {
             deptId: item.deptId,
             deptName: item.deptName,
           };
-        }); 
+        });
       }
     });
   },
   methods: {
-    remoteMethodOrganization(query){ 
+    remoteMethodOrganization(query) {
       if (query.trim() !== "") {
         this.loading = true;
         setTimeout(() => {
@@ -629,7 +617,7 @@ export default {
         this.organizationOptions = this.organizationlist;
       }
     },
-    remoteMethod(query) { 
+    remoteMethod(query) {
       if (query.trim() !== "") {
         this.loading = true;
         setTimeout(() => {
@@ -639,15 +627,14 @@ export default {
               item.userName.toLowerCase().indexOf(query.toLowerCase()) > -1
             );
           });
-        }, 200);  
+        }, 200);
       } else {
         this.approverUserOptions = this.Userlist;
-      } 
+      }
     },
     //多选审批人员下拉 列表展示优化
-    clickApproverUserSelect(item)
-    {
-        this.remoteMethod('')
+    clickApproverUserSelect(item) {
+      this.remoteMethod("");
     },
     getFormOperates() {
       let res = [];
@@ -735,7 +722,7 @@ export default {
     /**
      * 条件节点确认保存得回调
      */
-    conditionNodeComfirm() { 
+    conditionNodeComfirm() {
       let nodeContent = "";
       const conditions = [];
       this.showingPCons
@@ -751,8 +738,8 @@ export default {
             "fc-date-duration",
             "fc-time-duration",
             "fc-amount",
-            "fc-calculate"
-          ]; 
+            "fc-calculate",
+          ];
           if (numberTypeCmp.includes(t.tag)) {
             if (cValue.type === "bet") {
               const numVal = cValue.value;
@@ -771,34 +758,31 @@ export default {
             );
             const labels = this.$refs["org" + index][0].selectedLabels;
             nodeContent += `[${t.label} = ${labels}] ` + "\n";
-             if(cValue.hasOwnProperty('dep') && Array.isArray(cValue['dep']))
-             {
-                cValue = cValue['dep'].map(c=>c.deptId)
-             }
-          } 
-          else if (t.tag === "el-select-multiple")
-          {  
-             if(!Array.isArray( cValue ) || cValue.length <= 0)
-             {
-                nodeContent +=`${cValueName}] ` + "\n"; 
-             }else{
-                for(let i in cValue)
-                {
-                    let cValueName= this.getOrganizationNameFromArray(cValue[i],this.organizationlist) 
-                    nodeContent += `[${t.label} = ${cValueName}] ` + "\n";        
-                }  
-             } 
-          }
-          else {
-            let cValueLabel=  this.getLableFromOptionsArray(cValue,t.options) 
-            nodeContent += `[${t.label} = ${cValueLabel}] ` + "\n"; 
+            if (cValue.hasOwnProperty("dep") && Array.isArray(cValue["dep"])) {
+              cValue = cValue["dep"].map((c) => c.deptId);
+            }
+          } else if (t.tag === "el-select-multiple") {
+            if (!Array.isArray(cValue) || cValue.length <= 0) {
+              nodeContent += `${cValueName}] ` + "\n";
+            } else {
+              for (let i in cValue) {
+                let cValueName = this.getOrganizationNameFromArray(
+                  cValue[i],
+                  this.organizationlist
+                );
+                nodeContent += `[${t.label} = ${cValueName}] ` + "\n";
+              }
+            }
+          } else {
+            let cValueLabel = this.getLableFromOptionsArray(cValue, t.options);
+            nodeContent += `[${t.label} = ${cValueLabel}] ` + "\n";
           }
           const res = { formId: t.formId, conditionValue: cValue };
           conditions.push(res);
         }, []);
 
       this.properties.conditions = conditions;
- 
+
       // 发起人虽然是条件 但是这里把发起人放到外部单独判断 //20022-07-02去掉发起人
       this.properties.initiator = this.initiator["dep&user"];
       // this.initiator["dep&user"] &&
@@ -846,21 +830,25 @@ export default {
             ? "直接主管"
             : `第${this.directorLevel}级主管`;
       } else if ("user" === assigneeType) {
-        //指定人员 下拉选择 
+        //指定人员 下拉选择
         const approverInfo = [];
         for (let i in this.approverUserIds) {
           const info = this.Userlist.filter((key) => {
             return key.userId == this.approverUserIds[i];
           });
-       
+
           if (Array.isArray(info) && info.length > 0) {
             approverInfo.push(info[0]);
           }
-        } 
+        }
         if (approverInfo.length > 0) {
           content = approverInfo.map((t) => t.userName).join(","); //approverInfo[0].userName
           this.approverForm.approvers = approverInfo;
         }
+      } else if (["RegionalHead", "BranchManager"].includes(assigneeType)) {
+        content = this.assigneeTypeOptions.find(
+          (t) => t.value === assigneeType
+        ).label;
       } else {
         content = this.getOrgSelectLabel("approver");
       }
@@ -893,7 +881,7 @@ export default {
     /**
      * 删除流程条件
      */
-    onDelCondition(condition) { 
+    onDelCondition(condition) {
       const index = this.showingPCons.findIndex(
         (id) => id === condition.formId
       );
@@ -908,13 +896,16 @@ export default {
       this.approverForm = JSON.parse(JSON.stringify(defaultApproverForm));
     },
 
-    getOrganizationNameFromArray(organizationId,sourceArray) {
-      return NodeUtils.getOrganizationNameFromArray(organizationId, sourceArray);
-    }, 
-    getUserNameFromArray(userId,sourceArray) {
+    getOrganizationNameFromArray(organizationId, sourceArray) {
+      return NodeUtils.getOrganizationNameFromArray(
+        organizationId,
+        sourceArray
+      );
+    },
+    getUserNameFromArray(userId, sourceArray) {
       return NodeUtils.getUserNameFromArray(userId, sourceArray);
     },
-    getLableFromOptionsArray(key,sourceArray) {
+    getLableFromOptionsArray(key, sourceArray) {
       return NodeUtils.getLableFromOptionsArray(key, sourceArray);
     },
     // 配合getPriorityLength 获取前一个节点条件数组长度 用于设置优先级
@@ -950,14 +941,14 @@ export default {
     /**
      * 初始化审批节点所需数据
      */
-    initApproverNodeData() {
+    initApproverNodeData() { 
       for (const key in this.approverForm) {
         if (this.value.properties.hasOwnProperty(key)) {
           this.approverForm[key] = this.value.properties[key];
         }
       }
       const approvers = this.approverForm.approvers;
-      //console.log('this.approverForm.approvers=======',JSON.stringify(approvers));
+      //console.log('this.approverForm.approvers=======',JSON.stringify(approvers)); 
       this.resetOrgColl();
       if (Array.isArray(this.approverForm.approvers)) {
         if ("user" === this.approverForm.assigneeType) {
@@ -977,7 +968,7 @@ export default {
         this.value.properties && this.value.properties.conditions;
       this.pconditions = JSON.parse(
         JSON.stringify(this.$store.state.processConditions)
-      ); 
+      );
       this.initiator["dep&user"] = this.value.properties.initiator;
       if (Array.isArray(this.pconditions)) {
         this.showingPCons = [-1]; // 默认显示发起人
@@ -989,9 +980,9 @@ export default {
               con.conditionValue &&
               ((temp = con.conditionValue), this.showingPCons.push(t.formId));
           }
-          this.$set(t, "conditionValue", temp); 
+          this.$set(t, "conditionValue", temp);
         });
-      } 
+      }
     },
   },
   watch: {
@@ -1008,13 +999,16 @@ export default {
       this.isConditionNode() && this.initConditionNodeData();
     },
 
-    value(newVal) {
+    value(newVal, oldVal) { 
       if (newVal && newVal.properties) {
         this.visible = true;
         this.properties = JSON.parse(JSON.stringify(newVal.properties));
         if (this.properties) {
           NodeUtils.isConditionNode(newVal) && this.getPriorityLength();
         }
+      }
+      if (oldVal && oldVal.properties) {
+        oldVal.nodeProperty= NodeUtils.getAssigneeTypeInt(oldVal) 
       }
     },
   },
@@ -1132,7 +1126,7 @@ export default {
   height 100%
   overflow scroll
 }
-.el-checkbox { 
+.el-checkbox {
   margin-bottom: 30px;
 }
 </style>

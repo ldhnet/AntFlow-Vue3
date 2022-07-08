@@ -1,4 +1,5 @@
 import formidConfig from "@/config/flowformid.config.js";
+import { NodeUtils } from "../FlowCard/util.js";
 const isEmpty = data => data === null || data === undefined || data === ''
 const isEmptyArray = data => Array.isArray( data ) ? data.length === 0 : true
 
@@ -89,21 +90,7 @@ export class FormatUtils {
 * @returns Array
 */
 const createNode = (nodeinfo)=>{
-    let transformedType;
-    switch (nodeinfo.type) {
-        case "start":
-            transformedType = 1
-            break;
-        case "gateway":
-            transformedType = 2
-            break
-        case "condition":
-            transformedType = 3
-            break
-        case "approver":
-            transformedType = 4
-            break
-    }
+    const transformedType = NodeUtils.getNodeTypeInt(nodeinfo); 
     let node = {
         nodeType: transformedType,
         nodeDisplayName:nodeinfo.content,
@@ -111,7 +98,8 @@ const createNode = (nodeinfo)=>{
         nodeId: nodeinfo.nodeId,
         nodeFrom: nodeinfo.prevId,
         prevId: nodeinfo.nodeFrom,
-        nodeTo: nodeinfo.nodeTo,
+        nodeTo: nodeinfo.nodeTo, 
+        nodeProperty: nodeinfo.nodeProperty
     };
     let properties = nodeinfo.properties
     let property = {}
@@ -121,13 +109,11 @@ const createNode = (nodeinfo)=>{
             var emplIds = approvers.map(a => a.userId);
             property.emplIds = emplIds;
             property.signType = properties.counterSign?1:2;
-            node.property = property;
-            node.nodeProperty=5;
+            node.property = property; 
         }
     }else if(transformedType==3){//条件节点
         var conditions = properties.conditions;
         if(!isEmptyArray(conditions)){
-
             //const condition = conditions[0];
             let conditionsConf={};
             conditionsConf.conditionParamTypes= conditions.map(c=>(c.formId))

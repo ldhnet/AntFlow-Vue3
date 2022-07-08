@@ -1,5 +1,6 @@
 import nodeConfig from "./config.js";
 import formidConfig from "@/config/flowformid.config.js";
+import { NodeUtils } from "../FlowCard/util.js";
 const isEmpty = data => data === null || data === undefined || data === ''
 const isEmptyArray = data => Array.isArray( data ) ? data.length === 0 : true 
 
@@ -42,48 +43,52 @@ export class FormatDisplayUtils {
    * @param { Object } nodeData - 源节点数据
    * @returns Object
    */
-   static createNodeDisplay (nodeData) {      
-        let type= this.getNodeType(nodeData)
+   static createNodeDisplay (nodeData) {       
+        let type= NodeUtils.getNodeTypeString(nodeData)
         let res = JSON.parse( JSON.stringify( nodeConfig[type] ) )
         res.nodeId = nodeData.nodeId
         res.prevId = nodeData.nodeFrom?nodeData.nodeFrom:'' 
         res.content  = nodeData.nodeDisplayName
         res.nodeFrom = [res.prevId]
         res.nodeTo = nodeData.nodeTo? nodeData.nodeTo:[] 
-
-        let nodeProperty=nodeData.property
-        if(isEmpty(nodeProperty)) return res 
+        res.nodeProperty = nodeData.nodeProperty
+        let nodeProperty_Info = nodeData.property
+        if(isEmpty(nodeProperty_Info)) return res 
         if(res.type == 'approver')
-        {
-            res.properties.counterSign = nodeProperty.signType == 1? true :false
+        { 
+            res.properties.counterSign = nodeProperty_Info.signType == 1? true :false
             if(!isEmptyArray(nodeData.property.emplIds))
             {
                 res.properties.approvers = nodeData.property.emplIds.map(key=>({userId: key,userName: ''}))             
-            }  
+            } 
+            // res.properties.optionalMultiUser = false
+			// res.properties.optionalRange = "ALL"
+            res.properties.assigneeType = NodeUtils.getAssigneeTypeString(res)
+ 
         }
         if(res.type == 'condition')
         {
-            if(nodeProperty.hasOwnProperty('conditionsConf') && !isEmpty(nodeProperty.conditionsConf))
+            if(nodeProperty_Info.hasOwnProperty('conditionsConf') && !isEmpty(nodeProperty_Info.conditionsConf))
             { 
-                res.content = nodeProperty.conditionsConf.isDefault == 1? '其他情况进入此流程' : nodeData.nodeDisplayName
+                res.content = nodeProperty_Info.conditionsConf.isDefault == 1? '其他情况进入此流程' : nodeData.nodeDisplayName
                 res.properties.title = nodeData.nodeName
-                res.properties.priority = nodeProperty.conditionsConf.sort
-                res.properties.isDefault=nodeProperty.conditionsConf.isDefault == 1? true :false
+                res.properties.priority = nodeProperty_Info.conditionsConf.sort
+                res.properties.isDefault=nodeProperty_Info.conditionsConf.isDefault == 1? true :false
                 
-                let paramTypes= nodeProperty.conditionsConf.conditionParamTypes
+                let paramTypes= nodeProperty_Info.conditionsConf.conditionParamTypes
                 if(!isEmptyArray(paramTypes))
                 { 
                     for(let i_type in paramTypes)
                     {  
                         switch(paramTypes[i_type]){
                             case formidConfig.formIdOrganizationType:
-                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty.conditionsConf.organizationIds })  
+                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty_Info.conditionsConf.organizationIds })  
                               break
                             case formidConfig.formIdeducationType: 
-                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty.conditionsConf.educationType[0] })  
+                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty_Info.conditionsConf.educationType[0] })  
                               break
                             case formidConfig.formIdAccountType: 
-                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty.conditionsConf.accountType[0] })  
+                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty_Info.conditionsConf.accountType[0] })  
                               break
                             default:
                               console.log("FormatDisplayUtils.createNodeDisplay 未匹配到formId对应的值",JSON.stringify(i_type))
@@ -94,23 +99,5 @@ export class FormatDisplayUtils {
         } 
         return res           
     }
-    /**
-   * 获取节点类型 
-   * @param { Object } node - 节点数据
-   * @returns String
-   */
-    static getNodeType ( node ) {  
-        switch(node.nodeType) {
-            case 1:
-                return 'start' 
-            case 2:
-                return 'gateway'
-            case 3:
-                return 'condition'
-            case 4:
-                return 'approver' 
-            default:
-                return node.type
-       }         
-    }
+  
 }
