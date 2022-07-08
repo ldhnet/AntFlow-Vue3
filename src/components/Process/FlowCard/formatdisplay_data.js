@@ -1,5 +1,5 @@
-import nodeConfig from "./config.js";
-import formidConfig from "@/config/flowformid.config.js";
+import nodeConfig from "./config.js"; 
+import { FlowConditionNodeUtils } from "./flowformid.config.js";
 import { NodeUtils } from "../FlowCard/util.js";
 const isEmpty = data => data === null || data === undefined || data === ''
 const isEmptyArray = data => Array.isArray( data ) ? data.length === 0 : true 
@@ -60,9 +60,7 @@ export class FormatDisplayUtils {
             if(!isEmptyArray(nodeData.property.emplIds))
             {
                 res.properties.approvers = nodeData.property.emplIds.map(key=>({userId: key,userName: ''}))             
-            } 
-            // res.properties.optionalMultiUser = false
-			// res.properties.optionalRange = "ALL"
+            }  
             res.properties.assigneeType = NodeUtils.getAssigneeTypeString(res)
  
         }
@@ -74,27 +72,8 @@ export class FormatDisplayUtils {
                 res.properties.title = nodeData.nodeName
                 res.properties.priority = nodeProperty_Info.conditionsConf.sort
                 res.properties.isDefault=nodeProperty_Info.conditionsConf.isDefault == 1? true :false
-                
-                let paramTypes= nodeProperty_Info.conditionsConf.conditionParamTypes
-                if(!isEmptyArray(paramTypes))
-                { 
-                    for(let i_type in paramTypes)
-                    {  
-                        switch(paramTypes[i_type]){
-                            case formidConfig.formIdOrganizationType:
-                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty_Info.conditionsConf.organizationIds })  
-                              break
-                            case formidConfig.formIdeducationType: 
-                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty_Info.conditionsConf.educationType[0] })  
-                              break
-                            case formidConfig.formIdAccountType: 
-                              res.properties.conditions.push({formId:paramTypes[i_type],conditionValue:nodeProperty_Info.conditionsConf.accountType[0] })  
-                              break
-                            default:
-                              console.log("FormatDisplayUtils.createNodeDisplay 未匹配到formId对应的值",JSON.stringify(i_type))
-                        }  
-                    }
-                }
+ 
+                res.properties.conditions = FlowConditionNodeUtils.getConditionParamTypes(nodeProperty_Info.conditionsConf)                  
             }
         } 
         return res           

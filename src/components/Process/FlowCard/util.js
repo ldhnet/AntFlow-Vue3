@@ -80,6 +80,11 @@ export class NodeUtils {
             return node.type
    }         
   }
+   /**
+   * 获取AssigneeType类型 
+   * @param { Object } node - 节点数据
+   * @returns Int
+   */
   static getAssigneeTypeString ( node ) {   
     switch(node.nodeProperty) {
         case 3:
@@ -92,7 +97,11 @@ export class NodeUtils {
             return 0
    }         
   }
-
+ /**
+   * 获取AssigneeType类型 
+   * @param { Object } node - 节点数据
+   * @returns String
+   */
   static getAssigneeTypeInt ( node ) {  
     const prop = node.properties;
     switch(prop.assigneeType) {
