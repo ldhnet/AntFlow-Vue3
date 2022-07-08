@@ -457,7 +457,7 @@ import { NodeUtils } from "../FlowCard/util.js";
 import RowWrapper from "./RowWrapper";
 import NumInput from "./NumInput";
 import { GET_PAGE_EMPLOYEE,GET_DEPT_TREE } from "@/api/index.js";
-import { getUserList } from "@/api/userapi.js";
+import { getUserList } from "@/api/user_api.js";
 const rangeType = {
   lt: "<",
   lte: "≤",
@@ -591,21 +591,17 @@ export default {
     this.organizationOptions = this.organizationlist;
   },
   mounted() {  
-
-
-    // GET_PAGE_EMPLOYEE().then((res) => {
-    //   //console.log("mounted====",JSON.stringify(res.data))
-    //   this.Userlist = res.data; 
-    //   if (res.code == 200) {
-    //     this.approverUserOptions = res.data.map((item) => {
-    //       //返回自己想要的数据格式
-    //       return {
-    //         userId: item.userId,
-    //         userName: item.userName,
-    //       };
-    //     });
-    //   }
-    // }); 
+    getUserList().then((res) => {  
+      if (res.code == 200) {
+        this.Userlist = res.data.map((item) => {
+          //返回自己想要的数据格式
+          return {
+            userId: item.id,
+            userName: item.userName,
+          };
+        });
+      }
+    }); 
     GET_DEPT_TREE().then((res) => {
       if (res.code == 200) {
         this.organizationlist = res.data.map((item) => { 
@@ -613,14 +609,7 @@ export default {
             deptId: item.deptId,
             deptName: item.deptName,
           };
-        });
-        this.organizationOptions = res.data.map((item) => {
-          //返回自己想要的数据格式
-          return {
-            deptId: item.deptId,
-            deptName: item.deptName,
-          };
-        });
+        }); 
       }
     });
   },
@@ -641,20 +630,8 @@ export default {
       }
     },
     remoteMethod(query) { 
-      console.log('query========================',query)
       if (query.trim() !== "") {
         this.loading = true;
-        getUserList(query).then((res) => {
-          if (res.code == 200) {
-            this.Userlist = res.data.map((item) => {
-              //返回自己想要的数据格式
-              return {
-                userId: item.id,
-                userName: item.userName,
-              };
-            });
-          }
-        });
         setTimeout(() => {
           this.loading = false;
           this.approverUserOptions = this.Userlist.filter((item) => {
