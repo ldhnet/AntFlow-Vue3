@@ -42,6 +42,79 @@ export class NodeUtils {
   static isGatewayNode ( node ) {
     return node && node.type === 'gateway'
   }
+    /**
+   * 获取节点类型 
+   * @param { Object } node - 节点数据
+   * @returns String
+   */
+   static getNodeTypeInt ( node ) {  
+      switch(node.type) {
+          case 'start' :
+              return 1
+          case 'gateway':
+              return 2
+          case 'condition':
+              return 3
+          case 'approver' :
+              return 4
+          default:
+              return node.type
+     }         
+    }
+  /**
+   * 获取节点类型 
+   * @param { Object } node - 节点数据
+   * @returns String
+   */
+   static getNodeTypeString ( node ) {  
+    switch(node.nodeType) {
+        case 1:
+            return 'start' 
+        case 2:
+            return 'gateway'
+        case 3:
+            return 'condition'
+        case 4:
+            return 'approver' 
+        default:
+            return node.type
+   }         
+  }
+   /**
+   * 获取AssigneeType类型 
+   * @param { Object } node - 节点数据
+   * @returns Int
+   */
+  static getAssigneeTypeString ( node ) {   
+    switch(node.nodeProperty) {
+        case 3:
+            return 'BranchManager' 
+        case 4:
+            return 'RegionalHead'
+        case 5:
+            return 'user'
+        default:
+            return 0
+   }         
+  }
+ /**
+   * 获取AssigneeType类型 
+   * @param { Object } node - 节点数据
+   * @returns String
+   */
+  static getAssigneeTypeInt ( node ) {  
+    const prop = node.properties;
+    switch(prop.assigneeType) {
+        case 'BranchManager':
+            return 3 
+        case 'RegionalHead':
+            return 4
+        case 'user':
+            return 5 
+        default:
+            return 0
+   }         
+  }
      /**
    * 根据组织架构ID获取组织架构名称
    * @param { int } organizationId - 节点类型
@@ -547,7 +620,7 @@ export class NodeUtils {
       && isEmptyArray( props.conditions )
       && ( valid = false )
 
-    const customSettings = ['myself', 'optional', 'director','user']
+    const customSettings = ['myself', 'optional', 'director','user','RegionalHead','BranchManager']
     this.isApproverNode( node )
       && !customSettings.includes( props.assigneeType )
       && isEmptyArray( props.approvers )

@@ -183,7 +183,7 @@ export default {
             basicSetting: res[0].formData,
             processData: res[2].formData,
             formData: res[1].formData,
-            advancedSetting: getCmpData("advancedSetting"),
+            //advancedSetting: getCmpData("advancedSetting"),
           };
           this.formatProcessData(param);
           this.sendToServer(param);
@@ -195,7 +195,7 @@ export default {
     },
     formatProcessData(param) {
       console.log("开始Format");
-      //console.log('配置后原始数据==processData==', JSON.stringify(param.processData));
+      console.log('配置后原始数据==processData==', JSON.stringify(param.processData));
       const formattedSettings = FormatUtils.formatSettings(param);
       return formattedSettings;
     },
