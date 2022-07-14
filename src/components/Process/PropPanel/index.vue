@@ -458,7 +458,7 @@ import { NodeUtils } from "../FlowCard/util.js";
 import RowWrapper from "./RowWrapper";
 import NumInput from "./NumInput";
 import { GET_PAGE_EMPLOYEE, GET_DEPT_TREE } from "@/api/index.js";
-import { getUserList } from "@/api/user_api.js";
+import { getUserList,getDeptList } from "@/api/user_api.js";
 const rangeType = {
   lt: "<",
   lte: "≤",
@@ -579,8 +579,7 @@ export default {
     this.organizationOptions = this.organizationlist;
   },
   mounted() {
-
-    GET_DEPT_TREE().then((res) => {
+    getDeptList().then((res) => {
       if (res.code == 200) {
         this.organizationlist = res.data.map((item) => {
           return {

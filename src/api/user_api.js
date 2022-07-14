@@ -9,3 +9,10 @@ export const getUserList = (data) => {
       method: 'get',
     });
   };
+
+export const getDeptList=(data)=>{
+    return request({
+        url:"/basal/queryCompanyByNameFuzzy",
+        method:'get'
+    });
+};
