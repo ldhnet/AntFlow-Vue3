@@ -144,7 +144,7 @@ export default {
           //返回自己想要的数据格式
           return {
             label: item.businessName,
-            value: item.fromCode,
+            value: item.formCode,
           };
         });
       }
