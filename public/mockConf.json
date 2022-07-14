@@ -3,51 +3,6 @@
     "fields": [
       {
         "cmpType": "common",
-        "label": "组织机构",
-        "tag": "fc-org-select",
-        "tagIcon": "dept",
-        "defaultValue": {
-          "dep": [
-            {
-              "nodeId": 1,
-              "deptId": 1,
-              "deptName": "xxxs公司"
-            }
-          ]
-        },
-        "tabList": [
-          "dep"
-        ],
-        "buttonType": "button",
-        "title": "组织机构",
-        "searchable": true,
-        "maxNum": 1,
-        "tagConfig": {
-          "type": "info",
-          "closable": true,
-          "disable-transitions": false,
-          "hit": false,
-          "size": "small",
-          "effect": "light"
-        },
-        "style": {
-          "width": "100%"
-        },
-        "span": 24,
-        "labelWidth": null,
-        "disabled": false,
-        "required": true,
-        "regList": [],
-        "changeTag": true,
-        "proCondition": true,
-        "asSummary": false,
-        "layout": "colFormItem",
-        "formId": 20,
-        "renderKey": 1590641662215,
-        "vModel": "field20"
-      },
-      {
-        "cmpType": "common",
         "label": "分公司",
         "tag": "el-select-multiple",
         "tagIcon": "dept",   
@@ -65,87 +20,7 @@
         "formId": 3,
         "renderKey": 1590641662216,
         "vModel": "field3"
-      },
-      {
-        "cmpType": "common",
-        "label": "账户类型",
-        "tag": "el-select",
-        "tagIcon": "select",
-        "placeholder": "请选择账户类型",
-        "span": 12,
-        "labelWidth": 0,
-        "style": {
-          "width": "100%"
-        },
-        "clearable": true,
-        "disabled": false,
-        "required": true,
-        "filterable": false,
-        "multiple": false,
-        "options": [
-          {
-            "label": "百度云",
-            "value": 1
-          },
-          {
-            "label": "腾讯云",
-            "value": 2
-          },
-          {
-            "label": "中通云",
-            "value": 3
-          }
-        ],
-        "regList": [],
-        "changeTag": true,
-        "proCondition": true,
-        "formId": 4,
-        "renderKey": 1590647690138,
-        "layout": "colFormItem",
-        "vModel": "field4" 
-      },
-      {
-        "cmpType": "common",
-        "label": "学历",
-        "tag": "el-select",
-        "tagIcon": "select",
-        "placeholder": "请选择学历",
-        "span": 12,
-        "labelWidth": 0,
-        "style": {
-          "width": "100%"
-        },
-        "clearable": true,
-        "disabled": false,
-        "required": true,
-        "filterable": false,
-        "multiple": false,
-        "options": [
-          {
-            "label": "专科",
-            "value": "1"
-          },
-          {
-            "label": "本科",
-            "value": "2"
-          },
-          {
-            "label": "研究生",
-            "value": "3"
-          },
-          {
-            "label": "博士生",
-            "value": "4"
-          }
-        ],
-        "regList": [],
-        "changeTag": true,
-        "proCondition": true,
-        "formId": 5,
-        "renderKey": 1590647681649,
-        "layout": "colFormItem",
-        "vModel": "field5"
-      } 
+      }  
     ],
     "formRef": "elForm",
     "size": "small",
