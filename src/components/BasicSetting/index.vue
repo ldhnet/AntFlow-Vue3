@@ -67,7 +67,7 @@ export default {
   props: ['tabName', 'initiator', 'conf'],
   data() {
     const req = require.context( '@/assets/approverIcon', false, /\.png$/ )
-    const iconList = req.keys().map((t, idx) => ({src: req(t), id: idx}))
+    const iconList = req.keys().map((t, idx) => ({src: req(t), id: idx})) 
     return {
       dialogVisible: false,
       activeIcon: iconList[0].id,
@@ -134,6 +134,16 @@ export default {
   },
   created() {
     if (typeof this.conf === 'object' && this.conf !== null) {
+       if(this.conf.hasOwnProperty('deduplicationType'))
+       { 
+          if(this.conf.deduplicationType === null || this.conf.deduplicationType === '' || this.conf.deduplicationType === 0)
+          {
+             this.conf.deduplicationType = 1
+          }
+       }else
+       {
+          Object.assign(this.conf, { deduplicationType:1})
+       }
       Object.assign(this.formData, this.conf)
     }
   },
