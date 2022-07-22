@@ -130,7 +130,7 @@ export default {
         this.onInitiatorConditionType();
       });
 
-    getBpmnconfDetail(1).then((res) => {
+    getBpmnconfDetail(81).then((res) => {
       if (res.code == 200) {
         let opt = {};
         opt.processData = FormatDisplayUtils.depthConverterToTree(res.data.nodes);
