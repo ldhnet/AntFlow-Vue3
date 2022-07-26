@@ -56,6 +56,7 @@ export class FormatDisplayUtils {
         if(isEmpty(nodeProperty_Info)) return res 
         if(res.type == 'approver')
         { 
+            res.properties.title = nodeData.nodeName
             res.properties.counterSign = nodeProperty_Info.signType == 1? true :false
             if(!isEmptyArray(nodeData.property.emplIds))
             {

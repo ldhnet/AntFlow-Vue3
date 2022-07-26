@@ -255,6 +255,7 @@
               >
                 发起人所在大区的【负责人】处理审批单
               </div>
+
               <div
                 v-if="approverForm.assigneeType === 'BranchManager'"
                 class="option-box"
@@ -262,6 +263,15 @@
               >
                 发起人所在分公司的【分公司经理】处理审批单
               </div>
+
+              <div
+                v-if="approverForm.assigneeType === 'BusinessLeader'"
+                class="option-box"
+                style="color: #a5a5a5"
+              >
+                发起人所在分公司的【商务负责人】处理审批单
+              </div>
+
               <div
                 v-if="approverForm.assigneeType === 'myself'"
                 class="option-box"
@@ -558,6 +568,11 @@ export default {
           label: "分公司总经理",
           value: "BranchManager",
         },
+         {
+          label: "商务负责人",
+          value: "BusinessLeader",
+        },
+        
       ],
     };
   },
@@ -845,7 +860,7 @@ export default {
           content = approverInfo.map((t) => t.userName).join(","); //approverInfo[0].userName
           this.approverForm.approvers = approverInfo;
         }
-      } else if (["RegionalHead", "BranchManager"].includes(assigneeType)) {
+      } else if (["RegionalHead", "BranchManager","BusinessLeader"].includes(assigneeType)) {
         content = this.assigneeTypeOptions.find(
           (t) => t.value === assigneeType
         ).label;
@@ -963,6 +978,7 @@ export default {
      * 初始化条件节点数据
      */
     initConditionNodeData() {
+      //console.log("nodeConditions====this.value====",JSON.stringify(this.value))
       // 初始化条件表单数据
       let nodeConditions =
         this.value.properties && this.value.properties.conditions;
