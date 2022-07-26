@@ -594,17 +594,7 @@ export default {
     this.organizationOptions = this.organizationlist;
   },
   mounted() {
-    getUserList().then((res) => {
-      if (res.code == 200) {
-        this.Userlist = res.data.map((item) => {
-          //返回自己想要的数据格式
-          return {
-            userId: item.id,
-            userName: item.userName,
-          };
-        });
-      }
-    });
+
     GET_DEPT_TREE().then((res) => {
       if (res.code == 200) {
         this.organizationlist = res.data.map((item) => {
@@ -634,6 +624,17 @@ export default {
     },
     remoteMethod(query) {
       if (query.trim() !== "") {
+        getUserList(query).then((res) => {
+          if (res.code == 200) {
+            this.Userlist = res.data.map((item) => {
+              //返回自己想要的数据格式
+              return {
+                userId: item.id,
+                userName: item.userName,
+              };
+            });
+          }
+        });
         this.loading = true;
         setTimeout(() => {
           this.loading = false;
