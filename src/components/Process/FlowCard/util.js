@@ -130,10 +130,12 @@ export class NodeUtils {
    */
   static getAssigneeTypeString(node) {
     switch (node.nodeProperty) {
+      case 2:
+        return "BusinessLeader"
       case 3:
-        return "BranchManager";
+        return "BranchManager"
       case 4:
-        return "RegionalHead";
+        return "RegionalHead"
       case 5:
         return "user";
       default:
@@ -148,6 +150,8 @@ export class NodeUtils {
   static getAssigneeTypeInt(node) {
     const prop = node.properties;
     switch (prop.assigneeType) {
+      case "BusinessLeader":
+        return 2;
       case "BranchManager":
         return 3;
       case "RegionalHead":
@@ -692,6 +696,7 @@ export class NodeUtils {
       "user",
       "RegionalHead",
       "BranchManager",
+      "BusinessLeader",
     ];
     this.isApproverNode(node) &&
       !customSettings.includes(props.assigneeType) &&
