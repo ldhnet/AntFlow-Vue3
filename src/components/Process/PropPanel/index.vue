@@ -963,6 +963,7 @@ export default {
      * 初始化条件节点数据
      */
     initConditionNodeData() {
+      //console.log("nodeConditions====this.value====",JSON.stringify(this.value))
       // 初始化条件表单数据
       let nodeConditions =
         this.value.properties && this.value.properties.conditions;

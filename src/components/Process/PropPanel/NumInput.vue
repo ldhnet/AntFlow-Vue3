@@ -13,7 +13,7 @@
        <el-option label="大于" value="gt"></el-option>
        <el-option label="大于等于" value="gte"></el-option>
        <el-option label="等于" value="eq"></el-option>
-       <el-option label="介于两数之间" value="bet"></el-option>
+       <!-- <el-option label="介于两数之间" value="bet"></el-option> -->
      </el-select>
    </el-col>
    <el-col :span="isRange?24:12">

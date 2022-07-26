@@ -20,7 +20,27 @@
         "formId": 3,
         "renderKey": 1590641662216,
         "vModel": "field3"
-      }  
+      }, 
+      {
+        "cmpType": "moneyType",
+        "label": "总金额条件",
+        "tag": "el-input-number",
+        "tagIcon": "totalMoney",   
+        "title": "分公司",
+        "searchable": true, 
+        "span": 24,
+        "labelWidth": null,
+        "disabled": false,
+        "required": true,
+        "regList": [],
+        "changeTag": true,
+        "proCondition": true,
+        "asSummary": false,
+        "layout": "colFormItem",
+        "formId": 6,
+        "renderKey": 1590641662217,
+        "vModel": "field6"
+      } 
     ],
     "formRef": "elForm",
     "size": "small",

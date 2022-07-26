@@ -1,6 +1,7 @@
 
 const isEmpty = data => data === null || data === undefined || data === ''
 const isEmptyArray = data => Array.isArray(data) ? data.length === 0 : true
+import { NodeUtils } from "../FlowCard/util.js";
 /**
  * @description 流程条件formId 对应值配置
  * @author Ant 574427343@qq.com
@@ -13,18 +14,20 @@ const ConditionTypeConfig = {
   formIdAccountType: 4,
   //学历
   formIdeducationType: 5,
+  //总金额
+  totalMoneyType: 6,
 };
 export class FlowConditionNodeUtils {
   /**
-  * 获取条件节点 审批类型 映射 
+  * 获取条件节点 审批类型 映射  从后台获取反向渲染
   * @param { object } conditionNode - 子节点
   * @returns String
   */
-  static getConditionParamTypes(conditionNode) {
+  static getConditionParamTypes(conditionNode) { 
     let conditions = []
     let paramTypes = conditionNode.conditionParamTypes
     if (conditionNode.hasOwnProperty('conditionParamTypes') && !isEmptyArray(paramTypes)) {
-      for (let i_type in paramTypes) {
+      for (let i_type in paramTypes) { 
         switch (paramTypes[i_type]) {
           case ConditionTypeConfig.formIdOrganizationType:
             conditions.push({ formId: paramTypes[i_type], conditionValue: conditionNode.organizationIds })
@@ -35,16 +38,21 @@ export class FlowConditionNodeUtils {
           case ConditionTypeConfig.formIdAccountType:
             conditions.push({ formId: paramTypes[i_type], conditionValue: conditionNode.accountType[0] })
             break
+          case ConditionTypeConfig.totalMoneyType:
+              conditions.push({ formId: paramTypes[i_type], conditionValue: { type: NodeUtils.getCompareTypeString(conditionNode.totalMoneyOperator), value: conditionNode.totalMoney } })
+              break
+          case 7: 
+                break
           default:
-            console.log("FlowConditionNodeUtils.getConditionParamTypes 未匹配到formId对应的值", JSON.stringify(i_type))
+            console.log("FlowConditionNodeUtils.getConditionParamTypes 未匹配到formId对应的值", JSON.stringify(paramTypes[i_type]))
         }
-      }
+      } 
     }
     return conditions;
   }
 
   /**
-  *  获取条件节点 审批类型 映射   
+  *  获取条件节点 审批类型 映射   提交到后台
   * @param { Array } conditions - 数组
   * @returns String
   */
@@ -66,6 +74,10 @@ export class FlowConditionNodeUtils {
           case ConditionTypeConfig.formIdAccountType:
             conditionNode.accountType.push(conditions[i].conditionValue)
             break
+          case ConditionTypeConfig.totalMoneyType:
+              conditionNode.totalMoney = conditions[i].conditionValue.value
+              conditionNode.totalMoneyOperator = NodeUtils.getCompareTypeInt(conditions[i].conditionValue.type)
+              break
           default:
             console.log("FlowConditionNodeUtils.getConditionConfNode 未匹配到formId对应的值", JSON.stringify(conditions[i]))
         }
