@@ -5,7 +5,7 @@ import request from '@/utils/request.js';
 
 export const getUserList = (data) => {
     return request({
-      url: 'http://localhost:7001/user/queryUserByNameFuzzy?userName='+data,
+      url: '/user/queryUserByNameFuzzy?userName='+data,
       method: 'get',
     });
   };
