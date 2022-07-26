@@ -42,7 +42,7 @@ const handleCode = (code, msg) => {
 };
 
 const instance = axios.create({
-  baseURL:"http://10.15.10.198:7890/",
+  baseURL:"http://127.0.0.1:7001/",
   timeout: requestTimeout,
   headers: {
     'Content-Type': contentType,
