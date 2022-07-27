@@ -628,9 +628,8 @@ export default {
   directives: {
     Clickoutside,
   },
-  updated() {
-    this.Userlist=[]; 
-    this.approverUserOptions = []; 
+  updated() { 
+    this.approverUserOptions = this.Userlist; 
     this.organizationOptions = this.organizationlist;
   },
   mounted() {
@@ -1066,7 +1065,10 @@ export default {
         }
       }
       this.approverForm.formOperates = this.initFormOperates(this.value); 
-      this.Userlist = this.value.properties.approvers;
+      if(this.value.properties.hasOwnProperty('approvers') && Array.isArray(this.value.properties.approvers))
+      {
+        this.Userlist = this.value.properties.approvers;
+      } 
     },
     /**
      * 初始化条件节点数据
