@@ -629,7 +629,8 @@ export default {
     Clickoutside,
   },
   updated() {
-    this.approverUserOptions = this.Userlist; 
+    this.Userlist=[]; 
+    this.approverUserOptions = []; 
     this.organizationOptions = this.organizationlist;
   },
   mounted() {
@@ -701,8 +702,8 @@ export default {
     },
 
     //多选审批人员下拉 列表展示优化
-    clickApproverUserSelect(item) {
-      const index = this.Userlist.findIndex((c) => c.userId === item.userId);
+    clickApproverUserSelect(item) { 
+      const index = this.Userlist.findIndex((c) => c.userId === item.userId); 
       if (index === -1) {
         this.Userlist.push(item);
       } else {
