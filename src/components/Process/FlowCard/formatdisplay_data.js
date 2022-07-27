@@ -54,6 +54,18 @@ export class FormatDisplayUtils {
         res.nodeProperty = nodeData.nodeProperty
         let nodeProperty_Info = nodeData.property
         if(isEmpty(nodeProperty_Info)) return res 
+        if(res.type == 'copy')
+        { 
+            res.properties.title = nodeData.nodeName 
+            if(nodeProperty_Info.hasOwnProperty('emplList') && !isEmptyArray(nodeData.property.emplList))
+            {
+                res.properties.menbers = nodeData.property.emplList.map(c=>({userId: c.id,userName: c.name}))             
+            }  
+            else if(nodeProperty_Info.hasOwnProperty('emplIds') && !isEmptyArray(nodeData.property.emplIds))
+            {
+                res.properties.menbers = nodeData.property.emplIds.map(key=>({userId: key,userName: ''}))             
+            }   
+        }
         if(res.type == 'approver')
         { 
             res.properties.title = nodeData.nodeName

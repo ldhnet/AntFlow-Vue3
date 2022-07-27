@@ -103,7 +103,15 @@ const createNode = (nodeinfo)=>{
     };
     let properties = nodeinfo.properties
     let property = {}
-    if (transformedType==4) {//审批人节点
+    if (transformedType== 6) {//抄送人节点
+        const copyUser = properties.menbers;
+        if(copyUser){
+            var emplIds = copyUser.map(a => a.userId);
+            property.emplIds = emplIds; 
+            node.property = property; 
+        }
+    }
+    else if (transformedType==4) {//审批人节点
         const approvers = properties.approvers;
         if(approvers){
             var emplIds = approvers.map(a => a.userId);

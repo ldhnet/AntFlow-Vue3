@@ -15,7 +15,7 @@ export default {
     properties: {
       title: '抄送人',
       menbers: [],
-      userOptional: true
+      userOptional: false
     }
   },
   condition: {
