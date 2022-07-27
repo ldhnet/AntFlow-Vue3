@@ -333,10 +333,10 @@
                         placeholder="请输入关键词"
                         :remote-method="remoteMethod"
                         :loading="loading"
-                        style="width: 90%"
-                        @click.native="clickApproverUserSelect"
+                        style="width: 90%"                        
                       >
                         <el-option
+                          @click.native="clickApproverUserSelect(item)"
                           v-for="item in approverUserOptions"
                           :key="item.userId"
                           :label="item.userName"
@@ -468,7 +468,7 @@ import { NodeUtils } from "../FlowCard/util.js";
 import RowWrapper from "./RowWrapper";
 import NumInput from "./NumInput";
 import { GET_PAGE_EMPLOYEE, GET_DEPT_TREE } from "@/api/index.js";
-import { getUserList,getDeptList } from "@/api/user_api.js";
+import { getUserList } from "@/api/user_api.js";
 const rangeType = {
   lt: "<",
   lte: "≤",
@@ -594,7 +594,7 @@ export default {
     this.organizationOptions = this.organizationlist;
   },
   mounted() {
-    getDeptList().then((res) => {
+    GET_DEPT_TREE().then((res) => {
       if (res.code == 200) {
         this.organizationlist = res.data.map((item) => {
           return {
@@ -623,9 +623,11 @@ export default {
     },
     remoteMethod(query) {
       if (query.trim() !== "") {
+        this.loading = true;
         getUserList(query).then((res) => {
+          this.loading = false;
           if (res.code == 200) {
-            this.Userlist = res.data.map((item) => {
+            this.approverUserOptions = res.data.map((item) => {
               //返回自己想要的数据格式
               return {
                 userId: item.id,
@@ -633,23 +635,14 @@ export default {
               };
             });
           }
-        });
-        this.loading = true;
-        setTimeout(() => {
-          this.loading = false;
-          this.approverUserOptions = this.Userlist.filter((item) => {
-            return (
-              item.userName.toLowerCase().indexOf(query.toLowerCase()) > -1
-            );
-          });
-        }, 200);
+        }); 
       } else {
         this.approverUserOptions = this.Userlist;
       }
     },
     //多选审批人员下拉 列表展示优化
     clickApproverUserSelect(item) {
-      this.remoteMethod("");
+      this.Userlist.push(item)
     },
     getFormOperates() {
       let res = [];
@@ -850,16 +843,15 @@ export default {
         for (let i in this.approverUserIds) {
           const info = this.Userlist.filter((key) => {
             return key.userId == this.approverUserIds[i];
-          });
-
+          }); 
           if (Array.isArray(info) && info.length > 0) {
             approverInfo.push(info[0]);
           }
-        }
+        }  
         if (approverInfo.length > 0) {
           content = approverInfo.map((t) => t.userName).join(","); //approverInfo[0].userName
           this.approverForm.approvers = approverInfo;
-        }
+        } 
       } else if (["RegionalHead", "BranchManager","BusinessLeader"].includes(assigneeType)) {
         content = this.assigneeTypeOptions.find(
           (t) => t.value === assigneeType
@@ -1015,18 +1007,22 @@ export default {
       this.isConditionNode() && this.initConditionNodeData();
     },
 
-    value(newVal, oldVal) { 
+    value(newVal, oldVal) {  
       if (newVal && newVal.properties) {
         this.visible = true;
         this.properties = JSON.parse(JSON.stringify(newVal.properties));
         if (this.properties) {
           NodeUtils.isConditionNode(newVal) && this.getPriorityLength();
+        } 
+        if(NodeUtils.isApproverNode(newVal) && newVal.properties.hasOwnProperty("approvers"))
+        {
+          this.Userlist = newVal.properties.approvers; 
         }
       }
       if (oldVal && oldVal.properties) {
         oldVal.nodeProperty= NodeUtils.getAssigneeTypeInt(oldVal) 
       }
-    },
+    },  
   },
   components: {
     "num-input": NumInput,

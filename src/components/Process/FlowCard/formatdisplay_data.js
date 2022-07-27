@@ -58,12 +58,16 @@ export class FormatDisplayUtils {
         { 
             res.properties.title = nodeData.nodeName
             res.properties.counterSign = nodeProperty_Info.signType == 1? true :false
-            if(!isEmptyArray(nodeData.property.emplIds))
+          
+            if(nodeProperty_Info.hasOwnProperty('emplList') && !isEmptyArray(nodeData.property.emplList))
+            {
+                res.properties.approvers = nodeData.property.emplList.map(c=>({userId: c.id,userName: c.name}))             
+            }  
+            else if(nodeProperty_Info.hasOwnProperty('emplIds') && !isEmptyArray(nodeData.property.emplIds))
             {
                 res.properties.approvers = nodeData.property.emplIds.map(key=>({userId: key,userName: ''}))             
             }  
-            res.properties.assigneeType = NodeUtils.getAssigneeTypeString(res)
- 
+            res.properties.assigneeType = NodeUtils.getAssigneeTypeString(res) 
         }
         if(res.type == 'condition')
         {
