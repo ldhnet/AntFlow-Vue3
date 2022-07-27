@@ -332,7 +332,8 @@
                         reserve-keyword
                         placeholder="请输入关键词"
                         :remote-method="remoteMethod"
-                        :loading="loading"
+                        :loading="loading" 
+                        :class="{approverErrorSelect: isErrorActive}"
                         style="width: 90%"                 
                       >
                         <el-option
@@ -518,6 +519,7 @@ export default {
       approverUserOptions: [],
       approverUserIds: [], //指定审批人
       Userlist: [], 
+      isErrorActive:false,
 
       organizationOptions: [], //公司选择
       organizationIds: [], //指定公司
@@ -849,6 +851,10 @@ export default {
             ? "直接主管"
             : `第${this.directorLevel}级主管`;
       } else if ("user" === assigneeType) {
+        if(this.approverUserIds.length === 0)
+        { 
+          return false;
+        }
         //指定人员 下拉选择
         const approverInfo = [];
         for (let i in this.approverUserIds) {
@@ -1029,7 +1035,16 @@ export default {
       if (oldVal && oldVal.properties) {
         oldVal.nodeProperty= NodeUtils.getAssigneeTypeInt(oldVal) 
       }
-    },  
+    },   
+    approverUserIds(newVal, oldVal) { 
+      if(newVal.length === 0)
+      {
+        this.isErrorActive = true;
+      }else
+      {
+        this.isErrorActive = false;
+      }
+    },
   },
   components: {
     "num-input": NumInput,
@@ -1045,6 +1060,10 @@ export default {
 }
 </style>
 <style lang="stylus" scoped>
+  .approverErrorSelect /deep/ .el-input .el-input__inner{
+    border-color: #f56c6c !important; 
+  }
+
 .drawer {
   >>> .el-drawer__header {
     margin-bottom: 0;
