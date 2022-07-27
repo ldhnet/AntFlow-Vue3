@@ -333,7 +333,7 @@
                         placeholder="请输入关键词"
                         :remote-method="remoteMethod"
                         :loading="loading"
-                        style="width: 90%"                        
+                        style="width: 90%"                 
                       >
                         <el-option
                           @click.native="clickApproverUserSelect(item)"
@@ -517,7 +517,7 @@ export default {
       //approverUserId : '',//指定审批人
       approverUserOptions: [],
       approverUserIds: [], //指定审批人
-      Userlist: [],
+      Userlist: [], 
 
       organizationOptions: [], //公司选择
       organizationIds: [], //指定公司
@@ -590,6 +590,10 @@ export default {
     Clickoutside,
   },
   updated() {
+    if(NodeUtils.isApproverNode(this.value) && this.value.properties.hasOwnProperty("approvers"))
+    {
+          this.Userlist = this.value.properties.approvers; 
+    } 
     this.approverUserOptions = this.Userlist;
     this.organizationOptions = this.organizationlist;
   },
@@ -640,9 +644,19 @@ export default {
         this.approverUserOptions = this.Userlist;
       }
     },
+  
     //多选审批人员下拉 列表展示优化
-    clickApproverUserSelect(item) {
-      this.Userlist.push(item)
+    clickApproverUserSelect(item) {   
+        const index =  this.Userlist.findIndex((c) => c.userId === item.userId);   
+        if(index === -1)
+        {
+          this.Userlist.push(item) 
+        }
+        else
+        {
+          this.Userlist.splice(index, 1)
+        } 
+  
     },
     getFormOperates() {
       let res = [];
@@ -810,10 +824,7 @@ export default {
      */
     startNodeComfirm() {
       this.properties.initiator = this.initiator["dep&user"];
-      const formOperates = this.startForm.formOperates.map((t) => ({
-        formId: t.formId,
-        formOperate: t.formOperate,
-      }));
+      const formOperates = [];
       Object.assign(this.properties, { formOperates });
       this.$emit(
         "confirm",
@@ -1013,11 +1024,7 @@ export default {
         this.properties = JSON.parse(JSON.stringify(newVal.properties));
         if (this.properties) {
           NodeUtils.isConditionNode(newVal) && this.getPriorityLength();
-        } 
-        if(NodeUtils.isApproverNode(newVal) && newVal.properties.hasOwnProperty("approvers"))
-        {
-          this.Userlist = newVal.properties.approvers; 
-        }
+        }  
       }
       if (oldVal && oldVal.properties) {
         oldVal.nodeProperty= NodeUtils.getAssigneeTypeInt(oldVal) 
