@@ -332,9 +332,9 @@
                         reserve-keyword
                         placeholder="请输入关键词"
                         :remote-method="remoteMethod"
-                        :loading="loading" 
-                        :class="{approverErrorSelect: isErrorActive}"
-                        style="width: 90%"                 
+                        :loading="loading"
+                        :class="{ approverErrorSelect: isErrorActive }"
+                        style="width: 90%"
                       >
                         <el-option
                           @click.native="clickApproverUserSelect(item)"
@@ -424,17 +424,50 @@
     </section>
 
     <section v-if="value && isCopyNode()" style="padding-left: 1rem">
-      <p>抄送人</p>
-      <fc-org-select
-        ref="copy-org"
-        v-model="properties.menbers"
-        buttonType="button"
-        title="抄送人"
-      />
-      <br />
-      <el-checkbox v-model="properties.userOptional"
-        >允许发起人自选抄送人</el-checkbox
-      >
+      <el-tabs v-model="activeName" class="pane-tab">
+        <div
+          style="
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+          "
+        >
+          <el-radio
+            v-model="approverForm.counterSign"
+            :label="true"
+            class="radio-item"
+            >指定人员</el-radio
+          >
+        </div>
+        <el-select-multiple>
+          <template v-slot:selectMultiple>
+            <div style="font-size: 14px; padding-left: 1rem">
+              <p>选择抄送人员</p>
+              <el-select
+                v-model="copyApproverUserIds"
+                multiple
+                filterable
+                remote
+                reserve-keyword
+                placeholder="请输入关键词"
+                :remote-method="remoteCopyApproverUserMethod"
+                :loading="loading"
+                :class="{ approverErrorSelect: isErrorActive }"
+                style="width: 90%"
+              >
+                <el-option
+                  @click.native="clickCopyApproverUserSelect(item)"
+                  v-for="item in copyApproverUserOptions"
+                  :key="item.userId"
+                  :label="item.userName"
+                  :value="item.userId"
+                >
+                </el-option>
+              </el-select>
+            </div>
+          </template>
+        </el-select-multiple>
+      </el-tabs>
     </section>
 
     <el-dialog
@@ -498,7 +531,7 @@ export default {
       activeName: "config", // or formAuth  Tab面板key
       showingPCons: [], // 用户选择了得条件  被选中的才会被展示在面板上编辑
       pconditions: [], // 从vuex中获取的可以作为流程图条件的集合
-      dialogVisible: false, // 控制流程条件选项Dialog显隐 
+      dialogVisible: false, // 控制流程条件选项Dialog显隐
       // 当前节点数据
       properties: {},
       // 发起人  start节点和condition节点需要
@@ -512,14 +545,19 @@ export default {
         user: [],
         position: [],
       },
+
+      isErrorActive: false,
+
       useDirectorProxy: true, // 找不到主管时 上级主管代理审批
       directorLevel: 1, // 审批主管级别
 
-      //approverUserId : '',//指定审批人
       approverUserOptions: [],
       approverUserIds: [], //指定审批人
-      Userlist: [], 
-      isErrorActive:false,
+      Userlist: [],
+
+      copyApproverUserIds: [], //抄送人
+      copyApproverUserOptions: [], //抄送列表
+      copyUserlist: [], //抄送列表
 
       organizationOptions: [], //公司选择
       organizationIds: [], //指定公司
@@ -570,11 +608,10 @@ export default {
           label: "分公司总经理",
           value: "BranchManager",
         },
-         {
+        {
           label: "商务负责人",
           value: "BusinessLeader",
         },
-        
       ],
     };
   },
@@ -592,11 +629,7 @@ export default {
     Clickoutside,
   },
   updated() {
-    if(NodeUtils.isApproverNode(this.value) && this.value.properties.hasOwnProperty("approvers"))
-    {
-          this.Userlist = this.value.properties.approvers; 
-    } 
-    this.approverUserOptions = this.Userlist;
+    this.approverUserOptions = this.Userlist; 
     this.organizationOptions = this.organizationlist;
   },
   mounted() {
@@ -641,24 +674,49 @@ export default {
               };
             });
           }
-        }); 
+        });
       } else {
         this.approverUserOptions = this.Userlist;
       }
     },
-  
+
+    remoteCopyApproverUserMethod(query) {
+      if (query.trim() !== "") {
+        this.loading = true;
+        getUserList(query).then((res) => {
+          this.loading = false;
+          if (res.code == 200) {
+            this.copyApproverUserOptions = res.data.map((item) => {
+              //返回自己想要的数据格式
+              return {
+                userId: item.id,
+                userName: item.userName,
+              };
+            });
+          }
+        });
+      } else {
+        this.copyApproverUserOptions = this.copyUserlist;
+      }
+    },
+
     //多选审批人员下拉 列表展示优化
-    clickApproverUserSelect(item) {   
-        const index =  this.Userlist.findIndex((c) => c.userId === item.userId);   
-        if(index === -1)
-        {
-          this.Userlist.push(item) 
-        }
-        else
-        {
-          this.Userlist.splice(index, 1)
-        } 
-  
+    clickApproverUserSelect(item) {
+      const index = this.Userlist.findIndex((c) => c.userId === item.userId);
+      if (index === -1) {
+        this.Userlist.push(item);
+      } else {
+        this.Userlist.splice(index, 1);
+      }
+    },
+    //选择抄送人员
+    clickCopyApproverUserSelect(item) {
+      const index = this.copyUserlist.findIndex((c) => c.userId === item.userId);
+      if (index === -1) {
+        this.copyUserlist.push(item);
+      } else {
+        this.copyUserlist.splice(index, 1);
+      }
     },
     getFormOperates() {
       let res = [];
@@ -724,22 +782,27 @@ export default {
       format(formItems);
       return res;
     },
-
-    initCopyNode() {
-      this.properties = this.value.properties;
-    },
-
-    initStartNodeData() {
-      this.initInitiator();
-      this.startForm.formOperates = this.initFormOperates(this.value);
-    },
-
+ 
     copyNodeConfirm() {
-      this.$emit(
-        "confirm",
-        this.properties,
-        this.getOrgSelectLabel("copy") || "发起人自选"
-      );
+      let content = ""; 
+      if (this.copyApproverUserIds.length === 0) {
+        return false;
+      }
+      //指定人员 下拉选择
+      const approverArr = [];
+      for (let i in this.copyApproverUserIds) {
+        const info = this.copyUserlist.filter((key) => {
+          return key.userId == this.copyApproverUserIds[i];
+        });
+        if (Array.isArray(info) && info.length > 0) {
+          approverArr.push(info[0]);
+        }
+      }
+      if (approverArr.length > 0) {
+        content = approverArr.map((t) => t.userName).join(",");
+        this.properties.menbers = approverArr;
+      } 
+      this.$emit("confirm", this.properties, content || "请设置抄送人");
       this.visible = false;
     },
 
@@ -851,8 +914,7 @@ export default {
             ? "直接主管"
             : `第${this.directorLevel}级主管`;
       } else if ("user" === assigneeType) {
-        if(this.approverUserIds.length === 0)
-        { 
+        if (this.approverUserIds.length === 0) {
           return false;
         }
         //指定人员 下拉选择
@@ -860,16 +922,20 @@ export default {
         for (let i in this.approverUserIds) {
           const info = this.Userlist.filter((key) => {
             return key.userId == this.approverUserIds[i];
-          }); 
+          });
           if (Array.isArray(info) && info.length > 0) {
             approverInfo.push(info[0]);
           }
-        }  
+        }
         if (approverInfo.length > 0) {
           content = approverInfo.map((t) => t.userName).join(","); //approverInfo[0].userName
           this.approverForm.approvers = approverInfo;
-        } 
-      } else if (["RegionalHead", "BranchManager","BusinessLeader"].includes(assigneeType)) {
+        }
+      } else if (
+        ["RegionalHead", "BranchManager", "BusinessLeader"].includes(
+          assigneeType
+        )
+      ) {
         content = this.assigneeTypeOptions.find(
           (t) => t.value === assigneeType
         ).label;
@@ -890,8 +956,8 @@ export default {
     },
     // 确认修改
     confirm() {
-      this.isCopyNode() && this.copyNodeConfirm();
       this.isStartNode() && this.startNodeComfirm();
+      this.isCopyNode() && this.copyNodeConfirm();     
       this.isApproverNode() && this.approverNodeComfirm();
       this.isConditionNode() && this.conditionNodeComfirm();
     },
@@ -963,16 +1029,33 @@ export default {
       this.initiator["dep&user"] = Array.isArray(initiator) ? initiator : [];
     },
     /**
+     * 初始化开始节点所需数据
+     */
+    initStartNodeData() {
+      this.initInitiator();
+      this.startForm.formOperates = this.initFormOperates(this.value);
+    },
+     /**
+     * 初始化抄送节点所需数据
+     */
+    initCopyNode() {      
+      //console.log("this.value.properties========",JSON.stringify(this.value.properties))
+      this.copyUserlist = this.value.properties.menbers;
+      this.copyApproverUserOptions = this.value.properties.menbers;
+      this.copyApproverUserIds = this.value.properties.menbers.map(c => c.userId);
+      this.properties = this.value.properties;
+    },  
+    /**
      * 初始化审批节点所需数据
      */
-    initApproverNodeData() { 
+    initApproverNodeData() {
       for (const key in this.approverForm) {
         if (this.value.properties.hasOwnProperty(key)) {
           this.approverForm[key] = this.value.properties[key];
         }
       }
       const approvers = this.approverForm.approvers;
-      //console.log('this.approverForm.approvers=======',JSON.stringify(approvers)); 
+      //console.log('this.approverForm.approvers=======',JSON.stringify(approvers));
       this.resetOrgColl();
       if (Array.isArray(this.approverForm.approvers)) {
         if ("user" === this.approverForm.assigneeType) {
@@ -981,16 +1064,15 @@ export default {
           this.orgCollection[this.approverForm.assigneeType] = approvers;
         }
       }
-      this.approverForm.formOperates = this.initFormOperates(this.value);
+      this.approverForm.formOperates = this.initFormOperates(this.value); 
+      this.Userlist = this.value.properties.approvers;
     },
     /**
      * 初始化条件节点数据
      */
     initConditionNodeData() {
-      //console.log("nodeConditions====this.value====",JSON.stringify(this.value))
       // 初始化条件表单数据
-      let nodeConditions =
-        this.value.properties && this.value.properties.conditions;
+      let nodeConditions =  this.value.properties && this.value.properties.conditions;
       this.pconditions = JSON.parse(
         JSON.stringify(this.$store.state.processConditions)
       );
@@ -1020,30 +1102,39 @@ export default {
         this.processData
       ).map((t) => ({ formId: t.formId, formOperate: t.formOperate }));
       this.isStartNode() && this.initStartNodeData();
+      this.isCopyNode() && this.initCopyNode();
       this.isApproverNode() && this.initApproverNodeData();
       this.isConditionNode() && this.initConditionNodeData();
     },
 
-    value(newVal, oldVal) {  
+    value(newVal, oldVal) {
       if (newVal && newVal.properties) {
         this.visible = true;
         this.properties = JSON.parse(JSON.stringify(newVal.properties));
         if (this.properties) {
           NodeUtils.isConditionNode(newVal) && this.getPriorityLength();
-        }  
+        }
       }
       if (oldVal && oldVal.properties) {
-        oldVal.nodeProperty= NodeUtils.getAssigneeTypeInt(oldVal) 
+        oldVal.nodeProperty = NodeUtils.getAssigneeTypeInt(oldVal);
       }
-    },   
-    approverUserIds(newVal, oldVal) { 
-      if(newVal.length === 0)
-      {
+    },
+    approverUserIds(newVal, oldVal) {
+      if (newVal.length === 0) {
         this.isErrorActive = true;
-      }else
-      {
+      } else {
         this.isErrorActive = false;
       }
+    },
+    properties: {
+      handler(newVal, oldVal) { 
+        if (newVal.hasOwnProperty('menbers') && newVal.menbers.length === 0) {
+          this.isErrorActive = true;
+        } else {
+          this.isErrorActive = false;
+        }
+      },
+      deep: true,
     },
   },
   components: {
@@ -1061,7 +1152,7 @@ export default {
 </style>
 <style lang="stylus" scoped>
   .approverErrorSelect /deep/ .el-input .el-input__inner{
-    border-color: #f56c6c !important; 
+    border-color: #f56c6c !important;
   }
 
 .drawer {

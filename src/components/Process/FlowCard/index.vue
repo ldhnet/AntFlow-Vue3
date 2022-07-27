@@ -135,6 +135,13 @@ function addNodeButton(ctx, data, h, isBranch = false) {
               </div>
               审批人
             </div>
+            
+            <div>
+              <div class="condition-icon" onClick={ctx.eventLancher.bind( ctx, "addCopyNode",  data, isBranch )} >
+                <i class="el-icon-s-promotion iconfont" style="vertical-align: middle;"></i>
+              </div>
+              抄送人
+            </div>
 
             <div>
               <div class="condition-icon" onClick={this.eventLancher.bind(ctx, "appendBranch", data, isBranch)}>

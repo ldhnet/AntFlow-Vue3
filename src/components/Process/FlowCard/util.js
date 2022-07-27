@@ -100,6 +100,8 @@ export class NodeUtils {
         return 3;
       case "approver":
         return 4;
+      case "copy":
+          return 6; 
       default:
         return node.type;
     }
@@ -119,6 +121,8 @@ export class NodeUtils {
         return "condition";
       case 4:
         return "approver";
+      case 6:
+          return "copy"; 
       default:
         return node.type;
     }
@@ -681,8 +685,8 @@ export class NodeUtils {
     // 抄送人应该可以默认自选
     let valid = true;
     const props = node.properties;
-    this.isStartNode(node) && !props.initiator && (valid = false);
-
+    this.isStartNode(node) && !props.initiator && (valid = false);  
+    this.isCopyNode(node) && isEmptyArray(props.menbers) && (valid = false); 
     this.isConditionNode(node) &&
       !props.isDefault &&
       !props.initiator &&
@@ -701,7 +705,7 @@ export class NodeUtils {
     this.isApproverNode(node) &&
       !customSettings.includes(props.assigneeType) &&
       isEmptyArray(props.approvers) &&
-      (valid = false);
+      (valid = false); 
     return valid;
   }
   /**
