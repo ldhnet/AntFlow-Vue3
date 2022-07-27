@@ -57,6 +57,7 @@ export class FormatDisplayUtils {
         if(res.type == 'copy')
         { 
             res.properties.title = nodeData.nodeName 
+            res.properties.menbers=[]
             if(nodeProperty_Info.hasOwnProperty('emplList') && !isEmptyArray(nodeData.property.emplList))
             {
                 res.properties.menbers = nodeData.property.emplList.map(c=>({userId: c.id,userName: c.name}))             
@@ -70,7 +71,7 @@ export class FormatDisplayUtils {
         { 
             res.properties.title = nodeData.nodeName
             res.properties.counterSign = nodeProperty_Info.signType == 1? true :false
-          
+            res.properties.approvers =[]
             if(nodeProperty_Info.hasOwnProperty('emplList') && !isEmptyArray(nodeData.property.emplList))
             {
                 res.properties.approvers = nodeData.property.emplList.map(c=>({userId: c.id,userName: c.name}))             
@@ -83,6 +84,7 @@ export class FormatDisplayUtils {
         }
         if(res.type == 'condition')
         {
+            res.properties.conditions =[]
             if(nodeProperty_Info.hasOwnProperty('conditionsConf') && !isEmpty(nodeProperty_Info.conditionsConf))
             { 
                 res.content = nodeProperty_Info.conditionsConf.isDefault == 1? '其他情况进入此流程' : nodeData.nodeDisplayName
