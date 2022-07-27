@@ -76,7 +76,7 @@ import AdvancedSetting from "@/components/AdvancedSetting";
 import { GET_MOCK_CONF } from "@/api/index.js";
 import { FormatUtils } from "@/components/Process/FlowCard/formatcommit_data.js";
 import { FormatDisplayUtils } from "@/components/Process/FlowCard/formatdisplay_data.js";
-import { getBpmnconfDetail } from "@/api/flow_preview_api.js";
+import {getBpmnconfDetail, postApprovalFlowData} from "@/api/flow_preview_api.js";
 
 const beforeUnload = function (e) {
   var confirmationMessage = "离开网站可能会丢失您编辑得内容";
@@ -130,7 +130,7 @@ export default {
         this.onInitiatorConditionType();
       });
 
-    getBpmnconfDetail(91).then((res) => {
+    getBpmnconfDetail(100).then((res) => {
       if (res.code == 200) {
         let opt = {};
         opt.processData = FormatDisplayUtils.depthConverterToTree(res.data.nodes);
@@ -185,8 +185,8 @@ export default {
             formData: res[1].formData,
             //advancedSetting: getCmpData("advancedSetting"),
           };
-          this.formatProcessData(param);
-          this.sendToServer(param);
+          const finalObj= this.formatProcessData(param);
+          this.sendToServer(finalObj);
         })
         .catch((err) => {
           err.target && (this.activeStep = err.target);
@@ -206,7 +206,11 @@ export default {
         message: "请在控制台中查看数据输出",
         position: "bottom-right",
       });
-      console.log("配置数据", param);
+      postApprovalFlowData(param).then(res=>{
+        if (res.code == 200) {
+          alert("保存成功");
+        }
+      })
     },
     exit() {
       this.$confirm("离开此页面您得修改将会丢失, 是否继续?", "提示", {
