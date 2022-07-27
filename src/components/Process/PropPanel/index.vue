@@ -628,7 +628,7 @@ export default {
   directives: {
     Clickoutside,
   },
-  updated() {
+  updated() { 
     this.approverUserOptions = this.Userlist; 
     this.organizationOptions = this.organizationlist;
   },
@@ -701,8 +701,8 @@ export default {
     },
 
     //多选审批人员下拉 列表展示优化
-    clickApproverUserSelect(item) {
-      const index = this.Userlist.findIndex((c) => c.userId === item.userId);
+    clickApproverUserSelect(item) { 
+      const index = this.Userlist.findIndex((c) => c.userId === item.userId); 
       if (index === -1) {
         this.Userlist.push(item);
       } else {
@@ -1065,7 +1065,10 @@ export default {
         }
       }
       this.approverForm.formOperates = this.initFormOperates(this.value); 
-      this.Userlist = this.value.properties.approvers;
+      if(this.value.properties.hasOwnProperty('approvers') && Array.isArray(this.value.properties.approvers))
+      {
+        this.Userlist = this.value.properties.approvers;
+      } 
     },
     /**
      * 初始化条件节点数据
