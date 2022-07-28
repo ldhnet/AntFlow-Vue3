@@ -104,6 +104,7 @@ const createNode = (nodeinfo)=>{
     let properties = nodeinfo.properties
     let property = {}
     if (transformedType== 6) {//抄送人节点
+        node.nodeProperty = 5
         const copyUser = properties.menbers;
         if(copyUser){
             var emplIds = copyUser.map(a => a.userId);
