@@ -634,7 +634,6 @@ export default {
     this.approverUserOptions = this.Userlist; 
     this.organizationOptions = this.organizationlist; 
     if(this.isApproverErrorActive) this.approverUserOptions=[]; 
-    console.log("Userlist=====updated===",JSON.stringify(this.Userlist))
   },
   mounted() {
     GET_DEPT_TREE().then((res) => {
