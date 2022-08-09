@@ -335,9 +335,10 @@
                         :loading="loading"
                         :class="{ approverErrorSelect: isApproverErrorActive }"
                         style="width: 90%"
+                        @remove-tag="removeApproverUserSelected"
                       >
                         <el-option
-                          @click.native="clickApproverUserSelect(item)"
+                          @click.native="clickApproverUserSelect(item)" 
                           v-for="item in approverUserOptions"
                           :key="item.userId"
                           :label="item.userName"
@@ -704,11 +705,19 @@ export default {
     },
 
     //多选审批人员下拉 列表展示优化
+    //点击下拉选项值
     clickApproverUserSelect(item) { 
-      const index = this.tempUserlist.findIndex((c) => c.userId === item.userId); 
+      const index = this.tempUserlist.findIndex((c) => c.userId === item.userId);  
       if (index === -1) {
         this.tempUserlist.push(item);
       } else {
+        this.tempUserlist.splice(index, 1);
+      }
+    },
+    //删除选中
+    removeApproverUserSelected(userId) {   
+      const index = this.tempUserlist.findIndex((c) => c.userId === userId);  
+      if (index !== -1) {
         this.tempUserlist.splice(index, 1);
       }
     },
