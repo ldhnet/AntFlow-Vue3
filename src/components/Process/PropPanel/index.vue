@@ -333,7 +333,7 @@
                         placeholder="请输入关键词"
                         :remote-method="remoteMethod"
                         :loading="loading"
-                        :class="{ approverErrorSelect: isErrorActive }"
+                        :class="{ approverErrorSelect: isApproverErrorActive }"
                         style="width: 90%"
                       >
                         <el-option
@@ -547,6 +547,7 @@ export default {
       },
 
       isErrorActive: false,
+      isApproverErrorActive: false,
 
       useDirectorProxy: true, // 找不到主管时 上级主管代理审批
       directorLevel: 1, // 审批主管级别
@@ -630,7 +631,8 @@ export default {
   },
   updated() { 
     this.approverUserOptions = this.Userlist; 
-    this.organizationOptions = this.organizationlist;
+    this.organizationOptions = this.organizationlist; 
+    if(this.isApproverErrorActive) this.approverUserOptions=[]; 
   },
   mounted() {
     GET_DEPT_TREE().then((res) => {
@@ -642,7 +644,7 @@ export default {
           };
         });
       }
-    });
+    });  
   },
   methods: {
     remoteMethodOrganization(query) {
@@ -1122,20 +1124,20 @@ export default {
         oldVal.nodeProperty = NodeUtils.getAssigneeTypeInt(oldVal);
       }
     },
-    approverUserIds(newVal, oldVal) {
+    approverUserIds(newVal, oldVal) {  
       if (newVal.length === 0) {
-        this.isErrorActive = true;
+        this.isApproverErrorActive = true;
       } else {
-        this.isErrorActive = false;
-      }
-    },
+        this.isApproverErrorActive = false;
+      } 
+    }, 
     properties: {
-      handler(newVal, oldVal) { 
+      handler(newVal, oldVal) {
         if (newVal.hasOwnProperty('menbers') && newVal.menbers.length === 0) {
           this.isErrorActive = true;
         } else {
           this.isErrorActive = false;
-        }
+        } 
       },
       deep: true,
     },
