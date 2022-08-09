@@ -555,6 +555,7 @@ export default {
       approverUserOptions: [],
       approverUserIds: [], //指定审批人
       Userlist: [],
+      tempUserlist: [],//中间变量
 
       copyApproverUserIds: [], //抄送人
       copyApproverUserOptions: [], //抄送列表
@@ -633,6 +634,7 @@ export default {
     this.approverUserOptions = this.Userlist; 
     this.organizationOptions = this.organizationlist; 
     if(this.isApproverErrorActive) this.approverUserOptions=[]; 
+    console.log("Userlist=====updated===",JSON.stringify(this.Userlist))
   },
   mounted() {
     GET_DEPT_TREE().then((res) => {
@@ -704,11 +706,11 @@ export default {
 
     //多选审批人员下拉 列表展示优化
     clickApproverUserSelect(item) { 
-      const index = this.Userlist.findIndex((c) => c.userId === item.userId); 
+      const index = this.tempUserlist.findIndex((c) => c.userId === item.userId); 
       if (index === -1) {
-        this.Userlist.push(item);
+        this.tempUserlist.push(item);
       } else {
-        this.Userlist.splice(index, 1);
+        this.tempUserlist.splice(index, 1);
       }
     },
     //选择抄送人员
@@ -922,7 +924,7 @@ export default {
         //指定人员 下拉选择
         const approverInfo = [];
         for (let i in this.approverUserIds) {
-          const info = this.Userlist.filter((key) => {
+          const info = this.tempUserlist.filter((key) => {
             return key.userId == this.approverUserIds[i];
           });
           if (Array.isArray(info) && info.length > 0) {
@@ -1057,7 +1059,6 @@ export default {
         }
       }
       const approvers = this.approverForm.approvers;
-      //console.log('this.approverForm.approvers=======',JSON.stringify(approvers));
       this.resetOrgColl();
       if (Array.isArray(this.approverForm.approvers)) {
         if ("user" === this.approverForm.assigneeType) {
