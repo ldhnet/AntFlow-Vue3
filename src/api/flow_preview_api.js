@@ -19,11 +19,11 @@ export const getBpmnconfDetail = (id) => {
 };
 
 /**
-* 保存审批流程
- */ 
+ * 保存审批流程
+ */
 export const postApprovalFlowData = (data) => {
   return request({
-    url: '/ApprovalFlow/save/',
+    url: '/bpmnConf/edit',
     method: 'post',
     data
   });
