@@ -6,7 +6,7 @@ function resolve ( dir ) {
 
 module.exports = {
   runtimeCompiler: true,
-  publicPath: '/',//antflow/
+  publicPath: '/zto-flow/',//antflow/
   devServer: {
     port: 8088
   },
