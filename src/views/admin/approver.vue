@@ -73,7 +73,7 @@ import Process from "@/components/Process";
 import DynamicForm from "@/components/DynamicForm";
 import BasicSetting from "@/components/BasicSetting";
 import AdvancedSetting from "@/components/AdvancedSetting";
-import { GET_MOCK_CONF } from "@/api/index.js";
+import { GET_MOCK_CONF,GET_TEST_DATA } from "@/api/index.js";
 import { FormatUtils } from "@/components/Process/FlowCard/formatcommit_data.js";
 import { FormatDisplayUtils } from "@/components/Process/FlowCard/formatdisplay_data.js";
 import { getBpmnconfDetail } from "@/api/flow_preview_api.js";
@@ -130,7 +130,7 @@ export default {
         this.onInitiatorConditionType();
       });
 
-    getBpmnconfDetail(1).then((res) => {
+      GET_TEST_DATA(1).then((res) => {
       if (res.code == 200) {
         let opt = {};
         opt.processData = FormatDisplayUtils.depthConverterToTree(res.data.nodes);

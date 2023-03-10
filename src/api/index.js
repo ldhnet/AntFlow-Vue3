@@ -1,7 +1,7 @@
 import { get } from '@/axios'
 import axios from 'axios';
 
-const BASE_URL = process.env.BASE_URL
+const BASE_URL = 'http://ldhnet.gitee.io/zto-flow/'//process.env.BASE_URL
 // 获取组织机构根节点
 export const GET_DEPT_ROOT = () => get( BASE_URL + 'depRoot.json' )
 
