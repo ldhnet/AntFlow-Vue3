@@ -2,7 +2,7 @@
 
 workflow钉钉审批流程设置，基于vue开发 
 
-[预览入口](http://117.72.70.166/Workflow-Vue3/dist/)
+[预览入口](http://117.72.70.166/zto-flow/dist/)
 
 -  [开源地址vue3版本Gitee https://gitee.com/ldhnet/zto-flow][Gitee仓库](https://github.com/ldhnet/AntFlow) gitee点个星吧！
 -  [开源地址vue2版本GitHub https://github.com/ldhnet/AntFlow][GitHub仓库](https://github.com/ldhnet/AntFlow) 点个星吧！

@@ -115,13 +115,16 @@ const saveSet = async () => {
   processConfig.value.flowPermission = flowPermission.value;
   // eslint-disable-next-line no-console
   console.log(JSON.stringify(processConfig.value));
-  let res = await setWorkFlowData(processConfig.value);
-  if (res.code == 200) {
-    ElMessage.success("设置成功")
-    setTimeout(function () {
-      window.location.href = "";
-    }, 200);
-  }
+  ElMessage.success("设置成功,F2控制台查看数据");
+ 
+  // let res = await setWorkFlowData(processConfig.value);
+  // if (res.code == 200) {
+  //   ElMessage.success("设置成功")
+  //   setTimeout(function () {
+  //     window.location.href = "";
+  //   }, 200);
+  // }
+  
 };
 const zoomSize = (type) => {
   if (type == 1) {
