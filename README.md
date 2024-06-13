@@ -1,71 +1,106 @@
-# 仿钉钉后台审批流程
+### workflow钉钉审批流程设置-vue3版本
+
+workflow钉钉审批流程设置，基于vue开发 
 
 [预览入口](http://117.72.70.166/Workflow-Vue3/dist/)
 
-[GitHub仓库](https://github.com/ldhnet/AntFlow)
+-  [开源地址vue3版本Gitee https://gitee.com/ldhnet/zto-flow][Gitee仓库](https://github.com/ldhnet/AntFlow) gitee点个星吧！
+-  [开源地址vue2版本GitHub https://github.com/ldhnet/AntFlow][GitHub仓库](https://github.com/ldhnet/AntFlow) 点个星吧！
  
-基于JakHuang大佬的[form-generator](https://github.com/JakHuang/form-generator)的，仿钉钉后台审批流程创建界面
-## 安装使用
- 
-- 安装依赖
-yarn install | npm install
-
-- 运行
-yarn serve | npm run serve
-
-- 打包
-yarn build  | npm run build
-
-- 本地预览
-yarn preview 
-
-- 打包/预览 
-yarn build:preview 
-
-## 主要功能
-1. 表单配置(form-generator)
-  - 拖拽表单，生成布局页面
-  - 配置拖拽组件属性，定制组件形态
-  - 生成JSON数据并生成预览页面
-2. 流程节点配置(仿钉钉界面)
-  - 创建审批流程(发起人，审批人，条件节点，抄送人)
-  - 配置节点详细数据，包括条件节点表达式及期望值等
-  - 配置节点对表单得权限（目前并未在预览页面中做控制）
-  - 必填节点校验
-
-## 基本结构
-```
-// src
-|-- components
-|---- BasicSetting // 基础设置
-|---- DynamicForm      // 表单配置
-|---- Process          // 流程配置
-|---- AdvancedSetting  // 高级设置
-|---- FormControls     // 扩充表单组件
-
-|-- views
-|---- admin  // 后台配置界面
-|---- custom // 前台预览界面
-```
-> 不想把JakHuang大佬的项目拆分出来 一是为了方便学习大佬代码 二是为了以后单独抽离表单出来更方便 所以没有把form-generator项目的公用文件抽离到顶层 流程创建组件同理
-
-## 表单组件
-1. 单行输入框, 多行输入框, 数字输入框, 金额
-2. 下拉选择, 级联选择, 省市区
-3. 单选框组, 多选框组
-4. 时间选择, 时间范围, 日期选择, 日期范围
-5. 滑块, 组织机构, 附件, 计算公式
-6. 布局容器, 表格/列表
-
-## 界面预览
-![YL5ip8.png](https://s1.ax1x.com/2020/05/22/YL5ip8.png)
-![YL5k6g.png](https://s1.ax1x.com/2020/05/22/YL5k6g.png)
-![YL5Cff.png](https://s1.ax1x.com/2020/05/22/YL5Cff.png)
+   
 ![YL5F1S.png](https://s1.ax1x.com/2020/05/22/YL5F1S.png)
 ![YL5Z0s.png](https://s1.ax1x.com/2020/05/22/YL5Z0s.png)
 ![YL5Vmj.png](https://s1.ax1x.com/2020/05/22/YL5Vmj.png)
+
+-------------------
  
 
+#### 项目介绍
+- UI钉钉风格
+- 技术点
+1. 组件自调用+递归处理，按树状结局处理审批流程问题
+- 主要功能点
+2. 界面缩放 
+```javascript
+<div class="zoom">
+	<div :class="'zoom-out'+ (nowVal==50?' disabled':'')" @click="zoomSize(1)"></div>
+    <span>{{nowVal}}%</span>
+    <div :class="'zoom-in'+ (nowVal==300?' disabled':'')" @click="zoomSize(2)"></div>
+</div>
+```
+3. 节点设置（包括审批人、发起人、抄送人、条件设置）
+![YL5Z0s.png](https://s1.ax1x.com/2020/05/22/YL5Z0s.png)
+```javascript
+<el-drawer title="审批人设置" :visible.sync="approverDrawer" class="set_promoter" :show-close="false" :size="550" :before-close="saveApprover"> 
+    <div class="demo-drawer__content">
+        <div class="drawer_content">
+            <div class="approver_content">
+                <el-radio-group v-model="approverConfig.settype" class="clear" @change="changeType">
+                    <el-radio v-for="({value, label}) in setTypes" :key="value" :label="value">{{label}}</el-radio>
+                </el-radio-group>
+                ...
+```
+5. 节点新增
+![YL5Vmj.png](https://s1.ax1x.com/2020/05/22/YL5Vmj.png)
+```javascript
+<div class="add-node-btn">
+    <el-popover placement="right-start" v-model="visible">
+          <div class="add-node-popover-body">
+              <a class="add-node-popover-item approver" @click="addType(1)">
+                  <div class="item-wrapper">
+                      <span class="iconfont"></span>
+                  </div>
+                  <p>审批人</p>
+              </a>
+              <a class="add-node-popover-item notifier" @click="addType(2)">
+                  <div class="item-wrapper">
+                      <span class="iconfont"></span>
+                  </div>
+                  <p>抄送人</p>
+              </a>
+              <a class="add-node-popover-item condition" @click="addType(4)">
+                  <div class="item-wrapper">
+                      <span class="iconfont"></span>
+                  </div>
+                  <p>条件分支</p>
+              </a>
+          </div>
+          ...
+```
+5.错误校验
+![YL5Vmj.png](https://s1.ax1x.com/2020/05/22/YL5Vmj.png)
+```javascript
+let {type,error,nodeName,conditionNodes} = childNode
+if (type == 1 || type == 2) {
+    if (error) {
+        this.tipList.push({ name: nodeName, type: ["","审核人","抄送人"][type] })
+    }
+    this.reErr(childNode)
+} else if (type == 3) {
+    this.reErr(childNode)
+} else if (type == 4) {
+    this.reErr(childNode)
+    for (var i = 0; i < conditionNodes.length; i++) {
+        if (conditionNodes[i].error) {
+            this.tipList.push({ name: conditionNodes[i].nodeName, type: "条件" })
+        }
+        this.reErr(conditionNodes[i])
+    }
+}
+```
+6.模糊搜索匹配人员、职位、角色
+```javascript
+<input type="text" placeholder="搜索成员" v-model="searchVal" @input="getDebounceData($event,activeName)">
+<input type="text" placeholder="搜索角色" v-model="searchVal" @input="getDebounceData($event,2)">
+<input type="text" placeholder="请选择具体人员/角色/部门" v-if="conditionConfig.nodeUserList.length == 0" @click="addConditionRole">
+```
+#### 项目安装
 
+> git clone https://gitee.com/ldhnet/zto-flow.git 点个赞吧！
 
+#### 项目运行 node14.20.1
+> 1.环境依赖  `npm i`
 
+> 2.本地运行 `npm run dev` 
+
+> 3.打包运行 `npm run build` 

@@ -1,29 +1,61 @@
-import { get } from '@/axios'
-import axios from 'axios';
+/*
+ * @Date: 2022-08-25 14:06:59
+ * @LastEditors: StavinLi 495727881@qq.com
+ * @LastEditTime: 2023-03-29 15:52:57
+ * @FilePath: /zto-flow/src/api/index.js
+ */
 
-const BASE_URL = 'http://ldhnet.gitee.io/zto-flow/'//process.env.BASE_URL
-// 获取组织机构根节点
-export const GET_DEPT_ROOT = () => get( BASE_URL + 'depRoot.json' )
+import http from '@/utils/axios'
+let baseUrl = import.meta.env.BASE_URL
 
-// 根据部门id获取分页人员信息
-export const GET_PAGE_EMPLOYEE = data => get( BASE_URL + 'userData.json', data )
-
-// 获取组织机构子节点
-export const GET_DEPT_TREE = data => get( BASE_URL + 'depChild.json', data )
-
-// 获取组织机构下人员信息
-export const GET_USER_BY_DEPT = data => get( BASE_URL + 'userData.json', data )
-
-// 获取 测试 流程渲染数据
-export const GET_TEST_DATA = data => get( BASE_URL + 'apiFlowData.json', data )
-
-// 获取Mock数据
-export const GET_MOCK_CONF = () => {
-   return get(BASE_URL + 'mockConf.json')
+/**
+ * 获取角色
+ * @param {*} data 
+ * @returns 
+ */
+export function getRoles(data) {
+  return http.get(`${baseUrl}roles.json`, { params: data })
 }
- 
 
-// 获取Mock数据
-export const GET_MOCK_CONF2 = () => {
-    axios.post("http://localhost:9010/Test/PostTest?Id=1"); 
+/**
+ * 获取部门
+ * @param {*} data 
+ * @returns 
+ */
+export function getDepartments(data) {
+  return http.get(`${baseUrl}departments.json`, { params: data })
+}
+
+/**
+ * 获取职员
+ * @param {*} data 
+ * @returns 
+ */
+export function getEmployees(data) {
+  return http.get(`${baseUrl}employees.json`, { params: data })
+}
+/**
+ * 获取条件字段
+ * @param {*} data 
+ * @returns 
+ */
+export function getConditions(data) {
+  return http.get(`${baseUrl}conditions.json`, { params: data })
+}
+
+/**
+ * 获取审批数据
+ * @param {*} data 
+ * @returns 
+ */
+export function getWorkFlowData(data) {
+  return http.get(`${baseUrl}data.json`, { params: data })
+}
+/**
+ * 设置审批数据
+ * @param {*} data 
+ * @returns 
+ */
+export function setWorkFlowData(data) {
+  return http.post(`${baseUrl}`, data)
 }

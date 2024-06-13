@@ -1,22 +1,55 @@
-import Vue from 'vue'
+/*
+ * @Date: 2022-08-25 11:58:11
+ * @LastEditors: StavinLi 495727881@qq.com
+ * @LastEditTime: 2023-05-24 15:19:57
+ * @FilePath: /zto-flow/src/main.js
+ */
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import ElementUI from 'element-ui';
-import store from './store'
-import 'element-ui/lib/theme-chalk/index.css';
-import '@/components/DynamicForm/styles/index.styl'
-import '@/components/DynamicForm/icons'
 
-import FormControls from './components/FormControls/index.js'
-Vue.use( FormControls )
-Vue.use( ElementUI );
+import './assets/main.css'
+import './css/override-element-ui.css'
+import 'element-plus/es/components/message/style/css'
 
-Vue.config.productionTip = false
-Vue.prototype.log = console.log
+const app = createApp(App).use(createPinia()).use(router)
+app.mount('#app')
 
-new Vue( {
-  router,
-  store,
-  render: h => h( App )
-} ).$mount( '#app' )
+import nodeWrap from '@/components/nodeWrap.vue'
+app.component('nodeWrap', nodeWrap); //初始化组件
+import addNode from '@/components/addNode.vue'
+app.component('addNode', addNode); //初始化组件
 
+app.directive('focus', {
+  mounted(el) {
+    el.focus();
+  }
+});
+
+let debounce = (fn, delay) => {
+  var delay = delay || 100;
+  var timer;
+  return function() {
+    var th = this;
+    var args = arguments;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(function() {
+      timer = null;
+      fn.apply(th, args);
+    }, delay);
+  };
+}
+
+app.directive('enterNumber', {
+  mounted(el, { value = 100 }, vnode) {
+    el = el.nodeName == "INPUT" ? el : el.children[0]
+    var RegStr = value == 0 ? `^[\\+\\-]?\\d+\\d{0,0}` : `^[\\+\\-]?\\d+\\.?\\d{0,${value}}`;
+    el.addEventListener('input', debounce(() => {
+      el.value = el.value.match(new RegExp(RegStr, 'g'));
+      el.dispatchEvent(new Event('input'))
+    }));
+  }
+});
