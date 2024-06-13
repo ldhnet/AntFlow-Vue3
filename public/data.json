@@ -84,9 +84,9 @@
                             "fixedDownBoxValue": ""
                         }],
                         "nodeUserList": [{
-                            "targetId": 85,
+                            "targetId": 53128112,
                             "type": 1,
-                            "name": "天旭"
+                            "name": "张三"
                         }],
                         "childNode": {
                             "nodeName": "审核人",
@@ -102,9 +102,9 @@
                             "ccSelfSelectFlag": 1,
                             "conditionList": [],
                             "nodeUserList": [{
-                                "targetId": 2515744,
+                                "targetId": 53128113,
                                 "type": 1,
-                                "name": "哈哈哈哈"
+                                "name": "李四"
                             }],
                             "childNode": null,
                             "conditionNodes": [],

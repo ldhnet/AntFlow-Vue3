@@ -1,0 +1,130 @@
+{
+    "tableId": 1,
+    "workFlowDef": {
+        "name": "合同审批"
+    },
+    "directorMaxLevel": 4,
+    "flowPermission": [],
+    "nodeConfig": {
+        "nodeName": "发起人",
+        "type": 0,
+        "priorityLevel": "",
+        "settype": "",
+        "selectMode": "",
+        "selectRange": "",
+        "directorLevel": "",
+        "examineMode": "",
+        "noHanderAction": "",
+        "examineEndDirectorLevel": "",
+        "ccSelfSelectFlag": "",
+        "conditionList": [],
+        "nodeUserList": [],
+        "childNode": {
+            "nodeName": "审核人",
+            "error": false,
+            "type": 1,
+            "settype": 1,
+            "selectMode": 0,
+            "selectRange": 0,
+            "directorLevel": 1,
+            "examineMode": 1,
+            "noHanderAction": 2,
+            "examineEndDirectorLevel": 0,
+            "childNode": {
+                "nodeName": "路由",
+                "type": 4,
+                "childNode": {
+                    "nodeName": "审核人",
+                    "error": false,
+                    "type": 1,
+                    "settype": 1,
+                    "selectMode": 0,
+                    "selectRange": 0,
+                    "directorLevel": 1,
+                    "examineMode": 1,
+                    "noHanderAction": 1,
+                    "examineEndDirectorLevel": 0,
+                    "childNode": null,
+                    "nodeUserList": [
+                        {
+                            "type": 1,
+                            "targetId": "53128111",
+                            "name": "管理员"
+                        }
+                    ]
+                },
+                "conditionNodes": [
+                    {
+                        "nodeName": "条件1",
+                        "error": false,
+                        "type": 3,
+                        "priorityLevel": 1,
+                        "conditionList": [
+                            {
+                                "showType": "1",
+                                "columnId": "1090",
+                                "type": 2,
+                                "showName": "预计采购总费用",
+                                "optType": "1",
+                                "zdy1": "2000",
+                                "opt1": "<",
+                                "zdy2": "",
+                                "opt2": "<",
+                                "columnDbname": "planProcurementTotalMoney",
+                                "columnType": "Double"
+                            },
+                            {
+                                "showType": "3",
+                                "columnId": "1092",
+                                "type": 2,
+                                "showName": "采购类型",
+                                "zdy1": "",
+                                "columnDbname": "procurementType",
+                                "columnType": "String",
+                                "fixedDownBoxValue": "{\"1\":{\"key\":\"1\",\"value\":\"新开园区集中采购\",\"column\":\"\",\"type\":\"1\"}}"
+                            }
+                        ],
+                        "nodeUserList": [],
+                        "childNode": {
+                            "nodeName": "审核人",
+                            "error": false,
+                            "type": 1,
+                            "settype": 1,
+                            "selectMode": 0,
+                            "selectRange": 0,
+                            "directorLevel": 1,
+                            "examineMode": 1,
+                            "noHanderAction": 1,
+                            "examineEndDirectorLevel": 0,
+                            "childNode": null,
+                            "nodeUserList": [
+                                {
+                                    "type": 1,
+                                    "targetId": "53128113",
+                                    "name": "李四"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "nodeName": "条件2",
+                        "type": 3,
+                        "priorityLevel": 2,
+                        "conditionList": [],
+                        "nodeUserList": [],
+                        "childNode": null,
+                        "error": false
+                    }
+                ]
+            },
+            "nodeUserList": [
+                {
+                    "type": 1,
+                    "targetId": "53128112",
+                    "name": "张三"
+                }
+            ]
+        },
+        "conditionNodes": []
+    }
+}

@@ -2,7 +2,14 @@
     "code": "200",
     "msg": "操作成功",
     "data": {
-        "childDepartments": [],
+        "childDepartments": [{
+            "departmentId": "32401",
+            "departmentKey": "ZNBN01",
+            "departmentName": "法务分一部",
+            "departmentNames": "法务分一部",
+            "id": "32401",
+            "parentId": "324"
+        }],
         "employees": [{
             "id": "53128133",
             "employeeName": "测试3",
