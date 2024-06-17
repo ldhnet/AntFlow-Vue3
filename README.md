@@ -2,7 +2,7 @@
 
 workflow钉钉审批流程设置，基于vue开发 
 
-[预览入口](http://117.72.70.166/ant-flow/dist/)
+[预览入口](http://117.72.70.166/ant-flow/)
 
 -  [开源地址vue3版本Gitee https://gitee.com/ldhnet/ant-flow][Gitee仓库](https://gitee.com/ldhnet/ant-flow) gitee点个星吧！
 -  [开源地址vue2版本GitHub https://github.com/ldhnet/AntFlow][GitHub仓库](https://github.com/ldhnet/AntFlow) 点个星吧！

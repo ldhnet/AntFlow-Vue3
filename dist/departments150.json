@@ -2,14 +2,7 @@
     "code": "200",
     "msg": "操作成功",
     "data": {
-        "childDepartments": [{
-            "departmentId": "15001",
-            "departmentKey": "RLXZB_V2_01",
-            "departmentName": "人事部",
-            "departmentNames": "人事部",
-            "id": "15001",
-            "parentId": "150"
-        }],
+        "childDepartments": [],
         "employees": [{
             "id": "53128112",
             "employeeName": "测试1",
