@@ -2,9 +2,9 @@
 
 workflow钉钉审批流程设置，基于vue开发 
 
-[预览入口](http://117.72.70.166/zto-flow/dist/)
+[预览入口](http://117.72.70.166/ant-flow/dist/)
 
--  [开源地址vue3版本Gitee https://gitee.com/ldhnet/zto-flow][Gitee仓库](https://gitee.com/ldhnet/zto-flow) gitee点个星吧！
+-  [开源地址vue3版本Gitee https://gitee.com/ldhnet/ant-flow][Gitee仓库](https://gitee.com/ldhnet/ant-flow) gitee点个星吧！
 -  [开源地址vue2版本GitHub https://github.com/ldhnet/AntFlow][GitHub仓库](https://github.com/ldhnet/AntFlow) 点个星吧！
  
    
@@ -96,7 +96,7 @@ if (type == 1 || type == 2) {
 ```
 #### 项目安装
 
-> git clone https://gitee.com/ldhnet/zto-flow.git 点个赞吧！
+> git clone https://gitee.com/ldhnet/ant-flow.git 点个赞吧！
 
 #### 项目运行 node14.20.1
 > 1.环境依赖  `npm i`

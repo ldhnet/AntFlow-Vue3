@@ -2,7 +2,7 @@
  * @Date: 2022-10-25 19:36:56
  * * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-03-15 11:20:45
- * @FilePath: /zto-flow/vite.config.js
+ * @FilePath: /ant-flow/vite.config.js
  */
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -31,7 +31,7 @@ export default defineConfig(({mode})=>{
           }
       }
     },
-    base: mode === "production" ? '/zto-flow/dist/' : '/',
+    base: mode === "production" ? '/ant-flow/dist/' : '/',
     plugins: [
       vue(),
       AutoImport({

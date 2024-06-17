@@ -2,7 +2,7 @@
  * @Date:  2024-05-25 14:05:59
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:20:53
- * @FilePath: /zto-flow/src/components/drawer/copyerDrawer.vue
+ * @FilePath: /ant-flow/src/components/drawer/copyerDrawer.vue
 -->
 <template>
     <el-drawer :append-to-body="true" title="抄送人设置" v-model="visible" class="set_copyer" :show-close="false" :size="550" :before-close="saveCopyer"> 

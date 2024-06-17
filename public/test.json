@@ -33,6 +33,17 @@
             "childNode": {
                 "nodeName": "路由",
                 "type": 4,
+                "priorityLevel": 1,
+                "settype": 1,
+                "selectMode": 0,
+                "selectRange": 0,
+                "directorLevel": 1,
+                "examineMode": 1,
+                "noHanderAction": 2,
+                "examineEndDirectorLevel": 1,
+                "ccSelfSelectFlag": 1,
+                "conditionList": [],
+                "nodeUserList": [],
                 "childNode": {
                     "nodeName": "审核人",
                     "error": false,
@@ -56,9 +67,16 @@
                 "conditionNodes": [
                     {
                         "nodeName": "条件1",
-                        "error": false,
                         "type": 3,
                         "priorityLevel": 1,
+                        "settype": 1,
+                        "selectMode": 0,
+                        "selectRange": 0,
+                        "directorLevel": 1,
+                        "examineMode": 1,
+                        "noHanderAction": 2,
+                        "examineEndDirectorLevel": 1,
+                        "ccSelfSelectFlag": 1,
                         "conditionList": [
                             {
                                 "showType": "1",
@@ -66,50 +84,58 @@
                                 "type": 2,
                                 "showName": "预计采购总费用",
                                 "optType": "1",
-                                "zdy1": "2000",
+                                "zdy1": "20000",
                                 "opt1": "<",
                                 "zdy2": "",
                                 "opt2": "<",
                                 "columnDbname": "planProcurementTotalMoney",
                                 "columnType": "Double"
-                            },
-                            {
-                                "showType": "3",
-                                "columnId": "1092",
-                                "type": 2,
-                                "showName": "采购类型",
-                                "zdy1": "",
-                                "columnDbname": "procurementType",
-                                "columnType": "String",
-                                "fixedDownBoxValue": "{\"1\":{\"key\":\"1\",\"value\":\"新开园区集中采购\",\"column\":\"\",\"type\":\"1\"}}"
                             }
                         ],
                         "nodeUserList": [],
-                        "childNode": {
-                            "nodeName": "审核人",
-                            "error": false,
-                            "type": 1,
-                            "settype": 1,
-                            "selectMode": 0,
-                            "selectRange": 0,
-                            "directorLevel": 1,
-                            "examineMode": 1,
-                            "noHanderAction": 1,
-                            "examineEndDirectorLevel": 0,
-                            "childNode": null,
-                            "nodeUserList": [
-                                {
-                                    "type": 1,
-                                    "targetId": "53128113",
-                                    "name": "李四"
-                                }
-                            ]
-                        }
+                        "childNode": null,
+                        "conditionNodes": [],
+                        "error": false
                     },
                     {
                         "nodeName": "条件2",
                         "type": 3,
                         "priorityLevel": 2,
+                        "settype": 1,
+                        "selectMode": 0,
+                        "selectRange": 0,
+                        "directorLevel": 1,
+                        "examineMode": 1,
+                        "noHanderAction": 2,
+                        "examineEndDirectorLevel": 1,
+                        "ccSelfSelectFlag": 1,
+                        "conditionList": [
+                            {
+                                "type": 1,
+                                "columnId": 0,
+                                "showName": "发起人"
+                            }
+                        ],
+                        "nodeUserList": [
+                            {
+                                "type": 3,
+                                "targetId": "150",
+                                "name": "人力行政部"
+                            },
+                            {
+                                "type": 3,
+                                "targetId": "324",
+                                "name": "法务部"
+                            }
+                        ],
+                        "childNode": null,
+                        "conditionNodes": [],
+                        "error": false
+                    },
+                    {
+                        "nodeName": "条件3",
+                        "type": 3,
+                        "priorityLevel": 3,
                         "conditionList": [],
                         "nodeUserList": [],
                         "childNode": null,

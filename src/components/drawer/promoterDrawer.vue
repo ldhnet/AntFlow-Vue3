@@ -2,7 +2,7 @@
  * @Date:  2024-05-25 14:05:59
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:17:13
- * @FilePath: /zto-flow/src/components/drawer/promoterDrawer.vue
+ * @FilePath: /ant-flow/src/components/drawer/promoterDrawer.vue
 -->
 <template>
     <el-drawer :append-to-body="true" title="发起人" v-model="visible" class="set_promoter" :show-close="false" :size="550" :before-close="savePromoter"> 

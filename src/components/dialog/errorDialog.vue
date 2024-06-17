@@ -2,7 +2,7 @@
  * @Date:  2024-05-25 14:05:59
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-03-29 16:05:54
- * @FilePath: /zto-flow/src/components/dialog/errorDialog.vue
+ * @FilePath: /ant-flow/src/components/dialog/errorDialog.vue
 -->
 <template>
   <el-dialog title="提示" v-model="visibleDialog" :width="520">
