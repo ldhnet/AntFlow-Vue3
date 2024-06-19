@@ -1,76 +1,317 @@
 {
-    "bpmnCode": "SFZHSQ-00011",
-    "bpmnName": "合同审批",
-    "bpmnType": null,
-    "formCode": "PROJECT_8LNDf4",
-    "appId": null,
-    "deduplicationType": 2,
-    "effectiveStatus": 1,
-    "remark": "合同审批",
-    "isDel": 0,
-    "nodes": [
-        {
-            "nodeId": "HdLDf4",
-            "nodeName": "审核人",
-            "nodeType": 4,
-            "nodeFrom": "b1KDf4",
-            "prevId": [],
-            "nodeTo": [],
-            "setType": 1,
-            "directorLevel": 1,
-            "signType": 1,
-            "noHeaderAction": 1,
-            "error": false,
-            "property": {
-                "emplIds": [
-                    13
-                ],
-                "signType": 1
+    "requestId": "DvwgwxAZHFhAf4Ew1jd_3",
+    "code": 200,
+    "data": {
+        "id": 30,
+        "bpmnCode": "HTSP-00004",
+        "bpmnName": "合同审批",
+        "bpmnType": null,
+        "formCode": "PROJECT_7VaIf4",
+        "appId": null,
+        "deduplicationType": 2,
+        "effectiveStatus": 1,
+        "isAll": 0,
+        "isOutSideProcess": 0,
+        "businessPartyId": null,
+        "remark": "合同审批",
+        "isDel": 0,
+        "createUser": "",
+        "createTime": "2024-06-19 19:26:32",
+        "updateUser": "",
+        "updateTime": "2024-06-19 19:26:31",
+        "search": null,
+        "deduplicationTypeName": null,
+        "createUserName": null,
+        "createUserUuid": null,
+        "businessPartyName": null,
+        "businessPartyMark": null,
+        "nodes": [
+            {
+                "id": 32,
+                "confId": 30,
+                "nodeId": "WhYIf4",
+                "nodeType": 4,
+                "nodeProperty": 5,
+                "nodePropertyName": "指定人员",
+                "nodeFrom": "x4XIf4",
+                "nodeFroms": null,
+                "prevId": [],
+                "batchStatus": 0,
+                "approvalStandard": 2,
+                "nodeName": "审核人",
+                "nodeDisplayName": "",
+                "annotation": null,
+                "isDeduplication": 0,
+                "isSignUp": 0,
+                "orderedNodeType": null,
+                "remark": "",
+                "isDel": 0,
+                "createUser": "",
+                "createTime": "2024-06-19 19:26:32",
+                "updateUser": "",
+                "updateTime": "2024-06-19 19:26:32",
+                "nodeTo": null,
+                "property": {
+                    "loopEndType": null,
+                    "loopNumberPlies": null,
+                    "loopEndGrade": null,
+                    "loopEndPersonList": null,
+                    "loopEndPersonObjList": null,
+                    "assignLevelType": null,
+                    "assignLevelGrade": null,
+                    "hrbpConfType": null,
+                    "roleIds": null,
+                    "roleList": null,
+                    "emplIds": [
+                        "12"
+                    ],
+                    "emplList": [
+                        {
+                            "id": 12,
+                            "name": "蔡六"
+                        }
+                    ],
+                    "signType": 1,
+                    "conditionsConf": null,
+                    "configurationTableType": null,
+                    "tableFieldType": null,
+                    "isMultiPeople": null,
+                    "noparticipatingStaffIds": null,
+                    "noparticipatingStaffs": null,
+                    "functionId": null,
+                    "functionName": null,
+                    "afterSignUpWay": null,
+                    "signUpType": null,
+                    "nodeMark": null
+                },
+                "params": null,
+                "buttons": {
+                    "startPage": [],
+                    "approvalPage": [
+                        2
+                    ],
+                    "viewPage": null
+                },
+                "templateVos": null,
+                "approveRemindVo": null,
+                "formCode": "PROJECT_7VaIf4"
             },
-            "nodeProperty": 5
-        },
-        {
-            "nodeId": "b1KDf4",
-            "nodeName": "审核人",
-            "nodeType": 4,
-            "nodeFrom": "Gb2",
-            "prevId": [],
-            "nodeTo": [
-                "HdLDf4"
-            ],
-            "setType": 1,
-            "directorLevel": 1,
-            "signType": 1,
-            "noHeaderAction": 1,
-            "error": false,
-            "property": {
-                "emplIds": [
-                    12
+            {
+                "id": 33,
+                "confId": 30,
+                "nodeId": "x4XIf4",
+                "nodeType": 4,
+                "nodeProperty": 5,
+                "nodePropertyName": "指定人员",
+                "nodeFrom": "YiTIf4",
+                "nodeFroms": null,
+                "prevId": [],
+                "batchStatus": 0,
+                "approvalStandard": 2,
+                "nodeName": "审核人",
+                "nodeDisplayName": "",
+                "annotation": null,
+                "isDeduplication": 0,
+                "isSignUp": 0,
+                "orderedNodeType": null,
+                "remark": "",
+                "isDel": 0,
+                "createUser": "",
+                "createTime": "2024-06-19 19:26:33",
+                "updateUser": "",
+                "updateTime": "2024-06-19 19:26:32",
+                "nodeTo": [
+                    "WhYIf4"
                 ],
-                "signType": 1
+                "property": {
+                    "loopEndType": null,
+                    "loopNumberPlies": null,
+                    "loopEndGrade": null,
+                    "loopEndPersonList": null,
+                    "loopEndPersonObjList": null,
+                    "assignLevelType": null,
+                    "assignLevelGrade": null,
+                    "hrbpConfType": null,
+                    "roleIds": null,
+                    "roleList": null,
+                    "emplIds": [
+                        "10",
+                        "11"
+                    ],
+                    "emplList": [
+                        {
+                            "id": 10,
+                            "name": "李四"
+                        },
+                        {
+                            "id": 11,
+                            "name": "王五"
+                        }
+                    ],
+                    "signType": 1,
+                    "conditionsConf": null,
+                    "configurationTableType": null,
+                    "tableFieldType": null,
+                    "isMultiPeople": null,
+                    "noparticipatingStaffIds": null,
+                    "noparticipatingStaffs": null,
+                    "functionId": null,
+                    "functionName": null,
+                    "afterSignUpWay": null,
+                    "signUpType": null,
+                    "nodeMark": null
+                },
+                "params": null,
+                "buttons": {
+                    "startPage": [],
+                    "approvalPage": [
+                        2
+                    ],
+                    "viewPage": null
+                },
+                "templateVos": null,
+                "approveRemindVo": null,
+                "formCode": "PROJECT_7VaIf4"
             },
-            "nodeProperty": 5
+            {
+                "id": 34,
+                "confId": 30,
+                "nodeId": "YiTIf4",
+                "nodeType": 4,
+                "nodeProperty": 5,
+                "nodePropertyName": "指定人员",
+                "nodeFrom": "Gb2",
+                "nodeFroms": null,
+                "prevId": [],
+                "batchStatus": 0,
+                "approvalStandard": 2,
+                "nodeName": "审核人",
+                "nodeDisplayName": "",
+                "annotation": null,
+                "isDeduplication": 0,
+                "isSignUp": 0,
+                "orderedNodeType": null,
+                "remark": "",
+                "isDel": 0,
+                "createUser": "",
+                "createTime": "2024-06-19 19:26:33",
+                "updateUser": "",
+                "updateTime": "2024-06-19 19:26:33",
+                "nodeTo": [
+                    "x4XIf4"
+                ],
+                "property": {
+                    "loopEndType": null,
+                    "loopNumberPlies": null,
+                    "loopEndGrade": null,
+                    "loopEndPersonList": null,
+                    "loopEndPersonObjList": null,
+                    "assignLevelType": null,
+                    "assignLevelGrade": null,
+                    "hrbpConfType": null,
+                    "roleIds": null,
+                    "roleList": null,
+                    "emplIds": [
+                        "1",
+                        "8",
+                        "9"
+                    ],
+                    "emplList": [
+                        {
+                            "id": 1,
+                            "name": "丁一"
+                        },
+                        {
+                            "id": 8,
+                            "name": "王二"
+                        },
+                        {
+                            "id": 9,
+                            "name": "张三"
+                        }
+                    ],
+                    "signType": 1,
+                    "conditionsConf": null,
+                    "configurationTableType": null,
+                    "tableFieldType": null,
+                    "isMultiPeople": null,
+                    "noparticipatingStaffIds": null,
+                    "noparticipatingStaffs": null,
+                    "functionId": null,
+                    "functionName": null,
+                    "afterSignUpWay": null,
+                    "signUpType": null,
+                    "nodeMark": null
+                },
+                "params": null,
+                "buttons": {
+                    "startPage": [],
+                    "approvalPage": [
+                        2
+                    ],
+                    "viewPage": null
+                },
+                "templateVos": null,
+                "approveRemindVo": null,
+                "formCode": "PROJECT_7VaIf4"
+            },
+            {
+                "id": 35,
+                "confId": 30,
+                "nodeId": "Gb2",
+                "nodeType": 1,
+                "nodeProperty": 1,
+                "nodePropertyName": null,
+                "nodeFrom": "",
+                "nodeFroms": null,
+                "prevId": [],
+                "batchStatus": 0,
+                "approvalStandard": 2,
+                "nodeName": "发起人",
+                "nodeDisplayName": "发起人",
+                "annotation": null,
+                "isDeduplication": 0,
+                "isSignUp": 0,
+                "orderedNodeType": null,
+                "remark": "",
+                "isDel": 0,
+                "createUser": "",
+                "createTime": "2024-06-19 19:26:34",
+                "updateUser": "",
+                "updateTime": "2024-06-19 19:22:19",
+                "nodeTo": [
+                    "YiTIf4"
+                ],
+                "property": null,
+                "params": null,
+                "buttons": {
+                    "startPage": [],
+                    "approvalPage": [
+                        2
+                    ],
+                    "viewPage": null
+                },
+                "templateVos": null,
+                "approveRemindVo": null,
+                "formCode": "PROJECT_7VaIf4"
+            }
+        ],
+        "viewPageButtons": {
+            "viewPageStart": [],
+            "viewPageOther": []
         },
-        {
-            "nodeId": "Gb2",
-            "nodeName": "发起人",
-            "nodeDisplayName": "发起人",
-            "nodeType": 1,
-            "nodeFrom": "",
-            "prevId": [],
-            "nodeTo": [
-                "b1KDf4"
-            ],
-            "priorityLevel": 1,
-            "setType": 1,
-            "directorLevel": 1,
-            "signType": 1,
-            "noHeaderAction": 0,
-            "ccSelfSelectFlag": 1,
-            "property": null,
-            "conditionList": [],
-            "nodeApproveList": [],
-            "conditionNodes": []
-        }
-    ]
+        "templateVos": [],
+        "formData": null,
+        "bpmConfCallbackUrl": null,
+        "bpmFlowCallbackUrl": null,
+        "viewUrl": null,
+        "submitUrl": null,
+        "conditionsUrl": null,
+        "businessPartyIds": null
+    },
+    "success": true,
+    "needRetry": false,
+    "expInfo": null,
+    "errCode": null,
+    "errMsg": null
 }

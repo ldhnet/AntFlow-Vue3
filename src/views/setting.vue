@@ -71,9 +71,9 @@ onMounted(async () => {
   } else {
     mockjson = await getMockWorkFlowData({ id: 0 });
   }
-  let data = FormatDisplayUtils.getToTree(mockjson.data);
+  console.log("old===mockjson======", JSON.stringify(mockjson));
 
-  // console.log("old===data==", JSON.stringify(data));
+  let data = FormatDisplayUtils.getToTree(mockjson.data); 
   
   processConfig.value = data;
   let {
@@ -142,7 +142,7 @@ const saveSet = async () => {
   let submitData =JSON.parse(JSON.stringify(processConfig.value));
   var resultData = FormatUtils.formatSettings(submitData);
 
-  let resJson = await getApiWorkFlowData(resultData);  
+  let resJson = await setApiWorkFlowData(resultData);  
 
   console.log("new===resJson==", JSON.stringify(resJson));
 

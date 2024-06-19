@@ -35,7 +35,7 @@
             {
                 "nodeId": "Qhtod4",
                 "nodeName": "条件1",
-                "nodeDisplayName": "账户类型属于：腾讯云",
+                "nodeDisplayName": "腾讯云",
                 "nodeType": 3,
                 "nodeFrom": "6ltod4",
                 "prevId": [],

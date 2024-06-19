@@ -97,18 +97,22 @@ export class FormatDisplayUtils {
             if (node.nodeType == 4 || node.nodeType == 5) {
                 let empList = [];
          
+                
                 if (node.property && !isEmptyArray(node.property.emplIds)) {
                     for (let emplId of node.property.emplIds) {
                         let approveObj = {
-                            type: 5,
-                            targetId: emplId,
+                            type: 1,
+                            targetId: parseInt(emplId),
                             name: approveList[emplId]
                         };
                         empList.push(approveObj);
                     }
+
+                    Object.assign(node, { signType: node.property.signType });
                 }
                 node.setType = node.nodeProperty == 5 ? 1 : node.nodeProperty; 
                 Object.assign(node, { nodeApproveList: [] });
+ 
                 node.nodeApproveList = empList;
                 delete node.property;
             }
