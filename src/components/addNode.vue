@@ -3,19 +3,19 @@
         <div class="add-node-btn">
             <el-popover placement="right-start" v-model="visible" width="auto">
                 <div class="add-node-popover-body">
-                    <a class="add-node-popover-item approver" @click="addType(1)">
+                    <a class="add-node-popover-item approver" @click="addType(4)">
                         <div class="item-wrapper">
                             <span class="iconfont"></span>
                         </div>
                         <p>审批人</p>
                     </a>
-                    <a class="add-node-popover-item notifier" @click="addType(2)">
+                    <a class="add-node-popover-item notifier" @click="addType(5)">
                         <div class="item-wrapper">
                             <span class="iconfont"></span>
                         </div>
                         <p>抄送人</p>
                     </a>
-                    <a class="add-node-popover-item condition" @click="addType(4)">
+                    <a class="add-node-popover-item condition" @click="addType(2)">
                         <div class="item-wrapper">
                             <span class="iconfont"></span>
                         </div>
@@ -33,63 +33,94 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import { NodeUtils } from '@/utils/nodeUtils'
 let props = defineProps({
     childNodeP: {
         type: Object,
-        default: ()=> ({})
+        default: ()=> (null)
     }
 })
 let emits = defineEmits(['update:childNodeP'])
 let visible = ref(false)
 const addType = (type)=> {
     visible.value = false;
-    if (type != 4) {
+    if (type != 2 && type != 3) { 
         var data;
-        if (type == 1) {
+        if (type == 4) { 
             data = {
-                "nodeName": "审核人",
-                "error": true,
-                "type": 1,
-                "settype": 1,
-                "selectMode": 0,
-                "selectRange": 0,
+                "nodeId": NodeUtils.idGenerator(),
+                "nodeName": "审核人", 
+                "nodeDisplayName": "审核人", 
+                "nodeType": 4,
+                "nodeFrom": "", 
+                "prevId": [],
+                "nodeTo": [],
+                "setType": 1,  
                 "directorLevel": 1,
-                "examineMode": 1,
-                "noHanderAction": 1,
-                "examineEndDirectorLevel": 0,
+                "signType": 1,
+                "noHeaderAction": 1, 
                 "childNode": props.childNodeP,
-                "nodeUserList": []
+                "error": true,
+                "property":null,
+                "nodeApproveList": []
             }
-        } else if (type == 2) {
+        } else if (type == 5) {
             data = {
+                "nodeId": NodeUtils.idGenerator(),
                 "nodeName": "抄送人",
-                "type": 2,
+                "nodeDisplayName": "抄送人", 
+                "nodeType": 5,
+                "nodeFrom": "", 
+                "prevId": [],
+                "nodeTo": [],
+                "setType": 1, 
+                "error": true,
                 "ccSelfSelectFlag": 1,
                 "childNode": props.childNodeP,
-                "nodeUserList": []
+                "property":null,
+                "nodeApproveList": []
             }
         }
         emits("update:childNodeP", data)
     } else {
         emits("update:childNodeP", {
+            "nodeId": NodeUtils.idGenerator(),
             "nodeName": "路由",
-            "type": 4,
-            "childNode": null,
+            "nodeType": 2,
+            "nodeFrom": "", 
+            "prevId": [],
+            "nodeTo": [],
+            "childNode": null, 
+            "error": true,
+            "property":null,
             "conditionNodes": [{
-                "nodeName": "条件1",
-                "error": true,
-                "type": 3,
+                "nodeId": NodeUtils.idGenerator(),
+                "nodeName": "条件1", 
+                "nodeDisplayName": "条件1", 
+                "nodeType": 3,
+                "nodeFrom": "", 
+                "prevId": [],
+                "nodeTo": [],
                 "priorityLevel": 1,
                 "conditionList": [],
-                "nodeUserList": [],
+                "nodeApproveList": [],
+                "error": true,
+                "isDefault": 0, 
                 "childNode": props.childNodeP,
             }, {
+                "nodeId": NodeUtils.idGenerator(),
                 "nodeName": "条件2",
-                "type": 3,
+                "nodeDisplayName": "条件2", 
+                "nodeType": 3,
+                "nodeFrom": "", 
+                "prevId": [],
+                "nodeTo": [],
                 "priorityLevel": 2,
                 "conditionList": [],
-                "nodeUserList": [],
-                "childNode": null
+                "nodeApproveList": [],
+                "childNode": null,
+                "isDefault": 0, 
+                "error": false,
             }]
         })
     }

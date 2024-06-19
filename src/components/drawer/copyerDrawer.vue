@@ -2,7 +2,7 @@
  * @Date:  2024-05-25 14:05:59
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:20:53
- * @FilePath: /ant-flow/src/components/drawer/copyerDrawer.vue
+ * @FilePath: /zto-flow/src/components/drawer/copyerDrawer.vue
 -->
 <template>
     <el-drawer :append-to-body="true" title="抄送人设置" v-model="visible" class="set_copyer" :show-close="false" :size="550" :before-close="saveCopyer"> 
@@ -10,10 +10,10 @@
             <div class="copyer_content drawer_content">
                 <el-button type="primary" @click="addCopyer">添加成员</el-button>
                 <p class="selected_list">
-                    <span v-for="(item,index) in copyerConfig.nodeUserList" :key="index">{{item.name}}
-                        <img src="@/assets/images/add-close1.png" @click="$func.removeEle(copyerConfig.nodeUserList,item,'targetId')">
+                    <span v-for="(item,index) in copyerConfig.nodeApproveList" :key="index">{{item.name}}
+                        <img src="@/assets/images/add-close1.png" @click="$func.removeEle(copyerConfig.nodeApproveList,item,'targetId')">
                     </span>
-                    <a v-if="copyerConfig.nodeUserList&&copyerConfig.nodeUserList.length!=0" @click="copyerConfig.nodeUserList=[]">清除</a>
+                    <a v-if="copyerConfig.nodeApproveList&&copyerConfig.nodeApproveList.length!=0" @click="copyerConfig.nodeApproveList=[]">清除</a>
                 </p>
                 <el-checkbox-group v-model="ccSelfSelectFlag" class="clear">
                     <el-checkbox :label="1">允许发起人自选抄送人</el-checkbox>
@@ -59,10 +59,10 @@ watch(copyerConfig1, (val) => {
 
 const addCopyer = () => {
     copyerVisible.value = true;
-    checkedList.value = copyerConfig.value.nodeUserList
+    checkedList.value = copyerConfig.value.nodeApproveList
 }
 const sureCopyer = (data) => {
-    copyerConfig.value.nodeUserList = data;
+    copyerConfig.value.nodeApproveList = data;
     copyerVisible.value = false;
 }
 const saveCopyer = () => {

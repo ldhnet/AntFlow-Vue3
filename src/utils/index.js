@@ -59,42 +59,33 @@ All.prototype = {
         arr.splice(includesIndex, 1);
     },
     setApproverStr(nodeConfig) {
-        if (nodeConfig.settype == 1) {
-            if (nodeConfig.nodeUserList.length == 1) {
-                return nodeConfig.nodeUserList[0].name
-            } else if (nodeConfig.nodeUserList.length > 1) {
-                if (nodeConfig.examineMode == 1) {
-                    return this.arrToStr(nodeConfig.nodeUserList)
-                } else if (nodeConfig.examineMode == 2) {
-                    return nodeConfig.nodeUserList.length + "人会签"
+        if (nodeConfig.setType == 1) {
+            if (nodeConfig.nodeApproveList.length == 1) {
+                return nodeConfig.nodeApproveList[0].name
+            } else if (nodeConfig.nodeApproveList.length > 1) {
+                if (nodeConfig.signType == 1) {
+                    return this.arrToStr(nodeConfig.nodeApproveList)
+                } else if (nodeConfig.signType == 2) {
+                    return nodeConfig.nodeApproveList.length + "人(" + this.arrToStr(nodeConfig.nodeApproveList) + ")会签"
                 }
             }
-        } else if (nodeConfig.settype == 2) {
+        } else if (nodeConfig.setType == 2) {
             let level = nodeConfig.directorLevel == 1 ? '直接主管' : '第' + nodeConfig.directorLevel + '级主管'
-            if (nodeConfig.examineMode == 1) {
+            if (nodeConfig.signType == 1) {
                 return level
-            } else if (nodeConfig.examineMode == 2) {
+            } else if (nodeConfig.signType == 2) {
                 return level + "会签"
             }
-        } else if (nodeConfig.settype == 4) {
-            if (nodeConfig.selectRange == 1) {
-                return "发起人自选"
-            } else {
-                if (nodeConfig.nodeUserList.length > 0) {
-                    if (nodeConfig.selectRange == 2) {
-                        return "发起人自选"
-                    } else {
-                        return '发起人从' + nodeConfig.nodeUserList[0].name + '中自选'
-                    }
-                } else {
-                    return "";
-                }
+        }else if (nodeConfig.setType == 3) {
+            if (nodeConfig.nodeApproveList.length > 0) {
+                return  "指定 (" + this.arrToStr(nodeConfig.nodeApproveList) + ") 角色"
             }
-        } else if (nodeConfig.settype == 5) {
+            return ""
+        } else if (nodeConfig.setType == 4) {
+            return "指定部门"
+        } else if (nodeConfig.setType == 5) {
             return "发起人自己"
-        } else if (nodeConfig.settype == 7) {
-            return '从直接主管到通讯录中级别最高的第' + nodeConfig.examineEndDirectorLevel + '个层级主管'
-        }
+        }  
     },
     dealStr(str, obj) {
         let arr = [];
@@ -109,7 +100,7 @@ All.prototype = {
         return arr.join("或")
     },  
     conditionStr(nodeConfig, index) {
-        var { conditionList, nodeUserList } = nodeConfig.conditionNodes[index];
+        var { conditionList, nodeApproveList } = nodeConfig.conditionNodes[index];
         if (conditionList.length == 0) {
             return (index == nodeConfig.conditionNodes.length - 1) && nodeConfig.conditionNodes[0].conditionList.length != 0 ? '其他条件进入此流程' : '请设置条件'
         } else {
@@ -117,9 +108,9 @@ All.prototype = {
             for (var i = 0; i < conditionList.length; i++) {
                 var { columnId, columnType, showType, showName, optType, zdy1, opt1, zdy2, opt2, fixedDownBoxValue } = conditionList[i];
                 if (columnId == 0) {
-                    if (nodeUserList.length != 0) {
+                    if (nodeApproveList.length != 0) {
                         str += '发起人属于：'
-                        str += nodeUserList.map(item => { return item.name }).join("或") + " 并且 "
+                        str += nodeApproveList.map(item => { return item.name }).join("或") + " 并且 "
                     }
                 }
                 if (columnType == "String" && showType == "3") {
@@ -140,8 +131,8 @@ All.prototype = {
         }
     },
     copyerStr(nodeConfig) {
-        if (nodeConfig.nodeUserList.length != 0) {
-            return this.arrToStr(nodeConfig.nodeUserList)
+        if (nodeConfig.nodeApproveList.length != 0) {
+            return this.arrToStr(nodeConfig.nodeApproveList)
         } else {
             if (nodeConfig.ccSelfSelectFlag == 1) {
                 return "发起人自选"
@@ -155,3 +146,4 @@ All.prototype = {
 }
 
 export default new All();
+

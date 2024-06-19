@@ -41,13 +41,16 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { getWorkFlowData, setWorkFlowData } from '@/api/index';
+import { getWorkFlowData, setWorkFlowData,getMockWorkFlowData } from '@/api/index';
+import { getApiWorkFlowData, setApiWorkFlowData } from '@/api/jdCloudApi';
 import { useStore } from '@/stores/index'
 import errorDialog from "@/components/dialog/errorDialog.vue";
 import promoterDrawer from "@/components/drawer/promoterDrawer.vue";
 import approverDrawer from "@/components/drawer/approverDrawer.vue";
 import copyerDrawer from "@/components/drawer/copyerDrawer.vue";
 import conditionDrawer from "@/components/drawer/conditionDrawer.vue";
+import { FormatUtils } from '@/utils/formatcommit_data'
+import { FormatDisplayUtils } from '@/utils/formatdisplay_data'
 let { setTableId, setIsTried } = useStore()
 
 let tipList = ref([]);
@@ -60,7 +63,18 @@ let flowPermission = ref([]);
 let directorMaxLevel = ref(0);
 onMounted(async () => {
   let route = useRoute()
-  let { data } = await getWorkFlowData({ workFlowDefId: route.query.workFlowDefId })
+  //let { data } = await getWorkFlowData({ workFlowDefId: route.query.workFlowDefId });
+
+  let mockjson = {}; 
+  if (route.query.id) {
+    mockjson = await getApiWorkFlowData({ id: route.query.id });
+  } else {
+    mockjson = await getMockWorkFlowData({ id: 0 });
+  }
+  let data = FormatDisplayUtils.getToTree(mockjson.data);
+
+  // console.log("old===data==", JSON.stringify(data));
+  
   processConfig.value = data;
   let {
     nodeConfig: nodes,
@@ -69,10 +83,11 @@ onMounted(async () => {
     workFlowDef: works,
     tableId,
   } = data;
+  
   nodeConfig.value = nodes;
   flowPermission.value = flows;
   directorMaxLevel.value = directors;
-  workFlowDef.value = works;
+  workFlowDef.value = works;  
   setTableId(tableId);
 });
 const toReturn = () => {
@@ -80,18 +95,11 @@ const toReturn = () => {
 };
 const reErr = ({ childNode }) => {
   if (childNode) {
-    let { type, error, nodeName, conditionNodes } = childNode;
-    if (type == 1 || type == 2) {
-      if (error) {
-        tipList.value.push({
-          name: nodeName,
-          type: ["", "审核人", "抄送人"][type],
-        });
-      }
+    let { nodeType, error, nodeName, conditionNodes } = childNode; 
+    if (nodeType == 1) {
       reErr(childNode);
-    } else if (type == 3) {
-      reErr(childNode);
-    } else if (type == 4) {
+    }   
+    else if (nodeType == 2) {
       reErr(childNode);
       for (var i = 0; i < conditionNodes.length; i++) {
         if (conditionNodes[i].error) {
@@ -99,6 +107,18 @@ const reErr = ({ childNode }) => {
         }
         reErr(conditionNodes[i]);
       }
+    }
+    else if (nodeType == 3) { 
+      reErr(childNode);
+    }
+    else if (nodeType == 4 || nodeType == 5) {
+      if (error) {
+        tipList.value.push({
+          name: nodeName,
+          nodeType: nodeTypeList[nodeType],
+        });
+      }      
+      reErr(childNode);
     }
   } else {
     childNode = null;
@@ -113,10 +133,21 @@ const saveSet = async () => {
     return;
   }
   processConfig.value.flowPermission = flowPermission.value;
-  // eslint-disable-next-line no-console
-  console.log(JSON.stringify(processConfig.value));
+
+  // eslint-disable-next-line no-console 
+  // console.log("old===processConfig==", JSON.stringify(processConfig.value));
+
   ElMessage.success("设置成功,F12控制台查看数据");
  
+  let submitData =JSON.parse(JSON.stringify(processConfig.value));
+  var resultData = FormatUtils.formatSettings(submitData);
+
+  let resJson = await getApiWorkFlowData(resultData);  
+
+  console.log("new===resJson==", JSON.stringify(resJson));
+
+  console.log("new===processConfig==", JSON.stringify(resultData));
+
   // let res = await setWorkFlowData(processConfig.value);
   // if (res.code == 200) {
   //   ElMessage.success("设置成功")
@@ -127,7 +158,7 @@ const saveSet = async () => {
   
 };
 const zoomSize = (type) => {
-  if (type == 1) {
+  if (type == 1) {  
     if (nowVal.value == 50) {
       return;
     }

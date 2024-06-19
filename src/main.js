@@ -2,7 +2,7 @@
  * @Date:  2024-05-25 11:58:11
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:19:57
- * @FilePath: /ant-flow/src/main.js
+ * @FilePath: /zto-flow/src/main.js
  */
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

@@ -1,0 +1,157 @@
+{
+    "code": "200",
+    "msg": "success",
+    "data": {
+        "bpmnCode": "SFZHSQ-00011",
+        "bpmnName": "合同审批",
+        "bpmnType": null,
+        "formCode": "PROJECT_WMA",
+        "appId": null,
+        "deduplicationType": 2,
+        "effectiveStatus": 1,
+        "remark": "合同审批",
+        "isDel": 0,
+        "nodes": [
+            {
+                "nodeId": "h8wod4",
+                "nodeName": "审核人",
+                "nodeType": 4,
+                "nodeFrom": "Qhtod4",
+                "prevId": [],
+                "nodeTo": [],
+                "setType": 1,
+                "directorLevel": 1,
+                "signType": 1,
+                "noHeaderAction": 1,
+                "error": false,
+                "property": {
+                    "emplIds": [
+                        "14"
+                    ],
+                    "signType": 1
+                },
+                "nodeProperty": 5
+            },
+            {
+                "nodeId": "Qhtod4",
+                "nodeName": "条件1",
+                "nodeDisplayName": "账户类型属于：腾讯云",
+                "nodeType": 3,
+                "nodeFrom": "6ltod4",
+                "prevId": [],
+                "nodeTo": [
+                    "h8wod4"
+                ],
+                "priorityLevel": 1,
+                "nodeApproveList": [],
+                "error": false,
+                "isDefault": 0,
+                "property": {
+                    "conditionsConf": {
+                        "conditionParamTypes": [
+                            "1094"
+                        ],
+                        "accountType": [
+                            "1"
+                        ],
+                        "accountTypeList": [
+                            {
+                                "id": 1,
+                                "name": "百度云"
+                            },
+                            {
+                                "id": 2,
+                                "name": "腾讯云"
+                            },
+                            {
+                                "id": 3,
+                                "name": "阿里云"
+                            }
+                        ],
+                        "sort": 1,
+                        "isDefault": 0
+                    },
+                    "functionId": null,
+                    "functionName": null,
+                    "afterSignUpWay": null,
+                    "signUpType": null,
+                    "nodeMark": null
+                }
+            },
+            {
+                "nodeId": "nftod4",
+                "nodeName": "条件2",
+                "nodeDisplayName": "其他条件进入此流程",
+                "nodeType": 3,
+                "nodeFrom": "6ltod4",
+                "prevId": [],
+                "nodeTo": [],
+                "priorityLevel": 2,
+                "nodeApproveList": [],
+                "isDefault": 1,
+                "error": false,
+                "property": {
+                    "conditionsConf": {
+                        "conditionParamTypes": [],
+                        "accountType": [],
+                        "accountTypeList": [
+                            {
+                                "id": 1,
+                                "name": "百度云"
+                            },
+                            {
+                                "id": 2,
+                                "name": "腾讯云"
+                            },
+                            {
+                                "id": 3,
+                                "name": "阿里云"
+                            }
+                        ],
+                        "sort": 2,
+                        "isDefault": 1
+                    },
+                    "functionId": null,
+                    "functionName": null,
+                    "afterSignUpWay": null,
+                    "signUpType": null,
+                    "nodeMark": null
+                }
+            },
+            {
+                "nodeId": "6ltod4",
+                "nodeName": "路由",
+                "nodeType": 2,
+                "nodeFrom": "Gb2",
+                "prevId": [],
+                "nodeTo": [
+                    "Qhtod4",
+                    "nftod4"
+                ],
+                "error": true,
+                "property": null
+            },
+            {
+                "nodeId": "Gb2",
+                "nodeName": "发起人",
+                "nodeDisplayName": "发起人",
+                "nodeType": 1,
+                "nodeFrom": "",
+                "prevId": [],
+                "nodeTo": [
+                    "6ltod4"
+                ],
+                "priorityLevel": 1,
+                "setType": 1,
+                "directorLevel": 1,
+                "signType": 1,
+                "noHeaderAction": 0,
+                "ccSelfSelectFlag": 1,
+                "property": null,
+                "conditionList": [],
+                "nodeApproveList": [],
+                "conditionNodes": []
+            }
+        ]
+    }
+}

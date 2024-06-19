@@ -2,7 +2,7 @@
  * @Date: 2023-03-15 14:44:17
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:20:48
- * @FilePath: /ant-flow/src/components/drawer/conditionDrawer.vue
+ * @FilePath: /zto-flow/src/components/drawer/conditionDrawer.vue
 -->
 
 <template>
@@ -20,11 +20,11 @@
                     <li v-for="(item,index) in conditionConfig.conditionList" :key="index">
                         <span class="ellipsis">{{item.type==1 ? '发起人':item.showName}}：</span>
                         <div v-if="item.type==1">
-                            <p :class="conditionConfig.nodeUserList.length > 0?'selected_list':''" @click.self="addConditionRole" style="cursor:text">
-                                <span v-for="(item1,index1) in conditionConfig.nodeUserList" :key="index1">
-                                    {{item1.name}}<img src="@/assets/images/add-close1.png" @click="$func.removeEle(conditionConfig.nodeUserList,item1,'targetId')">
+                            <p :class="conditionConfig.nodeApproveList.length > 0?'selected_list':''" @click.self="addConditionRole" style="cursor:text">
+                                <span v-for="(item1,index1) in conditionConfig.nodeApproveList" :key="index1">
+                                    {{item1.name}}<img src="@/assets/images/add-close1.png" @click="$func.removeEle(conditionConfig.nodeApproveList,item1,'targetId')">
                                 </span>
-                                <input type="text" placeholder="请选择具体人员/角色/部门" v-if="conditionConfig.nodeUserList.length == 0" @click="addConditionRole">
+                                <input type="text" placeholder="请选择具体人员/角色/部门" v-if="conditionConfig.nodeApproveList.length == 0" @click="addConditionRole">
                             </p>
                         </div>
                         <div v-else-if="item.columnType == 'String' && item.showType == 3">
@@ -52,7 +52,7 @@
                                 <input type="text" style="width:75px;" v-enter-number="2" v-model="item.zdy2">
                             </p>
                         </div>
-                        <a v-if="item.type==1" @click="conditionConfig.nodeUserList= [];$func.removeEle(conditionConfig.conditionList,item,'columnId')">删除</a>
+                        <a v-if="item.type==1" @click="conditionConfig.nodeApproveList= [];$func.removeEle(conditionConfig.conditionList,item,'columnId')">删除</a>
                         <a v-if="item.type==2" @click="$func.removeEle(conditionConfig.conditionList,item,'columnId')">删除</a>
                     </li>
                 </ul>
@@ -120,7 +120,7 @@ watch(conditionsConfig1, (val) => {
     PriorityLevel.value = val.priorityLevel
     conditionConfig.value = val.priorityLevel
         ? conditionsConfig.value.conditionNodes[val.priorityLevel - 1]
-        : { nodeUserList: [], conditionList: [] }
+        : { nodeApproveList: [], conditionList: [] }
 })
 
 const changeOptType = (item) => {
@@ -177,7 +177,7 @@ const sureCondition = () => {
             continue;
         }
         if (columnId == 0) {
-            conditionConfig.value.nodeUserList = [];
+            conditionConfig.value.nodeApproveList = [];
             conditionConfig.value.conditionList.push({
                 "type": 1,
                 "columnId": columnId,
@@ -230,6 +230,7 @@ const saveCondition = () => {
     });
     for (var i = 0; i < conditionsConfig.value.conditionNodes.length; i++) {
         conditionsConfig.value.conditionNodes[i].error = $func.conditionStr(conditionsConfig.value, i) == "请设置条件" && i != conditionsConfig.value.conditionNodes.length - 1
+        conditionsConfig.value.conditionNodes[i].nodeDisplayName =  $func.conditionStr(conditionsConfig.value, i);
     }
     setConditionsConfig({
         value: conditionsConfig.value,
@@ -239,10 +240,10 @@ const saveCondition = () => {
 }
 const addConditionRole = () => {
     conditionRoleVisible.value = true;
-    checkedList.value = conditionConfig.value.nodeUserList
+    checkedList.value = conditionConfig.value.nodeApproveList
 }
 const sureConditionRole = (data) => {
-    conditionConfig.value.nodeUserList = data;
+    conditionConfig.value.nodeApproveList = data;
     conditionRoleVisible.value = false;
 }
 const closeDrawer = (val) => {

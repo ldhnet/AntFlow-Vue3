@@ -2,7 +2,7 @@
  * @Date:  2024-05-25 14:06:59
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-03-29 15:52:57
- * @FilePath: /ant-flow/src/api/index.js
+ * @FilePath: /zto-flow/src/api/index.js
  */
 
 import http from '@/utils/axios'
@@ -58,4 +58,14 @@ export function getWorkFlowData(data) {
  */
 export function setWorkFlowData(data) {
   return http.post(`${baseUrl}`, data)
+}
+
+
+/**
+ * 获取审批mock数据
+ * @param {*} data 
+ * @returns 
+ */
+export function getMockWorkFlowData(data) {
+  return http.get(`${baseUrl}datashow.json`, { params: data })
 }

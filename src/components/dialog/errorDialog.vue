@@ -2,7 +2,7 @@
  * @Date:  2024-05-25 14:05:59
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-03-29 16:05:54
- * @FilePath: /ant-flow/src/components/dialog/errorDialog.vue
+ * @FilePath: /zto-flow/src/components/dialog/errorDialog.vue
 -->
 <template>
   <el-dialog title="提示" v-model="visibleDialog" :width="520">
@@ -15,7 +15,7 @@
           <div class="error-modal-list">
             <div class="error-modal-item" v-for="(item,index) in list" :key="index">
               <div class="error-modal-item-label">流程设计</div>
-              <div class="error-modal-item-content">{{item.name}} 未选择{{item.type}}</div>
+              <div class="error-modal-item-content">{{item.nodeName}} 未选择{{item.nodeType}}</div>
             </div>
           </div>
         </div>

@@ -2,15 +2,15 @@
  * @Date: 2022-09-21 14:41:53
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:20:24
- * @FilePath: /ant-flow/src/components/nodeWrap.vue
+ * @FilePath: /zto-flow/src/components/nodeWrap.vue
 -->
 <template>
-  <div class="node-wrap" v-if="nodeConfig.type < 3">
-    <div class="node-wrap-box" :class="(nodeConfig.type == 0 ? 'start-node ' : '') +(isTried && nodeConfig.error ? 'active error' : '')">
-        <div class="title" :style="`background: rgb(${bgColors[nodeConfig.type]});`">
-          <span v-if="nodeConfig.type == 0">{{ nodeConfig.nodeName }}</span>
+  <div class="node-wrap" v-if="nodeConfig.nodeType != 2">
+    <div class="node-wrap-box" :class="(nodeConfig.nodeType == 1 ? 'start-node ' : '') +(isTried && nodeConfig.error ? 'active error' : '')">
+        <div class="title" :style="`background: rgb(${bgColors[nodeConfig.nodeType]});`">
+          <span v-if="nodeConfig.nodeType == 1">{{ nodeConfig.nodeName }}</span>
           <template v-else>
-            <span class="iconfont">{{nodeConfig.type == 1?'':''}}</span>
+            <span class="iconfont">{{nodeConfig.nodeType == 4?'':''}}</span>
             <input
               v-if="isInput"
               type="text"
@@ -38,7 +38,7 @@
     </div>
     <addNode v-model:childNodeP="nodeConfig.childNode" />
   </div>
-  <div class="branch-wrap" v-if="nodeConfig.type == 4">
+  <div class="branch-wrap" v-if="nodeConfig.nodeType == 2">
     <div class="branch-box-wrap">
       <div class="branch-box">
         <button class="add-branch" @click="addTerm">添加条件</button>
@@ -91,6 +91,7 @@ import { onMounted, ref, watch, getCurrentInstance, computed } from "vue";
 import $func from "@/utils/index";
 import { useStore } from '@/stores/index'
 import { bgColors, placeholderList } from '@/utils/const'
+import { NodeUtils } from '@/utils/nodeUtils'
 let _uid = getCurrentInstance().uid;
 
 let props = defineProps({
@@ -103,29 +104,40 @@ let props = defineProps({
         default: () => [],
     },
 });
+//console.log("props==========", JSON.stringify(props)); 
 
 let defaultText = computed(() => {
-    return placeholderList[props.nodeConfig.type]
+    return placeholderList[props.nodeConfig.nodeType]
 });
 let showText = computed(() => {
-    if (props.nodeConfig.type == 0) return $func.arrToStr(props.flowPermission) || '所有人'
-    if (props.nodeConfig.type == 1) return $func.setApproverStr(props.nodeConfig)
-    return $func.copyerStr(props.nodeConfig)
+    if (props.nodeConfig.nodeType == 1) return $func.arrToStr(props.flowPermission) || '所有人';
+    if (props.nodeConfig.nodeType == 4) return $func.setApproverStr(props.nodeConfig);
+    if (props.nodeConfig.nodeType == 5) return $func.copyerStr(props.nodeConfig);
 });
+
+props.nodeConfig.nodeDisplayName = showText;
 
 let isInputList = ref([]);
 let isInput = ref(false);
 const resetConditionNodesErr = () => {
     for (var i = 0; i < props.nodeConfig.conditionNodes.length; i++) {
-        props.nodeConfig.conditionNodes[i].error = $func.conditionStr(props.nodeConfig, i) == "请设置条件" && i != props.nodeConfig.conditionNodes.length - 1;
+        props.nodeConfig.conditionNodes[i].error = $func.conditionStr(props.nodeConfig, i) == "请设置条件" && i != props.nodeConfig.conditionNodes.length - 1; 
+        props.nodeConfig.conditionNodes[i].isDefault = 0;
+        props.nodeConfig.conditionNodes[i].nodeDisplayName =  $func.conditionStr(props.nodeConfig, i);
+    }
+    let maxLen = props.nodeConfig.conditionNodes.length-1;
+    let node = props.nodeConfig.conditionNodes[maxLen];
+    if(node && node.conditionList.length <= 0){
+        node.isDefault = 1;
+        node.error = false;
     }
 }
 onMounted(() => {
-    if (props.nodeConfig.type == 1) {
+    if (props.nodeConfig.nodeType == 4) {
         props.nodeConfig.error = !$func.setApproverStr(props.nodeConfig);
-    } else if (props.nodeConfig.type == 2) {
+    } else if (props.nodeConfig.nodeType == 5) {
         props.nodeConfig.error = !$func.copyerStr(props.nodeConfig);
-    } else if (props.nodeConfig.type == 4) {
+    } else if (props.nodeConfig.nodeType == 2) {
         resetConditionNodesErr()
     }
 });
@@ -146,12 +158,13 @@ let flowPermission1 = computed(()=> store.flowPermission1)
 let approverConfig1 = computed(()=> store.approverConfig1)
 let copyerConfig1 = computed(()=> store.copyerConfig1)
 let conditionsConfig1 = computed(()=> store.conditionsConfig1)
+ 
 watch(flowPermission1, (flow) => {
     if (flow.flag && flow.id === _uid) {
         emits("update:flowPermission", flow.value);
     }
 });
-watch(approverConfig1, (approver) => {
+watch(approverConfig1, (approver) => { 
     if (approver.flag && approver.id === _uid) {
         emits("update:nodeConfig", approver.value);
     }
@@ -189,12 +202,18 @@ const delNode = () => {
 const addTerm = () => {
     let len = props.nodeConfig.conditionNodes.length + 1;
     props.nodeConfig.conditionNodes.push({
+        nodeId: NodeUtils.idGenerator(),
         nodeName: "条件" + len,
-        type: 3,
+        nodeType: 3,
+        nodeFrom: "", 
+        prevId: [],
+        nodeTo: [],
         priorityLevel: len,
         conditionList: [],
-        nodeUserList: [],
+        nodeApproveList: [],
         childNode: null,
+        isDefault: 0,
+        error: true
     });
     resetConditionNodesErr()
     emits("update:nodeConfig", props.nodeConfig);
@@ -226,25 +245,25 @@ const reData = (data, addData) => {
     }
 };
 const setPerson = (priorityLevel) => {
-    var { type } = props.nodeConfig;
-    if (type == 0) {
+    var { nodeType } = props.nodeConfig;
+    if (nodeType == 1) {
         setPromoter(true);
         setFlowPermission({
             value: props.flowPermission,
             flag: false,
             id: _uid,
         });
-    } else if (type == 1) {
+    } else if (nodeType == 4) {
         setApprover(true);
         setApproverConfig({
             value: {
                 ...JSON.parse(JSON.stringify(props.nodeConfig)),
-                ...{ settype: props.nodeConfig.settype ? props.nodeConfig.settype : 1 },
+                ...{ setType: props.nodeConfig.setType ? props.nodeConfig.setType : 1 },
             },
             flag: false,
             id: _uid,
         });
-    } else if (type == 2) {
+    } else if (nodeType == 5) {
         setCopyer(true);
         setCopyerConfig({
             value: JSON.parse(JSON.stringify(props.nodeConfig)),
