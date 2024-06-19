@@ -141,8 +141,10 @@ export class FormatUtils {
      * @returns 
      */
     static formatStructNodeList(nodeList) {
-
         for (let node of nodeList) {
+            if (node.hasOwnProperty('id')) { 
+                delete node.id;
+            }
             if (node.nodeType == 3) {
                 let conditionObj = {
                     conditionsConf: {
