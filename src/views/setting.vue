@@ -20,7 +20,7 @@
           <span>{{ nowVal }}%</span>
           <div class="zoom-in" :class="nowVal == 300 && 'disabled'" @click="zoomSize(2)"></div>
         </div>
-        <div class="box-scale" :style="`transform: scale(${ nowVal / 100});`">
+        <div class="box-scale" :style="`transform: scale(${nowVal / 100});`">
           <nodeWrap v-model:nodeConfig="nodeConfig" v-model:flowPermission="flowPermission" />
           <div class="end-node">
             <div class="end-node-circle"></div>
@@ -41,7 +41,7 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { getWorkFlowData, setWorkFlowData,getMockWorkFlowData } from '@/api/index';
+import { getWorkFlowData, setWorkFlowData, getMockWorkFlowData } from '@/api/index';
 import { getApiWorkFlowData, setApiWorkFlowData } from '@/api/jdCloudApi';
 import { useStore } from '@/stores/index'
 import errorDialog from "@/components/dialog/errorDialog.vue";
@@ -63,18 +63,17 @@ let flowPermission = ref([]);
 let directorMaxLevel = ref(0);
 onMounted(async () => {
   let route = useRoute()
-  //let { data } = await getWorkFlowData({ workFlowDefId: route.query.workFlowDefId });
-
-  let mockjson = {}; 
+  //let { data } = await getWorkFlowData({ workFlowDefId: route.query.workFlowDefId }); 
+  let mockjson = {};
   if (route.query.id) {
     mockjson = await getApiWorkFlowData({ id: route.query.id });
   } else {
     mockjson = await getMockWorkFlowData({ id: 0 });
   }
-  console.log("old===mockjson======", JSON.stringify(mockjson));
+  //console.log("old===mockjson======", JSON.stringify(mockjson));
 
-  let data = FormatDisplayUtils.getToTree(mockjson.data); 
-  
+  let data = FormatDisplayUtils.getToTree(mockjson.data);
+
   processConfig.value = data;
   let {
     nodeConfig: nodes,
@@ -83,11 +82,11 @@ onMounted(async () => {
     workFlowDef: works,
     tableId,
   } = data;
-  
+
   nodeConfig.value = nodes;
   flowPermission.value = flows;
   directorMaxLevel.value = directors;
-  workFlowDef.value = works;  
+  workFlowDef.value = works;
   setTableId(tableId);
 });
 const toReturn = () => {
@@ -95,10 +94,10 @@ const toReturn = () => {
 };
 const reErr = ({ childNode }) => {
   if (childNode) {
-    let { nodeType, error, nodeName, conditionNodes } = childNode; 
+    let { nodeType, error, nodeName, conditionNodes } = childNode;
     if (nodeType == 1) {
       reErr(childNode);
-    }   
+    }
     else if (nodeType == 2) {
       reErr(childNode);
       for (var i = 0; i < conditionNodes.length; i++) {
@@ -108,7 +107,7 @@ const reErr = ({ childNode }) => {
         reErr(conditionNodes[i]);
       }
     }
-    else if (nodeType == 3) { 
+    else if (nodeType == 3) {
       reErr(childNode);
     }
     else if (nodeType == 4 || nodeType == 5) {
@@ -117,7 +116,7 @@ const reErr = ({ childNode }) => {
           name: nodeName,
           nodeType: nodeTypeList[nodeType],
         });
-      }      
+      }
       reErr(childNode);
     }
   } else {
@@ -133,21 +132,19 @@ const saveSet = async () => {
     return;
   }
   processConfig.value.flowPermission = flowPermission.value;
-
   // eslint-disable-next-line no-console 
   // console.log("old===processConfig==", JSON.stringify(processConfig.value));
-
   ElMessage.success("设置成功,F12控制台查看数据");
- 
-  let submitData =JSON.parse(JSON.stringify(processConfig.value));
+
+  let submitData = JSON.parse(JSON.stringify(processConfig.value));
   var resultData = FormatUtils.formatSettings(submitData);
 
-  let resJson = await setApiWorkFlowData(resultData);  
-
-  console.log("new===resJson==", JSON.stringify(resJson));
-
-  console.log("new===processConfig==", JSON.stringify(resultData));
-
+  let res = await setApiWorkFlowData(resultData);
+ if (res.code == 200) { 
+    console.log("设置成功"); 
+  }else {
+    console.log("设置失败=",JSON.stringify(res));
+  } 
   // let res = await setWorkFlowData(processConfig.value);
   // if (res.code == 200) {
   //   ElMessage.success("设置成功")
@@ -155,10 +152,10 @@ const saveSet = async () => {
   //     window.location.href = "";
   //   }, 200);
   // }
-  
+
 };
 const zoomSize = (type) => {
-  if (type == 1) {  
+  if (type == 1) {
     if (nowVal.value == 50) {
       return;
     }
@@ -173,6 +170,7 @@ const zoomSize = (type) => {
 </script>
 <style>
 @import "../css/workflow.css";
+
 .error-modal-list {
   width: 455px;
 }

@@ -10,13 +10,11 @@ export class FormatUtils {
      */
     static formatSettings(param) {
         let treeList = this.flattenMapTreeToList(param.nodeConfig);
-
         let combinationList = this.getEndpointNodeId(treeList);
-
         let finalList = this.cleanNodeList(combinationList);
+        console.log('finalList======新节点数组========', JSON.stringify(finalList));
+        let fomatList = this.adapterActivitiNodeList(finalList);
 
-        let fomatList = this.formatStructNodeList(finalList);
- 
         let finalObj = {
             bpmnCode: "SFZHSQ-00011",
             bpmnName: "合同审批", //name 改成 bpmnName 其他的都是添加的
@@ -140,9 +138,9 @@ export class FormatUtils {
      * @param {Array} nodeList 
      * @returns 
      */
-    static formatStructNodeList(nodeList) {
+    static adapterActivitiNodeList(nodeList) {
         for (let node of nodeList) {
-            if (node.hasOwnProperty('id')) { 
+            if (node.hasOwnProperty('id')) {
                 delete node.id;
             }
             if (node.nodeType == 3) {
@@ -166,19 +164,7 @@ export class FormatUtils {
                         conditionObj.conditionsConf.conditionParamTypes.push(condition.columnId);
                         if (!isEmpty(condition.zdy1)) {
                             conditionObj.conditionsConf.accountType = condition.zdy1.split(',');
-                            conditionObj.conditionsConf.accountTypeList = [
-                                {
-                                    "id": 1,
-                                    "name": "百度云"
-                                },
-                                {
-                                    "id": 2,
-                                    "name": "腾讯云"
-                                },
-                                {
-                                    "id": 3,
-                                    "name": "阿里云"
-                                }];
+                            conditionObj.conditionsConf.accountTypeList = [];
                         }
                     }
                 }
