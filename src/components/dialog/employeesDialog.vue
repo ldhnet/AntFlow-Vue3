@@ -4,7 +4,7 @@
           <div class="person_tree l">
               <input type="text" placeholder="搜索成员" v-model="searchVal" @input="getDebounceData($event)">
               <p class="ellipsis tree_nav" v-if="!searchVal">
-                  <span @click="getDepartmentList(0)" class="ellipsis">天下</span>
+                  <!-- <span @click="getDepartmentList(0)" class="ellipsis">天下</span> -->
                   <span v-for="(item,index) in departments.titleDepartments" class="ellipsis" 
                   :key="index+'a'" @click="getDepartmentList(item.id)">{{item.departmentName}}</span>   
               </p>

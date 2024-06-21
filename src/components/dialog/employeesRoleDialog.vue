@@ -8,7 +8,7 @@
                   <el-tab-pane label="角色列表" name="2"></el-tab-pane>
               </el-tabs>
               <p class="ellipsis tree_nav" v-if="activeName === '1' && !searchVal">
-                  <span @click="getDepartmentList(0)" class="ellipsis">天下</span>
+                  <!-- <span @click="getDepartmentList(0)" class="ellipsis">天下</span> -->
                   <span v-for="(item,index) in departments.titleDepartments" class="ellipsis" 
                   :key="index+'a'" @click="getDepartmentList(item.id)">{{item.departmentName}}</span>   
               </p>

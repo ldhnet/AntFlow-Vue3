@@ -141,9 +141,9 @@ const saveSet = async () => {
 
   let res = await setApiWorkFlowData(resultData);
  if (res.code == 200) { 
-    console.log("设置成功"); 
+    console.log("提交到API返回成功"); 
   }else {
-    console.log("设置失败=",JSON.stringify(res));
+    console.log("提交到API返回失败=",JSON.stringify(res));
   } 
   // let res = await setWorkFlowData(processConfig.value);
   // if (res.code == 200) {
