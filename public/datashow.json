@@ -5,7 +5,7 @@
         "bpmnCode": "SFZHSQ-00011",
         "bpmnName": "合同审批",
         "bpmnType": null,
-        "formCode": "PROJECT_WMA",
+        "formCode": "PROJECT_QGkYu4",
         "appId": null,
         "deduplicationType": 2,
         "effectiveStatus": 1,
@@ -13,10 +13,10 @@
         "isDel": 0,
         "nodes": [
             {
-                "nodeId": "h8wod4",
+                "nodeId": "YviYu4",
                 "nodeName": "审核人",
                 "nodeType": 4,
-                "nodeFrom": "Qhtod4",
+                "nodeFrom": "IhgYu4",
                 "prevId": [],
                 "nodeTo": [],
                 "setType": 1,
@@ -26,64 +26,52 @@
                 "error": false,
                 "property": {
                     "emplIds": [
-                        "14"
+                        14
                     ],
                     "signType": 1
                 },
                 "nodeProperty": 5
             },
             {
-                "nodeId": "Qhtod4",
+                "nodeId": "IhgYu4",
                 "nodeName": "条件1",
-                "nodeDisplayName": "腾讯云",
+                "nodeDisplayName": "园区面积 < 2000",
                 "nodeType": 3,
-                "nodeFrom": "6ltod4",
+                "nodeFrom": "UcgYu4",
                 "prevId": [],
                 "nodeTo": [
-                    "h8wod4"
+                    "YviYu4"
                 ],
                 "priorityLevel": 1,
                 "nodeApproveList": [],
                 "error": false,
                 "isDefault": 0,
                 "property": {
-                    "conditionsConf": {
-                        "conditionParamTypes": [
-                            "1094"
-                        ],
-                        "accountType": [
-                            "1"
-                        ],
-                        "accountTypeList": [
-                            {
-                                "id": 1,
-                                "name": "百度云"
-                            },
-                            {
-                                "id": 2,
-                                "name": "腾讯云"
-                            },
-                            {
-                                "id": 3,
-                                "name": "阿里云"
-                            }
-                        ],
-                        "sort": 1,
-                        "isDefault": 0
-                    },
-                    "functionId": null,
-                    "functionName": null,
-                    "afterSignUpWay": null,
-                    "signUpType": null,
-                    "nodeMark": null
+                    "conditionList": [
+                        {
+                            "showType": "1",
+                            "columnId": "3",
+                            "type": 2,
+                            "showName": "园区面积",
+                            "optType": "1",
+                            "zdy1": "2000",
+                            "opt1": "<",
+                            "zdy2": "",
+                            "opt2": "<",
+                            "columnDbname": "parkArea",
+                            "columnType": "Double"
+                        }
+                    ],
+                    "sort": 1,
+                    "isDefault": 0
                 }
             },
             {
-                "nodeId": "nftod4",
+                "nodeId": "TkgYu4",
                 "nodeName": "条件2",
                 "nodeDisplayName": "其他条件进入此流程",
                 "nodeType": 3,
-                "nodeFrom": "6ltod4",
+                "nodeFrom": "UcgYu4",
                 "prevId": [],
                 "nodeTo": [],
                 "priorityLevel": 2,
@@ -91,65 +79,58 @@
                 "isDefault": 1,
                 "error": false,
                 "property": {
-                    "conditionsConf": {
-                        "conditionParamTypes": [],
-                        "accountType": [],
-                        "accountTypeList": [
-                            {
-                                "id": 1,
-                                "name": "百度云"
-                            },
-                            {
-                                "id": 2,
-                                "name": "腾讯云"
-                            },
-                            {
-                                "id": 3,
-                                "name": "阿里云"
-                            }
-                        ],
-                        "sort": 2,
-                        "isDefault": 1
-                    },
-                    "functionId": null,
-                    "functionName": null,
-                    "afterSignUpWay": null,
-                    "signUpType": null,
-                    "nodeMark": null
+                    "conditionList": [],
+                    "sort": 2,
+                    "isDefault": 1
                 }
             },
             {
-                "nodeId": "6ltod4",
+                "nodeId": "UcgYu4",
                 "nodeName": "路由",
                 "nodeType": 2,
                 "nodeFrom": "Gb2",
                 "prevId": [],
                 "nodeTo": [
-                    "Qhtod4",
-                    "nftod4"
+                    "IhgYu4",
+                    "TkgYu4"
                 ],
                 "error": true,
                 "property": null
             },
             {
+                "confId": 35,
                 "nodeId": "Gb2",
+                "nodeType": 1,
+                "nodeProperty": 1,
+                "nodePropertyName": null,
+                "nodeFrom": "",
+                "nodeFroms": null,
+                "prevId": [],
+                "batchStatus": 0,
+                "approvalStandard": 2,
                 "nodeName": "发起人",
                 "nodeDisplayName": "发起人",
-                "nodeType": 1,
-                "nodeFrom": "",
-                "prevId": [],
+                "annotation": null,
+                "isDeduplication": 0,
+                "isSignUp": 0,
+                "orderedNodeType": null,
+                "remark": "",
+                "isDel": 0,
                 "nodeTo": [
-                    "6ltod4"
+                    "UcgYu4"
                 ],
-                "priorityLevel": 1,
-                "setType": 1,
-                "directorLevel": 1,
-                "signType": 1,
-                "noHeaderAction": 0,
-                "ccSelfSelectFlag": 1,
                 "property": null,
-                "conditionList": [],
-                "nodeApproveList": [],
+                "params": null,
+                "buttons": {
+                    "startPage": [],
+                    "approvalPage": [
+                        2
+                    ],
+                    "viewPage": null
+                },
+                "templateVos": null,
+                "approveRemindVo": null,
+                "formCode": "PROJECT_uoSXu4",
                 "conditionNodes": []
             }
         ]

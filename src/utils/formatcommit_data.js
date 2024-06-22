@@ -11,8 +11,7 @@ export class FormatUtils {
     static formatSettings(param) {
         let treeList = this.flattenMapTreeToList(param.nodeConfig);
         let combinationList = this.getEndpointNodeId(treeList);
-        let finalList = this.cleanNodeList(combinationList);
-        console.log('finalList======新节点数组========', JSON.stringify(finalList));
+        let finalList = this.cleanNodeList(combinationList); 
         let fomatList = this.adapterActivitiNodeList(finalList);
 
         let finalObj = {
@@ -142,32 +141,13 @@ export class FormatUtils {
         for (let node of nodeList) {
             if (node.hasOwnProperty('id')) {
                 delete node.id;
-            }
+            }  
             if (node.nodeType == 3) {
                 let conditionObj = {
-                    conditionsConf: {
-                        conditionParamTypes: [],
-                        accountType: [],
-                        accountTypeList: [],
-                        sort: node.priorityLevel,
-                        isDefault: node.isDefault,
-                    },
-                    functionId: null,
-                    functionName: null,
-                    afterSignUpWay: null,
-                    signUpType: null,
-                    nodeMark: null
-                };
-
-                if (node.conditionList && !isEmptyArray(node.conditionList)) {
-                    for (let condition of node.conditionList) {
-                        conditionObj.conditionsConf.conditionParamTypes.push(condition.columnId);
-                        if (!isEmpty(condition.zdy1)) {
-                            conditionObj.conditionsConf.accountType = condition.zdy1.split(',');
-                            conditionObj.conditionsConf.accountTypeList = [];
-                        }
-                    }
-                }
+                    conditionList:node.conditionList,
+                    sort: node.priorityLevel,
+                    isDefault: node.isDefault
+                }; 
                 Object.assign(node, { property: {} });
                 node.property = conditionObj;
                 delete node.conditionList;

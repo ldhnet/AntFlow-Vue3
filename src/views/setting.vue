@@ -70,7 +70,7 @@ onMounted(async () => {
   } else {
     mockjson = await getMockWorkFlowData({ id: 0 });
   }
-  //console.log("old===mockjson======", JSON.stringify(mockjson));
+  console.log("old===api return Data======", JSON.stringify(mockjson));
 
   let data = FormatDisplayUtils.getToTree(mockjson.data);
 
@@ -139,6 +139,8 @@ const saveSet = async () => {
   let submitData = JSON.parse(JSON.stringify(processConfig.value));
   var resultData = FormatUtils.formatSettings(submitData);
 
+  console.log("new===post api Data=======", JSON.stringify(resultData));
+  
   let res = await setApiWorkFlowData(resultData);
  if (res.code == 200) { 
     console.log("提交到API返回成功"); 

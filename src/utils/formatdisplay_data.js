@@ -70,34 +70,17 @@ export class FormatDisplayUtils {
     static formatDisplayStructNodeList(nodeList) {
         if (isEmptyArray(nodeList)) return nodeList;
         for (let node of nodeList) {    
+    
             if (node.nodeType == 3) {
-                node.priorityLevel = node.property.conditionsConf.sort;
-                node.isDefault = node.property.conditionsConf.isDefault;
-
-                let conditionObj = {
-                    columnId: node.property.conditionsConf.conditionParamTypes[0],
-                    type: 2, //1 发起人 2其他 
-                    showType: "3", //3多选 其他
-                    showName: node.nodeDisplayName,
-                    optType: "", //["", "<", ">", "≤", "=", "≥"][optType]
-                    zdy1: node.property.conditionsConf.accountType.toString(), //左侧自定义内容
-                    zdy2: "", //右侧自定义内容
-                    opt1: "", //左侧符号 < ≤
-                    opt2: "", //右侧符号 < ≤
-                    columnDbname: "accountType", //条件字段名称
-                    columnType: "String", //条件字段类型
-                    fixedDownBoxValue: "{\"1\":{\"key\":\"1\",\"value\":\"腾讯云\",\"column\":\"\",\"type\":\"1\"},\"2\":{\"key\":\"2\",\"value\":\"百度云\",\"column\":\"\",\"type\":\"1\"},\"3\":{\"key\":\"3\",\"value\":\"阿里云\",\"column\":\"\",\"type\":\"1\"}}"
-                }
-
+                node.priorityLevel = node.property.sort;
+                node.isDefault = node.property.isDefault;
                 Object.assign(node, { conditionList: [] });
-                node.conditionList.push(conditionObj);
+                node.conditionList  =  node.property.conditionList ? node.property.conditionList : [];  
                 delete node.property;
             }
 
             if (node.nodeType == 4 || node.nodeType == 5) {
-                let empList = [];
-         
-                
+                let empList = [];       
                 if (node.property && !isEmptyArray(node.property.emplIds)) {
                     for (let emplId of node.property.emplIds) {
                         let approveObj = {
