@@ -61,8 +61,13 @@
                     <p>请选择用来区分审批流程的条件字段</p>
                     <p class="check_box">
                         <a :class="$func.toggleClass(conditionList,{columnId:0},'columnId')&&'active'" @click="$func.toChecked(conditionList,{columnId:0},'columnId')">发起人</a>
-                        <a v-for="(item,index) in conditions" :key="index" :class="$func.toggleClass(conditionList,item,'columnId')&&'active'" 
-                        @click="$func.toChecked(conditionList,item,'columnId')">{{item.showName}}</a>
+                         
+                        <template  v-for="(item,index) in conditions" :key="index" >
+                       
+                            <a :class="$func.toggleClass(conditionList,item,'columnId')&&'active'"  @click="$func.toChecked(conditionList,item,'columnId')">{{item.showName}}</a>
+                          
+                            <br v-if="(index)%3 == 0"/> 
+                        </template> 
                     </p>
                     <template #footer>
                         <el-button @click="conditionVisible = false">取 消</el-button>

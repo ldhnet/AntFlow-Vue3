@@ -152,7 +152,7 @@ select {
     margin-right: 30px;
     cursor: pointer;
     color: #333;
-    white-space: pre;
+    white-space: pre-line;
     word-break:normal; 
 }
 
