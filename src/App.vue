@@ -153,6 +153,7 @@ select {
     cursor: pointer;
     color: #333;
     white-space: pre;
+    word-break:normal; 
 }
 
 .check_box.not a:hover {
