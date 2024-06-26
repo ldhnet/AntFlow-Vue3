@@ -1,5 +1,4 @@
 // import { FormatDisplayUtils } from '@/utils/formatdisplay_data'
-import { approveList } from '@/utils/const'
 const isEmptyArray = data => Array.isArray(data) ? data.length === 0 : true
 
 export class FormatDisplayUtils {
@@ -81,12 +80,12 @@ export class FormatDisplayUtils {
 
             if (node.nodeType == 4 || node.nodeType == 5) {
                 let empList = [];       
-                if (node.property && !isEmptyArray(node.property.emplIds)) {
-                    for (let emplId of node.property.emplIds) {
+                if (node.property && !isEmptyArray(node.property.emplList)) {
+                    for (let emp of node.property.emplList) {
                         let approveObj = {
                             type: 1,
-                            targetId: parseInt(emplId),
-                            name: approveList[emplId]
+                            targetId: parseInt(emp.id),
+                            name: emp.name
                         };
                         empList.push(approveObj);
                     }

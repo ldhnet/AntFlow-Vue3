@@ -28,6 +28,12 @@
                     "emplIds": [
                         14
                     ],
+                    "emplList": [
+                        {
+                            "id": 6,
+                            "name": "马八"
+                        }
+                    ],
                     "signType": 1
                 },
                 "nodeProperty": 5
