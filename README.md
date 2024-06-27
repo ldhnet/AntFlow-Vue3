@@ -8,9 +8,9 @@ workflow钉钉审批流程设置，基于vue开发
 -  开源地址vue2版本GitHub [https://github.com/ldhnet/AntFlow](https://github.com/ldhnet/AntFlow)[GitHub仓库](https://github.com/ldhnet/AntFlow) 点个星吧！
  
    
-![YL5F1S.png](https://s1.ax1x.com/2020/05/22/YL5F1S.png)
-![YL5Z0s.png](https://s1.ax1x.com/2020/05/22/YL5Z0s.png)
-![YL5Vmj.png](https://s1.ax1x.com/2020/05/22/YL5Vmj.png)
+![1.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/1.png)
+![2.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/2.png)
+![3.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/3.png)
 
 -------------------
  
@@ -29,7 +29,7 @@ workflow钉钉审批流程设置，基于vue开发
 </div>
 ```
 3. 节点设置（包括审批人、发起人、抄送人、条件设置）
-![YL5Z0s.png](https://s1.ax1x.com/2020/05/22/YL5Z0s.png)
+![1.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/1.png)
 ```javascript
 <el-drawer title="审批人设置" :visible.sync="approverDrawer" class="set_promoter" :show-close="false" :size="550" :before-close="saveApprover"> 
     <div class="demo-drawer__content">
@@ -41,24 +41,24 @@ workflow钉钉审批流程设置，基于vue开发
                 ...
 ```
 5. 节点新增
-![YL5Vmj.png](https://s1.ax1x.com/2020/05/22/YL5Vmj.png)
+![4.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/4.png)
 ```javascript
 <div class="add-node-btn">
     <el-popover placement="right-start" v-model="visible">
           <div class="add-node-popover-body">
-              <a class="add-node-popover-item approver" @click="addType(1)">
+              <a class="add-node-popover-item approver" @click="addType(4)">
                   <div class="item-wrapper">
                       <span class="iconfont"></span>
                   </div>
                   <p>审批人</p>
               </a>
-              <a class="add-node-popover-item notifier" @click="addType(2)">
+              <a class="add-node-popover-item notifier" @click="addType(5)">
                   <div class="item-wrapper">
                       <span class="iconfont"></span>
                   </div>
                   <p>抄送人</p>
               </a>
-              <a class="add-node-popover-item condition" @click="addType(4)">
+              <a class="add-node-popover-item condition" @click="addType(2)">
                   <div class="item-wrapper">
                       <span class="iconfont"></span>
                   </div>
@@ -68,17 +68,17 @@ workflow钉钉审批流程设置，基于vue开发
           ...
 ```
 5.错误校验
-![YL5Vmj.png](https://s1.ax1x.com/2020/05/22/YL5Vmj.png)
+![YL5Vmj.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/3.png)
 ```javascript
 let {type,error,nodeName,conditionNodes} = childNode
-if (type == 1 || type == 2) {
+if (type == 4 || type == 5) {
     if (error) {
         this.tipList.push({ name: nodeName, type: ["","审核人","抄送人"][type] })
     }
     this.reErr(childNode)
 } else if (type == 3) {
     this.reErr(childNode)
-} else if (type == 4) {
+} else if (type == 2) {
     this.reErr(childNode)
     for (var i = 0; i < conditionNodes.length; i++) {
         if (conditionNodes[i].error) {
