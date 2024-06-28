@@ -1,7 +1,7 @@
-<p align="center">
+<p align="center" style="margin-bottom: 0 !important">
 	<img alt="logo" src="https://gitee.com/ldhnet/ant-flow/raw/master/public/images/logo.png"  width = "80px"; height= "80px";>
 </p>
-<h1 align="center" style="margin: 10px 10px; font-weight: bold;">Ant-Flow</h1>
+<h1 align="center" style="margin: 10px 10px; font-weight: bold;margin-top: 0 !important">Ant-Flow</h1>
 <h4 style="border-top: solid #ACC0D8 1px;"></h4>
 <h4 align="center">Ant-Flow是基于Vue3 的前端工作流配置新模式 </h4>
 <h4 align="center" style="margin: 0px 0px 30px 10px; ">后端自主研发基于SpringBoot + Activiti 开发的轻量级工作流框架</h4>
