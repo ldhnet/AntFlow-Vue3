@@ -102,7 +102,7 @@ const reErr = ({ childNode }) => {
       reErr(childNode);
       for (var i = 0; i < conditionNodes.length; i++) {
         if (conditionNodes[i].error) {
-          tipList.value.push({ name: conditionNodes[i].nodeName, type: "条件" });
+          tipList.value.push({ name: conditionNodes[i].nodeName, nodeType: "条件" });
         }
         reErr(conditionNodes[i]);
       }

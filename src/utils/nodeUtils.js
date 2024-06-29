@@ -17,7 +17,7 @@ export class NodeUtils {
         qutient = (qutient - mod) / radix;
         res.push(charArr[mod]);
       } while (qutient);
-      return res.join("");
+      return res.join("").toUpperCase();
     }
     
 }

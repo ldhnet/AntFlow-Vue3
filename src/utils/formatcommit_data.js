@@ -1,5 +1,5 @@
 // import { FormatUtils } from '@/utils/formatcommit_data'
-import { NodeUtils } from '@/utils/nodeUtils'
+// import { NodeUtils } from '@/utils/nodeUtils'
 const isEmpty = data => data === null || data === undefined || data === ''
 const isEmptyArray = data => Array.isArray(data) ? data.length === 0 : true
 
@@ -8,25 +8,25 @@ export class FormatUtils {
      * 对基础设置,高级设置等设置页内容进行格式化
      * @param params
      */
-    static formatSettings(param) {
-        let treeList = this.flattenMapTreeToList(param.nodeConfig);
+    static formatSettings(param) { 
+        let treeList = this.flattenMapTreeToList(param);
         let combinationList = this.getEndpointNodeId(treeList);
         let finalList = this.cleanNodeList(combinationList); 
         let fomatList = this.adapterActivitiNodeList(finalList);
-
-        let finalObj = {
-            bpmnCode: "SFZHSQ-00011",
-            bpmnName: "合同审批", //name 改成 bpmnName 其他的都是添加的
-            bpmnType: null,
-            formCode: "PROJECT_" + NodeUtils.idGenerator(),
-            appId: null,
-            deduplicationType: 2,//2去重,1不去重
-            effectiveStatus: 1,
-            remark: "合同审批",
-            isDel: 0,
-            nodes: fomatList
-        }
-        return finalObj;
+        return fomatList;
+        // let finalObj = {
+        //     bpmnCode: "SFZHSQ-00011",
+        //     bpmnName: "合同审批", //name 改成 bpmnName 其他的都是添加的
+        //     bpmnType: null,
+        //     formCode: "PROJECT_" + NodeUtils.idGenerator(),
+        //     appId: null,
+        //     deduplicationType: 2,//2去重,1不去重
+        //     effectiveStatus: 1,
+        //     remark: "合同审批",
+        //     isDel: 0,
+        //     nodes: fomatList
+        // }
+        // return finalObj;
     }
     /**
     * 展平树结构

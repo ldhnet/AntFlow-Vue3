@@ -1,0 +1,266 @@
+<template>
+    <div class="fd-nav">
+        <div class="fd-nav-left">
+            <div class="fd-nav-back" @click="toReturn">
+                <i class="anticon anticon-left"></i>
+            </div>
+            <div class="fd-nav-title">代办列表</div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <div class="box">
+            <el-tabs type="border-card">
+                <el-tab-pane style="max-width: 700px">
+                    <template #label>
+                        待审批 <el-tag type="danger" effect="dark" round>5</el-tag>
+                    </template>
+                    <el-table :data="penddinglist" stripe style="width: 100%">
+                        <el-table-column prop="info" label="待办事项" width="200">
+                            <template #default="item">{{ item.row.info }}</template>
+                        </el-table-column>
+                        <el-table-column prop="date" label="申请日期" width="150" />
+
+                        <el-table-column prop="id" label="进度" width="150">
+                            <template #default="item">
+                                <el-check-tag :checked="true" type="primary" @change="previewById(item.row)">
+                                    王五审批
+                                </el-check-tag>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column label="操作" width="200">
+                            <template #default="item">
+                                <el-button #default="item" @click="approveById(item.row.id)" size="small"
+                                    class="btn-close" type="primary">审批</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <!--分页组件-->
+                    <el-pagination class="pagiantion" @current-change="handleCurrentChange"
+                        :current-page="pagination.currentPage" :page-size="pagination.pageSize"
+                        layout="total, prev, pager, next" :total="pagination.total">
+                    </el-pagination>
+                </el-tab-pane>
+
+                <el-tab-pane style="max-width: 700px">
+                    <template #label>
+                        已审批 <el-tag type="success" round>12</el-tag>
+                    </template>
+                    <el-table :data="approvedlist" stripe style="width: 100%">
+                        <el-table-column prop="info" label="待办事项" width="200">
+                            <template #default="item">{{ item.row.info }}</template>
+                        </el-table-column>
+                        <el-table-column prop="date" label="日期" width="150" />
+                        <el-table-column prop="id" label="进度" width="150">
+
+                            <el-popover placement="right" width="200" trigger="click">
+                                <template #reference>
+                                    <el-check-tag :checked="true" type="primary">
+                                        王五审批
+                                    </el-check-tag>
+                                </template>
+                                <el-table :data="approvedlist" style="width: 100%">
+                                    <el-table-column prop="date" label="Date" width="180" />
+                                    <el-table-column prop="info" label="info" width="180" />
+                                </el-table>
+                            </el-popover>
+                        </el-table-column>
+                        <el-table-column label="状态" width="200">
+                            <el-button #default="item" size="small" type="info">已结束</el-button>
+                        </el-table-column>
+                    </el-table>
+                </el-tab-pane>
+
+                <el-tab-pane label="已完成">
+
+                    <el-timeline style="max-width: 600px">
+                        <el-timeline-item timestamp="发起人2018/4/12" placement="top">
+                            <el-card>
+                                <h4>Update Github template</h4>
+                                <p>Tom committed 2018/4/12 20:46</p>
+                            </el-card>
+                        </el-timeline-item>
+                        <el-timeline-item timestamp="2018/4/3" placement="top">
+                            <el-card>
+                                <h4>Update Github template</h4>
+                                <p>Tom committed 2018/4/3 20:46</p>
+                            </el-card>
+                        </el-timeline-item>
+                        <el-timeline-item timestamp="2018/4/2" placement="top">
+
+                        </el-timeline-item>
+                    </el-timeline>
+                </el-tab-pane>
+
+                <el-tab-pane label="已归档">
+                    <el-timeline style="max-width: 300px">
+                        <el-timeline-item v-for="(activity, index) in activities" :key="index" :type="activity.type"
+                            :size="activity.size" :timestamp="activity.timestamp">
+                            {{ activity.content }}
+                            <el-card>
+                                <h4>Update Github template</h4>
+                                <p>Tom committed 2018/4/2 20:46</p>
+                            </el-card>
+                        </el-timeline-item>
+
+                    </el-timeline>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref, reactive, onMounted } from "vue";
+import { useRouter } from 'vue-router';
+
+
+const router = useRouter();
+let penddinglist = ref([
+    {
+        id: 1,
+        date: '2024-06-22',
+        info: '6666'
+    },
+    {
+        id: 2,
+        date: '2024-06-22',
+        info: '7777'
+    },
+    {
+        id: 3,
+        date: '2024-06-22',
+        info: '8888'
+    },
+    {
+        id: 4,
+        date: '2024-06-22',
+        info: '9999'
+    },
+    {
+        id: 5,
+        date: '2024-06-22',
+        info: '101010'
+    },
+    {
+        id: 6,
+        date: '2024-06-22',
+        info: '11111'
+    },
+    {
+        id: 7,
+        date: '2024-06-22',
+        info: '121212'
+    }
+]);
+
+let approvedlist = ref([
+    {
+        id: 1,
+        date: '2024-06-22',
+        info: '6666'
+    },
+    {
+        id: 2,
+        date: '2024-06-22',
+        info: '7777'
+    }
+]);
+const activities = [
+    {
+        content: '发起人',
+        type: 'primary',
+        timestamp: '2024-06-26',
+        size: 'large',
+    },
+    {
+        content: '张三审批',
+        type: 'primary',
+        timestamp: '2024-06-26',
+        size: 'large',
+    },
+    {
+        content: '李四审批',
+        timestamp: '2024-06-26',
+        size: 'large',
+    }, {
+        content: '流程结束',
+        timestamp: '2024-06-26',
+    }
+]
+let pagination = reactive({//分页相关模型数据
+    currentPage: 1,//当前页码
+    pageSize: 10,//每页显示的记录数
+    total: 0//总记录数 
+});
+
+const basicSetting = ref(null);
+const processDesign = ref(null);
+
+let activeStep = ref("processDesign"); // 激活的步骤面板
+
+let steps = ref([
+    { label: "基础设置", key: "basicSetting" },
+    { label: "流程设计", key: "processDesign" },
+]);
+
+const changeSteps = (item) => {
+    console.log('item=============', JSON.stringify(item));
+    activeStep.value = item.key;
+};
+
+onMounted(async () => {
+
+});
+const previewById = (data) => {
+    console.log('data==data===========', JSON.stringify(data));
+};
+const approveById = (data) => {
+    console.log('data==data===========', JSON.stringify(data));
+};
+const handleCurrentChange = () => {
+
+};
+const toReturn = () => {
+    router.push({ path: "/" });
+};
+
+
+</script>
+<style scoped>
+.app-container {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 30px;
+    background: #fff;
+    margin: 5px 10px 5px 5px;
+}
+
+.app-container .box {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #46A6FE;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    min-height: 550px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.app-container .box .pagiantion {
+    text-align: right;
+    padding: 15px;
+}
+
+.main-container {
+    margin-top: 70px;
+}
+</style>

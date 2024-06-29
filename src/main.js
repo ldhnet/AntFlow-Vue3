@@ -8,12 +8,18 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
+import ElementPlus from 'element-plus'
 
+import "./css/workflow.css";
 import './assets/main.css'
 import './css/override-element-ui.css'
 import 'element-plus/es/components/message/style/css'
+import "element-plus/theme-chalk/el-message-box.css";
+import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
-const app = createApp(App).use(createPinia()).use(router)
+const app = createApp(App).use(createPinia()).use(router).use(ElementPlus, {
+  locale: zhLocale
+})
 app.mount('#app')
 
 import nodeWrap from '@/components/nodeWrap.vue'

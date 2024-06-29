@@ -19,16 +19,21 @@ export class FormatDisplayUtils {
      * @param { Object } nodeData - 源节点数据
      * @returns Object
      */
-    static createNodeDisplay(nodeData) {
+    static createNodeDisplay(nodeData) {    
         let displayObj = {
-            tableId: 1,
-            workFlowDef: {
-                name: nodeData.bpmnName,
-            },
-            directorMaxLevel: 3,
-            flowPermission: [],
+            tableId: nodeData.id,
+            bpmnCode: nodeData.bpmnCode,
+            bpmnName: nodeData.bpmnName, //name 改成 bpmnName 其他的都是添加的
+            bpmnType: nodeData.bpmnType,
+            formCode:nodeData.formCode,
+            appId: nodeData.appId,
+            deduplicationType: nodeData.deduplicationType,//2去重,1不去重
+            effectiveStatus:  nodeData.effectiveStatus == 1?true:false,
+            remark: "合同审批",
+            isDel: 0,
+            directorMaxLevel: 3, 
             nodeConfig: {},
-        }
+        } 
         return displayObj
     }
     /**
