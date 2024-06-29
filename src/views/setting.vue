@@ -5,7 +5,7 @@
         <div class="fd-nav-back" @click="toReturn">
           <i class="anticon anticon-left"></i>
         </div>
-        <div class="fd-nav-title">{{ workFlowDef.name }}</div>
+        <div class="fd-nav-title">{{ title }}</div>
       </div>
       <div class="fd-nav-right">
         <button type="button" class="ant-btn button-publish" @click="saveSet">
@@ -21,7 +21,7 @@
           <div class="zoom-in" :class="nowVal == 300 && 'disabled'" @click="zoomSize(2)"></div>
         </div>
         <div class="box-scale" :style="`transform: scale(${nowVal / 100});`">
-          <nodeWrap v-model:nodeConfig="nodeConfig" v-model:flowPermission="flowPermission" />
+          <nodeWrap v-model:nodeConfig="nodeConfig" />
           <div class="end-node">
             <div class="end-node-circle"></div>
             <div class="end-node-text">流程结束</div>
@@ -31,7 +31,7 @@
     </div>
     <errorDialog v-model:visible="tipVisible" :list="tipList" />
     <promoterDrawer />
-    <approverDrawer :directorMaxLevel="directorMaxLevel" />
+    <approverDrawer :directorMaxLevel="directorLevel" />
     <copyerDrawer />
     <conditionDrawer />
   </div>
@@ -58,9 +58,9 @@ let tipVisible = ref(false);
 let nowVal = ref(100);
 let processConfig = ref({});
 let nodeConfig = ref({});
-let workFlowDef = ref({});
-let flowPermission = ref([]);
-let directorMaxLevel = ref(0);
+let title = ref('');
+let directorLevel = ref(0);
+let tableId = ref(0);
 onMounted(async () => {
   let route = useRoute()
   //let { data } = await getWorkFlowData({ workFlowDefId: route.query.workFlowDefId }); 
@@ -70,23 +70,14 @@ onMounted(async () => {
   } else {
     mockjson = await getMockWorkFlowData({ id: 0 });
   }
-  console.log("old===api return Data======", JSON.stringify(mockjson));
-
   let data = FormatDisplayUtils.getToTree(mockjson.data);
-
+  console.log("old===api return Data======", JSON.stringify(data));
   processConfig.value = data;
-  let {
-    nodeConfig: nodes,
-    flowPermission: flows,
-    directorMaxLevel: directors,
-    workFlowDef: works,
-    tableId,
-  } = data;
 
-  nodeConfig.value = nodes;
-  flowPermission.value = flows;
-  directorMaxLevel.value = directors;
-  workFlowDef.value = works;
+  directorLevel.value = data.directorMaxLevel;
+  title.value = data.bpmnName;
+  nodeConfig.value = data.nodeConfig;
+  tableId.value = data.tableId;
   setTableId(tableId);
 });
 const toReturn = () => {
@@ -131,22 +122,21 @@ const saveSet = async () => {
     tipVisible.value = true;
     return;
   }
-  processConfig.value.flowPermission = flowPermission.value;
   // eslint-disable-next-line no-console 
   // console.log("old===processConfig==", JSON.stringify(processConfig.value));
   ElMessage.success("设置成功,F12控制台查看数据");
 
   let submitData = JSON.parse(JSON.stringify(processConfig.value));
   var resultData = FormatUtils.formatSettings(submitData);
-
   console.log("new===post api Data=======", JSON.stringify(resultData));
-  
-  let res = await setApiWorkFlowData(resultData);
- if (res.code == 200) { 
-    console.log("提交到API返回成功"); 
-  }else {
-    console.log("提交到API返回失败=",JSON.stringify(res));
-  } 
+
+  //   let res = await setApiWorkFlowData(resultData);
+  //  if (res.code == 200) { 
+  //     console.log("提交到API返回成功"); 
+  //   }else {
+  //     console.log("提交到API返回失败=",JSON.stringify(res));
+  //   } 
+
   // let res = await setWorkFlowData(processConfig.value);
   // if (res.code == 200) {
   //   ElMessage.success("设置成功")
@@ -170,9 +160,7 @@ const zoomSize = (type) => {
   }
 };
 </script>
-<style>
-@import "../css/workflow.css";
-
+<style scoped>
 .error-modal-list {
   width: 455px;
 }
