@@ -11,27 +11,33 @@
     <div class="app-container">
         <div class="box">
             <el-tabs type="border-card">
-                <el-tab-pane style="max-width: 700px">
+                <el-tab-pane style="max-width: 1080px">
                     <template #label>
                         待审批 <el-tag type="danger" effect="dark" round>5</el-tag>
                     </template>
                     <el-table :data="penddinglist" stripe style="width: 100%">
-                        <el-table-column prop="info" label="待办事项" width="200">
-                            <template #default="item">{{ item.row.info }}</template>
+                   
+                        <el-table-column prop="createTime" label="申请日期" width="150" >
+                            <template #default="item">
+                                {{parseTime(item.row.createTime,'{y}-{m}-{d}')}}
+                            </template>
                         </el-table-column>
-                        <el-table-column prop="date" label="申请日期" width="150" />
-
-                        <el-table-column prop="id" label="进度" width="150">
+                        
+                        <el-table-column prop="processCode" label="流程编号" width="150" />
+                        <el-table-column prop="processTypeName" label="流程类型" width="150" />
+                        <el-table-column prop="processDigest" label="流程名称" width="150" />
+                    
+                        <el-table-column prop="taskState" label="流程状态" width="150">
                             <template #default="item">
                                 <el-check-tag :checked="true" type="primary" @change="previewById(item.row)">
-                                    王五审批
+                                    {{ item.row.taskState }}
                                 </el-check-tag>
                             </template>
                         </el-table-column>
 
                         <el-table-column label="操作" width="200">
                             <template #default="item">
-                                <el-button #default="item" @click="approveById(item.row.id)" size="small"
+                                <el-button #default="item" @click="approveById(item.row)" size="small"
                                     class="btn-close" type="primary">审批</el-button>
                             </template>
                         </el-table-column>
@@ -113,47 +119,11 @@
 
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import { useRouter } from 'vue-router';
-
-
+import { useRoute,useRouter } from 'vue-router';
+import { getProcesslistPage } from '@/api/jdCloudApi';
+let route = useRoute()
 const router = useRouter();
-let penddinglist = ref([
-    {
-        id: 1,
-        date: '2024-06-22',
-        info: '6666'
-    },
-    {
-        id: 2,
-        date: '2024-06-22',
-        info: '7777'
-    },
-    {
-        id: 3,
-        date: '2024-06-22',
-        info: '8888'
-    },
-    {
-        id: 4,
-        date: '2024-06-22',
-        info: '9999'
-    },
-    {
-        id: 5,
-        date: '2024-06-22',
-        info: '101010'
-    },
-    {
-        id: 6,
-        date: '2024-06-22',
-        info: '11111'
-    },
-    {
-        id: 7,
-        date: '2024-06-22',
-        info: '121212'
-    }
-]);
+let penddinglist = ref([]);
 
 let approvedlist = ref([
     {
@@ -193,25 +163,20 @@ let pagination = reactive({//分页相关模型数据
     currentPage: 1,//当前页码
     pageSize: 10,//每页显示的记录数
     total: 0//总记录数 
-});
-
-const basicSetting = ref(null);
-const processDesign = ref(null);
-
-let activeStep = ref("processDesign"); // 激活的步骤面板
-
-let steps = ref([
-    { label: "基础设置", key: "basicSetting" },
-    { label: "流程设计", key: "processDesign" },
-]);
-
-const changeSteps = (item) => {
-    console.log('item=============', JSON.stringify(item));
-    activeStep.value = item.key;
-};
-
+}); 
 onMounted(async () => {
-
+    const uaserid = 10;
+    if (route.query.uaserid)
+    {
+        uaserid = route.query.uaserid;
+    }
+    let resData = await getProcesslistPage(uaserid);
+    if (resData.code == 200) { 
+            penddinglist.value = resData.data;
+            pagination.currentPage =  resData.pagination.startIndex;
+            pagination.pageSize =  resData.pagination.pageSize;
+            pagination.total =  resData.pagination.totalCount;
+      }
 });
 const previewById = (data) => {
     console.log('data==data===========', JSON.stringify(data));

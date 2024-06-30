@@ -1,27 +1,31 @@
 /*
  * @Date:  2024-05-25 11:58:11
  * @LastEditors: LDH 574427343@qq.com
- * @LastEditTime: 2023-05-24 15:19:57
+ * @LastEditTime: 2024-06-30 15:19:57
  * @FilePath: /zto-flow/src/main.js
  */
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
-import router from './router'
-import ElementPlus from 'element-plus'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import App from './App.vue';
+import router from './router';
+import ElementPlus from 'element-plus';
 
 import "./css/workflow.css";
-import './assets/main.css'
-import './css/override-element-ui.css'
-import 'element-plus/es/components/message/style/css'
+import './assets/main.css';
+import './css/override-element-ui.css';
+import 'element-plus/es/components/message/style/css';
 import "element-plus/theme-chalk/el-message-box.css";
-import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
+import zhLocale from 'element-plus/lib/locale/lang/zh-cn';
+import { parseTime } from "@/utils/hsharpUtils";
 
 const app = createApp(App).use(createPinia()).use(router).use(ElementPlus, {
   locale: zhLocale
 })
 app.mount('#app')
+// 全局方法挂载
+app.config.globalProperties.parseTime = parseTime
 
+// 全局组件挂载
 import nodeWrap from '@/components/nodeWrap.vue'
 app.component('nodeWrap', nodeWrap); //初始化组件
 import addNode from '@/components/addNode.vue'

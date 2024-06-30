@@ -14,7 +14,8 @@
 -  开源地址vue3版本Gitee [https://gitee.com/ldhnet/ant-flow](https://gitee.com/ldhnet/ant-flow)[Gitee仓库](https://gitee.com/ldhnet/ant-flow) gitee点个星吧！
 -  开源地址vue2版本GitHub [https://github.com/ldhnet/AntFlow](https://github.com/ldhnet/AntFlow)[GitHub仓库](https://github.com/ldhnet/AntFlow) 点个星吧！
  - QQ技术交流群（972107977） 期待您的加入
- - 有疑问可以Issues留言，我们会认真对待 [issues地址](https://gitee.com/ldhnet/ant-flow/issues)
+ - 有疑问可以Issues留言，我们会认真对待
+  [issues地址](https://gitee.com/ldhnet/ant-flow/issues)
 
 
 #### 项目预览

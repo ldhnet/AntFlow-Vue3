@@ -25,3 +25,20 @@ export function getApiWorkFlowData(data) {
 export function setApiWorkFlowData(data) {
   return http.post(`${baseUrl}/bpmnConf/edit`, data)
 }
+/**
+ * 获取用户代办数据列表
+ * @param {*} param 
+ * @returns 
+ */
+export function getProcesslistPage(userid) { 
+  let headers = {
+    'Content-Type': 'application/json;charset=UTF-8',
+    'token':"",
+    'userid':userid
+  };
+  let data = {
+    "pageDto": {},
+    "taskMgmtVO": {}
+  } 
+  return http.post(`${baseUrl}/bpmnConf/process/listPage/5`, data,{ headers: headers } );
+}
