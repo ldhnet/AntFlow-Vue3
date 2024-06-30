@@ -42,3 +42,34 @@ export function getProcesslistPage(userid) {
   } 
   return http.post(`${baseUrl}/bpmnConf/process/listPage/5`, data,{ headers: headers } );
 }
+
+
+/**
+ * 获取流程配置数据列表
+ * @param {*} param 
+ * @returns 
+ */
+export function getBpmnConflistPage() {  
+  let data = {
+    "pageDto": {},
+    "entity": {"bpmnType":1,"bpmnName":"myname"}
+  } 
+  return http.post(`${baseUrl}/bpmnConf/listPage`, data);
+}
+
+/**
+ * 审批
+ * @param {*} param 
+ * @returns 
+ */
+export function setBpmnApproved(formCode,data) {  
+//   let data = {
+//     "taskId": "137540",
+//     "processKey": "DSFZH_WMA_30116",
+//     "processNumber":"DSFZH_WMA_30116",
+//     "formCode": "DSFZH_WMA",
+//     "approvalComment":"同意!!!",
+//     "operationType": 3
+// }
+  return http.post(`${baseUrl}/bpmnConf/process/buttonsOperation?formCode=` + formCode, data);
+}
