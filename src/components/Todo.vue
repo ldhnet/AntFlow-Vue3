@@ -13,7 +13,7 @@
             <el-tabs type="border-card">
                 <el-tab-pane style="max-width: 1080px">
                     <template #label>
-                        待审批 <el-tag type="danger" effect="dark" round>5</el-tag>
+                        待审批 <el-tag type="danger" effect="dark" round>{{ pagination.total }}</el-tag>
                     </template>
                     <el-table :data="penddinglist" stripe style="width: 100%">
                    
