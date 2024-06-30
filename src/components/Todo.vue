@@ -165,9 +165,8 @@ let pagination = reactive({//分页相关模型数据
     total: 0//总记录数 
 }); 
 onMounted(async () => {
-    const uaserid = 10;
-    if (route.query.uaserid)
-    {
+    let uaserid = 10;
+    if (route.query.uaserid){
         uaserid = route.query.uaserid;
     }
     let resData = await getProcesslistPage(uaserid);
