@@ -88,7 +88,7 @@ const previewById = (data) => {
 };
 
 const toReturn = () => {
-    router.push({ path: "/" });
+    router.push({ path: "/todo" });
 };
 
 

@@ -37,6 +37,22 @@
     color: #fff !important;
 }
 
+.el-button.el-button--danger {
+    background: #f56c6c !important;
+    color: #fff !important;
+}
+.el-button.el-button--warning {
+    background: #c25205 !important;
+    color: #fff !important;
+}
+.el-button.el-button--info {
+    background: #848486 !important;
+    color: #fff !important;
+}
+.el-button.el-button--success {
+    background: #0b8235 !important;
+    color: #fff !important;
+}
 .demo-drawer__footer {
     padding: 10px 30px !important;
     border-top: 1px solid #F2F2F2 !important;

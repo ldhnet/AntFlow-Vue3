@@ -56,20 +56,39 @@ export function getBpmnConflistPage() {
   } 
   return http.post(`${baseUrl}/bpmnConf/listPage`, data);
 }
-
+ 
 /**
- * 审批
+ * 审批(3,4),发起审批(1)
  * @param {*} param 
  * @returns 
  */
-export function setBpmnApproved(formCode,data) {  
-//   let data = {
-//     "taskId": "137540",
-//     "processKey": "DSFZH_WMA_30116",
-//     "processNumber":"DSFZH_WMA_30116",
-//     "formCode": "DSFZH_WMA",
-//     "approvalComment":"同意!!!",
-//     "operationType": 3
-// }
-  return http.post(`${baseUrl}/bpmnConf/process/buttonsOperation?formCode=` + formCode, data);
+export function processOperation(uaserid, data) {
+
+  let headers = {
+    'Content-Type': 'application/json;charset=UTF-8',
+    'token': "",
+    'userid': uaserid
+  };
+  return http.post(`${baseUrl}/bpmnConf/process/buttonsOperation?formCode=` + data.formCode, data, { headers: headers });
+}
+
+/**
+ * 获取审批进度数据
+ * @param { Number } id 
+ * @returns 
+ */
+export function getBpmVerifyInfoVos(param) {
+  return http.get(`${baseUrl}/bpmnConf/getBpmVerifyInfoVos?processNumber=${param.processNumber}`)
+}
+
+/**
+ * 获取审批数据列表
+ * @param {*} param 
+ * @returns 
+ */
+export function getFlowSchemaList(param) {
+  let paramUri = "?type=" + param.type;
+  paramUri += "&name=" + param.name;
+  paramUri += "&description=" + param.description;
+  return http.get(`${apiUrl}/books/${param.currentPage}/${param.pageSize}` + paramUri);
 }

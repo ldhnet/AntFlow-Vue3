@@ -9,6 +9,12 @@
     </div>
 
     <div class="app-container">
+        <el-form ref="queryFormRef"  label-position="top"> 
+                    <el-form-item label="审批人ID（测试）" prop="userId">
+                        <el-input v-model="queryForm.userId" placeholder="请输入审批人ID" style="width: 150px;margin-right: 10px;" />
+                        <el-button type="primary" @click="querySubmit()">查询代办</el-button> 
+                    </el-form-item> 
+        </el-form>
         <div class="box">
             <el-tabs type="border-card">
                 <el-tab-pane style="max-width: 1080px">
@@ -112,6 +118,20 @@
 
                     </el-timeline>
                 </el-tab-pane>
+                <el-tab-pane label="发起审批">
+                    <el-table :data="approvedlist" stripe style="width: 100%">
+                        <el-table-column prop="info" label="待办事项" width="200">
+                            <template #default="item">{{ item.row.info }}</template>
+                        </el-table-column>
+                        <el-table-column prop="date" label="日期" width="150" /> 
+                        <el-table-column label="状态" width="200">
+                            <el-button #default="item" size="small" type="primary">发起审批</el-button>
+                        </el-table-column>
+                    </el-table>
+                </el-tab-pane>
+                <el-tab-pane label="更多">
+                    <el-button type="primary" @click="jumpFlowConf()">流程配置列表</el-button>
+                </el-tab-pane>
             </el-tabs>
         </div>
     </div>
@@ -121,7 +141,8 @@
 import { ref, reactive, onMounted } from "vue";
 import { useRoute,useRouter } from 'vue-router';
 import { getProcesslistPage } from '@/api/jdCloudApi';
-let route = useRoute()
+import { tansParams } from "@/utils/hsharpUtils";
+const route = useRoute();
 const router = useRouter();
 let penddinglist = ref([]);
 
@@ -158,17 +179,23 @@ const activities = [
         content: '流程结束',
         timestamp: '2024-06-26',
     }
-]
+];
 let pagination = reactive({//分页相关模型数据
     currentPage: 1,//当前页码
     pageSize: 10,//每页显示的记录数
     total: 0//总记录数 
-}); 
-onMounted(async () => {
-    let uaserid = 10;
-    if (route.query.uaserid){
-        uaserid = route.query.uaserid;
-    }
+});
+    
+let queryForm = ref({ 
+    userId:11
+});
+
+onMounted(async () => {  
+    await getTodoList();
+});
+
+const getTodoList =async (data) => {
+    let uaserid = queryForm.value.userId;
     let resData = await getProcesslistPage(uaserid);
     if (resData.code == 200) { 
             penddinglist.value = resData.data;
@@ -176,18 +203,32 @@ onMounted(async () => {
             pagination.pageSize =  resData.pagination.pageSize;
             pagination.total =  resData.pagination.totalCount;
       }
-});
+};
+
+const querySubmit =async (data) => {
+    await getTodoList();
+};
+
 const previewById = (data) => {
     console.log('data==data===========', JSON.stringify(data));
+    console.log('data==tansParams===========', tansParams(data));
+    
+    // 
 };
 const approveById = (data) => {
     console.log('data==data===========', JSON.stringify(data));
+    console.log('data==tansParams===========', tansParams(data));
+
+    router.push({ path: "/approve",query:data });
 };
 const handleCurrentChange = () => {
 
 };
 const toReturn = () => {
     router.push({ path: "/" });
+};
+const jumpFlowConf = () => {
+    router.push({ path: "/flowconf" });
 };
 
 

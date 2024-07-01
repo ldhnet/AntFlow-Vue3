@@ -12,12 +12,16 @@ const router = createRouter({
     }, {
       path: '/flowconf',
       name: 'flowconf', 
-      component:()=>import('@/components/WorkFlowConfList.vue')
+      component:()=>import('@/components/flowOpt/flowConfList.vue')
+    },{
+      path: '/approve',
+      name: 'approve', 
+      component:()=>import('@/components/flowOpt/approve.vue')
     },
     {
       path: '/todo',
       name: 'todo', 
-      component:()=>import('@/components/Todo.vue')
+      component:()=>import('@/components/flowOpt/todoList.vue')
     }
   ]
 })
