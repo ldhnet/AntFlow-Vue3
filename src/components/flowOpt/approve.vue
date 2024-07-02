@@ -36,8 +36,9 @@
                             <el-collapse-item :title="activity.taskName">
                                 <el-card>
                                     <p>审批结果: {{ activity.remark }}</p>
-                                    <p v-if="activity.verifyStatus == 2">审批备注: {{ activity.verifyStatusName }}</p> 
-                                    <p v-if="activity.verifyStatus == 1 || activity.verifyStatus == 2">操作时间: {{ activity.verifyDate }}</p> 
+                                    <p v-if="activity.verifyStatus == 2">审批备注: {{ activity.verifyStatusName }}</p>
+                                    <p v-if="activity.verifyStatus == 1 || activity.verifyStatus == 2">操作时间: {{
+                                        activity.verifyDate }}</p>
                                 </el-card>
                             </el-collapse-item>
                         </el-collapse>
@@ -48,9 +49,6 @@
                         <el-input v-model="approveForm.remark" type="textarea" placeholder="请输入审批备注" :maxlength="100"
                             show-word-limit :autosize="{ minRows: 3, maxRows: 3 }"
                             :style="{ width: '100%' }"></el-input>
-                    </el-form-item>
-                    <el-form-item label="审批人ID（测试）" prop="userId">
-                        <el-input v-model="approveForm.userId" placeholder="请输入审批人ID" :style="{ width: '100%' }" />
                     </el-form-item>
                     <el-form-item style="float: right;">
                         <el-button type="primary" @click="approveSubmit(approveFormRef, 3)">同意</el-button>
@@ -69,6 +67,7 @@ import { ref, reactive, onMounted, getCurrentInstance } from 'vue'
 import { ElMessage } from 'element-plus'
 import { getBpmVerifyInfoVos, processOperation } from '@/api/jdCloudApi';
 import { useRoute, useRouter } from 'vue-router';
+import { statusColor } from '@/utils/const'
 const route = useRoute();
 const router = useRouter();
 
@@ -76,18 +75,15 @@ const form = reactive({
     name: '测试',
     remark: '测试'
 });
-
 let approveForm = ref({
-    remark: '',
-    userId:11
+    remark: ''
 });
-
-
 const approveFormRef = ref(null);
-
 let activities = ref(null);
-
 onMounted(async () => {
+   await getPreviewData();
+});
+const getPreviewData = async () => {
     let param = {
         "processNumber": "DSFZH_WMA_9",
     }
@@ -100,13 +96,13 @@ onMounted(async () => {
         activities.value = resData.data.map(c => {
             return {
                 ...c,
-                type: (c.verifyStatus > 0 && c.verifyStatus < 99) ? 'primary' : (c.verifyStatus == 99 ? 'success' : 'info'),
+                type: statusColor[c.verifyStatus], 
                 size: c.verifyStatus == 99 ? 'large' : 'normal',
                 remark: c.verifyStatus == 0 ? '流程结束' : c.verifyStatusName
             }
         });
     }
-});
+};
 
 let rules = {
     remark: [{
@@ -119,7 +115,7 @@ const approveSubmit = (param, type) => {
     if (!param) return;
     param.validate(async (valid, fields) => {
         if (valid) {
-            let uaserid = approveForm.value.userId;
+            let uaserid = route?.query?.userId;
             let data = {
                 "taskId": route?.query?.taskId,
                 "processKey": route?.query?.processKey,
@@ -127,8 +123,10 @@ const approveSubmit = (param, type) => {
                 "formCode": route?.query?.processCode ?? '',
                 "approvalComment": approveForm.value.remark ?? '',
                 "operationType": type
-            }; 
+            };
+
             let resData = await processOperation(uaserid, data);
+
             if (resData.code == 200) {
                 ElMessage.success("审批成功");
             } else {
@@ -181,10 +179,4 @@ const toReturn = () => {
     padding-bottom: 0px !important;
 }
 
-.change {
-    padding: 3px 8px;
-    background: #339933;
-    color: #fff;
-    border-radius: 5px;
-}
 </style>

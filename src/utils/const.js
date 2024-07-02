@@ -56,3 +56,15 @@ export let approveList = {
   19: '邱灵珊',
   20: '任盈盈'
 }; 
+
+export let statusColor = {
+  0: 'info',
+  1: 'primary',
+  2: 'primary',
+  3: 'primary',
+  4: 'primary',
+  5: 'primary',
+  6: 'danger',
+  99: 'success',
+  100: 'info'
+}; 

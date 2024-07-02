@@ -1,7 +1,7 @@
 /*
  * @Date:  2024-05-25 14:06:59
  * @LastEditors: LDH 574427343@qq.com
- * @LastEditTime: 2023-03-29 15:52:57
+ * @LastEditTime: 2024-07-02 15:52:57
  * @FilePath: /zto-flow/src/api/index.js
  */
 
@@ -25,40 +25,59 @@ export function getApiWorkFlowData(data) {
 export function setApiWorkFlowData(data) {
   return http.post(`${baseUrl}/bpmnConf/edit`, data)
 }
+
+
 /**
  * 获取用户代办数据列表
  * @param {*} param 
  * @returns 
  */
-export function getProcesslistPage(userid) { 
+export function getPenddinglistPage(uaserid,pageDto) {
   let headers = {
     'Content-Type': 'application/json;charset=UTF-8',
-    'token':"",
-    'userid':userid
+    'token': "",
+    'userid': uaserid
   };
   let data = {
-    "pageDto": {},
+    "pageDto": pageDto,
     "taskMgmtVO": {}
-  } 
-  return http.post(`${baseUrl}/bpmnConf/process/listPage/5`, data,{ headers: headers } );
+  }
+  return http.post(`${baseUrl}/bpmnConf/process/listPage/5`, data, { headers: headers });
 }
 
+/**
+ * 获取用户已审批数据列表
+ * @param {*} param 
+ * @returns 
+ */
+export function getApprovedlistPage(uaserid,pageDto) {
+  let headers = {
+    'Content-Type': 'application/json;charset=UTF-8',
+    'token': "",
+    'userid': uaserid
+  };
+  let data = {
+    "pageDto": pageDto,
+    "taskMgmtVO": {}
+  }
+  return http.post(`${baseUrl}/bpmnConf/process/listPage/4`, data, { headers: headers });
+}
 
 /**
  * 获取流程配置数据列表
  * @param {*} param 
  * @returns 
  */
-export function getBpmnConflistPage() {  
+export function getBpmnConflistPage(pageDto) {
   let data = {
-    "pageDto": {},
-    "entity": {"bpmnType":1,"bpmnName":"myname"}
-  } 
+    "pageDto": pageDto,
+    "entity": { "bpmnType": 1, "bpmnName": "myname" }
+  }
   return http.post(`${baseUrl}/bpmnConf/listPage`, data);
 }
- 
+
 /**
- * 审批(3,4),发起审批(1)
+ * 审批,发起审批
  * @param {*} param 
  * @returns 
  */
@@ -92,3 +111,5 @@ export function getFlowSchemaList(param) {
   paramUri += "&description=" + param.description;
   return http.get(`${apiUrl}/books/${param.currentPage}/${param.pageSize}` + paramUri);
 }
+
+
