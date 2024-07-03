@@ -117,7 +117,14 @@ export function processOperation(uaserid, data) {
 export function getBpmVerifyInfoVos(param) {
   return http.get(`${baseUrl}/bpmnConf/getBpmVerifyInfoVos?processNumber=${param.processNumber}`)
 }
-
+/**
+ * 流程预览
+ * @param {*} param 
+ * @returns 
+ */
+export function getFlowPreview(param) { 
+  return http.post(`${baseUrl}/bpmnConf/startPagePreviewNode`, param);
+} 
 /**
  * 获取审批数据列表
  * @param {*} param 

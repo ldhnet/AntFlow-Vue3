@@ -22,7 +22,12 @@ const router = createRouter({
       path: '/todo',
       name: 'todo', 
       component:()=>import('@/components/flowOpt/todoList.vue')
-    }
+    },
+    {
+      path: '/demo1',
+      name: 'demo1', 
+      component:()=>import('@/components/BusinessDemo/demo1.vue')
+    },
   ]
 })
 

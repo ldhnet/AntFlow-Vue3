@@ -17,7 +17,7 @@
 
             <el-table-column label="操作" width="200">
                 <template #default="item">
-                    <el-button size="small" @click="startTest(item.row)" type="success">发起测试</el-button>
+                    <!-- <el-button size="small" @click="startTest(item.row)" type="success">发起测试</el-button> -->
                     <el-button size="small" @click="previewById(item.row)" type="primary">预览</el-button>
                 </template>
             </el-table-column>

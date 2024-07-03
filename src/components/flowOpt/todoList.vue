@@ -17,7 +17,6 @@
                     </template>
                     <myRequestList ref="myRequestListRef" />
                 </el-tab-pane>
-
                 <el-tab-pane style="max-width: 1280px">
                     <template #label>
                         待审批
@@ -45,11 +44,9 @@
                         </el-timeline-item>
                     </el-timeline>
                 </el-tab-pane>
-                <el-tab-pane label="发起审批">
-                    <flowConfList ref="flowConfListRef" />
-                </el-tab-pane>
                 <el-tab-pane label="更多">
                     <el-button type="primary" @click="jumpFlowConf()">流程配置列表</el-button>
+                    <el-button type="primary" @click="jumpFlowCreate()">发起测试</el-button>
                 </el-tab-pane>
             </el-tabs>
         </div>
@@ -59,7 +56,6 @@
 <script setup>
 import { onMounted } from "vue";
 import { useRouter } from 'vue-router';
-import flowConfList from "@/components/flowOpt/flowConfList.vue";
 import penddingList from "@/components/flowOpt/penddingList.vue";
 import approvedList from "@/components/flowOpt/approvedList.vue";
 import myRequestList from "@/components/flowOpt/myRequestList.vue";
@@ -98,8 +94,9 @@ const toReturn = () => {
 const jumpFlowConf = () => {
     router.push({ path: "/flowconf" });
 };
-
-
+const jumpFlowCreate = () => {
+    router.push({ path: "/demo1" });
+}; 
 </script>
 <style scoped>
 .app-container {
