@@ -13,6 +13,13 @@
             <el-tabs type="border-card">
                 <el-tab-pane style="max-width: 1280px">
                     <template #label>
+                        我的请求
+                    </template>
+                    <myRequestList ref="myRequestListRef" />
+                </el-tab-pane>
+
+                <el-tab-pane style="max-width: 1280px">
+                    <template #label>
                         待审批
                         <!-- 待审批 <el-tag type="danger" effect="dark" round>{{ pagination.totalCount }}</el-tag> -->
                     </template>
@@ -50,11 +57,12 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from 'vue-router';
 import flowConfList from "@/components/flowOpt/flowConfList.vue";
 import penddingList from "@/components/flowOpt/penddingList.vue";
 import approvedList from "@/components/flowOpt/approvedList.vue";
+import myRequestList from "@/components/flowOpt/myRequestList.vue";
 const router = useRouter();
 
 const activities = [
@@ -117,5 +125,5 @@ const jumpFlowConf = () => {
     margin-bottom: 20px;
     width: 100%;
     min-height: 550px;
-} 
+}
 </style>

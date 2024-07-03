@@ -68,6 +68,7 @@ import { ElMessage } from 'element-plus'
 import { getBpmVerifyInfoVos, processOperation } from '@/api/jdCloudApi';
 import { useRoute, useRouter } from 'vue-router';
 import { statusColor } from '@/utils/const'
+import { showLoading, closeLoading } from '@/utils/loading'
 const route = useRoute();
 const router = useRouter();
 
@@ -75,15 +76,22 @@ const form = reactive({
     name: '测试',
     remark: '测试'
 });
+
 let approveForm = ref({
     remark: ''
 });
+
+
 const approveFormRef = ref(null);
+
 let activities = ref(null);
+
 onMounted(async () => {
    await getPreviewData();
 });
+
 const getPreviewData = async () => {
+    showLoading();
     let param = {
         "processNumber": "DSFZH_WMA_9",
     }
@@ -96,12 +104,13 @@ const getPreviewData = async () => {
         activities.value = resData.data.map(c => {
             return {
                 ...c,
-                type: statusColor[c.verifyStatus], 
+                type:statusColor[c.verifyStatus],
                 size: c.verifyStatus == 99 ? 'large' : 'normal',
                 remark: c.verifyStatus == 0 ? '流程结束' : c.verifyStatusName
             }
         });
     }
+    closeLoading();
 };
 
 let rules = {
@@ -179,4 +188,10 @@ const toReturn = () => {
     padding-bottom: 0px !important;
 }
 
+.change {
+    padding: 3px 8px;
+    background: #339933;
+    color: #fff;
+    border-radius: 5px;
+}
 </style>

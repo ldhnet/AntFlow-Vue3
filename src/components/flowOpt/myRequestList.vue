@@ -6,7 +6,7 @@
         </el-form-item>
     </el-form>
     <div class="main-container">
-        <el-table :data="papprovelist" stripe style="width: 100%">
+        <el-table :data="penddinglist" stripe style="width: 100%">
             <el-table-column prop="createTime" label="申请日期" width="120">
                 <template #default="item">
                     {{ parseTime(item.row.createTime, '{y}-{m}-{d}') }}
@@ -17,6 +17,7 @@
             <el-table-column prop="processNumber" label="processNumber" width="150" />
             <el-table-column prop="processTypeName" label="流程类型" width="150" />
             <el-table-column prop="processDigest" label="流程名称" width="150" />
+
             <el-table-column prop="taskState" label="流程状态" width="120">
                 <template #default="item">
                     <el-check-tag :checked="true" type="primary">
@@ -37,52 +38,52 @@
             :page-size="pagination.pageSize" layout="total, prev, pager, next" :total="pagination.totalCount">
         </el-pagination>
     </div>
-
     <approveViewDialog v-if="visibleDialog" v-model:visible="visibleDialog" :data="activities"
         @change="closeApproveViewDialog" />
-
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import { ElMessage } from 'element-plus'
-import { getApprovedlistPage, getBpmVerifyInfoVos } from '@/api/jdCloudApi';
-import { statusColor } from '@/utils/const'
+import { getMyRequestlistPage } from '@/api/jdCloudApi';
+import { ElMessage } from 'element-plus';
 import approveViewDialog from '@/components/flowOpt/approveViewDialog.vue'
+import { getBpmVerifyInfoVos } from '@/api/jdCloudApi';
+import { statusColor } from '@/utils/const'
 import { showLoading, closeLoading } from '@/utils/loading'
 let pagination = reactive({//分页相关模型数据
     page: 1,//当前页码
     pageSize: 10,//每页显示的记录数
     totalCount: 0//总记录数 
 });
+let penddinglist = ref([]);
+let uaserid = ref('0');
 let visibleDialog = ref(false);
 let activities = ref(null);
-let papprovelist = ref([]);
-let uaserid = ref('0');
 let queryForm = ref({
     userId: 1
 });
 
 onMounted(async () => {
-    await getApprovedList();
+    await getMyRequest();
 });
 
-const getApprovedList = async () => {
-    showLoading();
+const getMyRequest = async () => {
     uaserid.value = queryForm.value.userId;
-    let resData = await getApprovedlistPage(uaserid.value, pagination);
+    let resData = await getMyRequestlistPage(uaserid.value, pagination);
     if (resData.code == 200) {
-        papprovelist.value = resData.data;
+        penddinglist.value = resData.data;
         pagination.page = resData.pagination.page;
         pagination.pageSize = resData.pagination.pageSize;
         pagination.totalCount = resData.pagination.totalCount;
     } else {
         ElMessage.error("数据加载失败" + resData.errMsg);
     }
-    closeLoading();
 };
 
+
 const getPreviewData = async (processNumber) => {
+
+    activities.value = [];
     let param = {
         "processNumber": processNumber,
     }
@@ -96,18 +97,19 @@ const getPreviewData = async (processNumber) => {
                 remark: c.verifyStatus == 0 ? '流程结束' : c.verifyStatusName
             }
         });
-    };
+    }
+
 };
 
 const querySubmit = async () => {
-    await getApprovedList();
+    await getMyRequest();
 };
 //切换页码
 const handleCurrentChange = async (currentPage) => {
     //修改页码值为当前选中的页码值
     pagination.page = currentPage;
     //执行查询
-    await getApprovedList();
+    await getMyRequest();
 };
 const previewById = async (data) => {
     showLoading();
@@ -120,8 +122,6 @@ const closeApproveViewDialog = () => {
     activities.value = [];
     visibleDialog.value = false;
 };
-
-
 </script>
 <style scoped>
 .main-container {

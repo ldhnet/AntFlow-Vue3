@@ -35,7 +35,7 @@ import { ref, reactive, onMounted } from "vue";
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus'
 import { getBpmnConflistPage, processOperation } from '@/api/jdCloudApi';
-
+import { showLoading, closeLoading } from '@/utils/loading'
 const router = useRouter();
 let conflist = ref([]);
 
@@ -43,11 +43,12 @@ let pagination = reactive({//分页相关模型数据
     page: 1,//当前页码
     pageSize: 10,//每页显示的记录数
     totalCount: 0//总记录数 
-});
+}); 
 
-
-onMounted(async () => {
+onMounted(async () => { 
+    showLoading(); 
     await getAll();
+    closeLoading();
 });
 
 //分页查询
@@ -71,8 +72,7 @@ const handleCurrentChange = (currentPage) => {
     getAll();
 };
 
-const startTest = async (data) => {
-
+const startTest = async (data) => { 
     let param = {
         "processKey": data.formCode ?? '',
         "processNumber": data.formCode ?? '',
@@ -80,6 +80,7 @@ const startTest = async (data) => {
         "operationType": 1,
         "remark": '发起测试流程'
     }; 
+    console.log('data=======startTest===param==========', JSON.stringify(param));
     await processOperation(10, param).then((res) => {
         if (res.code == 200) {
             ElMessage.success("发起测试流程成功");
@@ -88,18 +89,9 @@ const startTest = async (data) => {
         }
     });
 };
-const previewById = (data) => {
-    console.log('data=======previewById==============', data);
+const previewById = (data) => { 
     router.push({ path: "/", query: { id: data.id } });
-};
-
-
-
-const toReturn = () => {
-    router.push({ path: "/todo" });
-};
-
-
+}; 
 </script>
 <style scoped>
 .main-container {
@@ -110,5 +102,6 @@ const toReturn = () => {
     margin-bottom: 20px;
     width: 100%;
     min-height: 550px;
+    border-top: 3px solid #46A6FE;
 }
 </style>

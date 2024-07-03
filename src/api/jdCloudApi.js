@@ -64,6 +64,24 @@ export function getApprovedlistPage(uaserid,pageDto) {
 }
 
 /**
+ * 获取我发起的流程列表
+ * @param {*} param 
+ * @returns 
+ */
+export function getMyRequestlistPage(uaserid,pageDto) {
+  let headers = {
+    'Content-Type': 'application/json;charset=UTF-8',
+    'token': "",
+    'userid': uaserid
+  };
+  let data = {
+    "pageDto": pageDto,
+    "taskMgmtVO": {}
+  }
+  return http.post(`${baseUrl}/bpmnConf/process/listPage/3`, data, { headers: headers });
+}
+
+/**
  * 获取流程配置数据列表
  * @param {*} param 
  * @returns 

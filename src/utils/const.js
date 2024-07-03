@@ -58,13 +58,16 @@ export let approveList = {
 }; 
 
 export let statusColor = {
-  0: 'info',
-  1: 'primary',
-  2: 'primary',
-  3: 'primary',
-  4: 'primary',
-  5: 'primary',
-  6: 'danger',
-  99: 'success',
-  100: 'info'
-}; 
+  0: 'info', 
+  1: 'primary',//提交
+  2: 'primary',//同意
+  3: 'danger',//拒绝
+  4: 'danger',//撤回
+  5: 'danger',//作废
+  6: 'danger',//终止
+  7: 'primary',//
+  8: 'danger',//打回修改
+  9: 'primary',//加批
+  99: 'success',//处理中
+  100: 'info' 
+}; ; 

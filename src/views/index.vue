@@ -34,10 +34,11 @@
 import { ref, onMounted  } from "vue";
 import { ElMessage } from 'element-plus';
 import { useRoute,useRouter } from 'vue-router';
-import { getWorkFlowData, setWorkFlowData, getMockWorkFlowData } from '@/api/index';
+import { getMockWorkFlowData } from '@/api/index';
 import { getApiWorkFlowData, setApiWorkFlowData } from '@/api/jdCloudApi';
 import { FormatUtils } from '@/utils/formatcommit_data' 
 import { FormatDisplayUtils } from '@/utils/formatdisplay_data'
+import { showLoading, closeLoading } from '@/utils/loading'
 const route = useRoute();
 const router = useRouter();
 
@@ -59,6 +60,7 @@ let processConfig = ref(null);
 let nodeConfig = ref(null);
 let title = ref('');  
 onMounted(async () => { 
+    showLoading();
     let mockjson = {};
     if (route.query.id) {
         mockjson = await getApiWorkFlowData({ id: route.query.id });
@@ -72,6 +74,7 @@ onMounted(async () => {
     //   directorMaxLevel.value = directors;
     //   workFlowDef.value = works;  
     // setTableId(tableId);
+    closeLoading();
 });
 
 const toReturn = () => {
