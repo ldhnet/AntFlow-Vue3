@@ -1,7 +1,7 @@
 <p align="center" style="margin-bottom: 0 !important">
 	<img alt="logo" src="https://gitee.com/ldhnet/ant-flow/raw/master/public/images/logo.png"  width = "80px"; height= "80px";>
 </p>
-<h1 align="center" style="margin: 10px 10px; font-weight: bold;margin-top: 0 !important">Ant-Flow</h1>
+<h1 align="center" style="margin: 10px 10px; font-weight: bold;margin-top: 0 !important">AntFlow-Vue3</h1>
 <h4 style="border-top: solid #ACC0D8 1px;"></h4>
 <h4 align="center">AntFlow是基于Vue3 的前端工作流配置新模式 </h4>
 <h4 align="center" style="margin: 0px 0px 30px 10px; ">后端自主研发基于SpringBoot + Activiti 开发的轻量级工作流框架</h4>
@@ -11,18 +11,18 @@
 
 -  在线预览  [预览入口](http://117.72.70.166/ant-flow/dist/)
 
--  开源地址vue3版本Gitee [https://gitee.com/ldhnet/AntFlow-Vue3](https://gitee.com/ldhnet/ant-flow)[Gitee仓库](https://gitee.com/ldhnet/ant-flow) gitee点个星吧！
--  开源地址vue2版本GitHub [https://github.com/ldhnet/AntFlow-Vue2](https://github.com/ldhnet/AntFlow)[GitHub仓库](https://github.com/ldhnet/AntFlow) 点个星吧！
+-  开源地址vue3版本Gitee [https://gitee.com/ldhnet/AntFlow-Vue3](https://gitee.com/ldhnet/AntFlow-Vue3)[Gitee仓库](https://gitee.com/ldhnet/AntFlow-Vue3) gitee点个星吧！
+-  开源地址vue2版本GitHub [https://github.com/ldhnet/AntFlow-Vue2](https://github.com/ldhnet/AntFlow-Vue2)[GitHub仓库](https://github.com/ldhnet/AntFlow-Vue2) 点个星吧！
  - QQ技术交流群（972107977） 期待您的加入
  - 有疑问可以Issues留言，我们会认真对待
-  [issues地址](https://gitee.com/ldhnet/ant-flow/issues)
+  [issues地址](https://gitee.com/ldhnet/AntFlow-Vue3/issues)
 
 
 #### 项目预览
    
-![1.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/1.png)
-![2.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/2.png)
-![3.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/3.png)
+![1.png](https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1.png)
+![2.png](https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/2.png)
+![3.png](https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/3.png)
 
 -------------------
  
@@ -41,7 +41,7 @@
 </div>
 ```
 3. 节点设置（包括审批人、发起人、抄送人、条件设置）
-![1.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/1.png)
+![1.png](https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1.png)
 ```javascript
 <el-drawer title="审批人设置" :visible.sync="approverDrawer" class="set_promoter" :show-close="false" :size="550" :before-close="saveApprover"> 
     <div class="demo-drawer__content">
@@ -53,7 +53,7 @@
                 ...
 ```
 5. 节点新增
-![4.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/4.png)
+![4.png](https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/4.png)
 ```javascript
 <div class="add-node-btn">
     <el-popover placement="right-start" v-model="visible">
@@ -80,7 +80,7 @@
           ...
 ```
 5.错误校验
-![YL5Vmj.png](https://gitee.com/ldhnet/ant-flow/raw/master/public/images/3.png)
+![YL5Vmj.png](https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/3.png)
 ```javascript
 let {type,error,nodeName,conditionNodes} = childNode
 if (type == 4 || type == 5) {
@@ -108,7 +108,7 @@ if (type == 4 || type == 5) {
 ```
 #### 项目安装
 
-> git clone https://gitee.com/ldhnet/ant-flow.git 点个赞吧！
+> git clone https://gitee.com/ldhnet/AntFlow-Vue3.git 点个赞吧！
 
 #### 项目运行 node14.20.1 以上版本
 > 1.环境依赖  `npm i`
