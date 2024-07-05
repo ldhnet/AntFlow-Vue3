@@ -116,3 +116,11 @@ if (type == 4 || type == 5) {
 > 2.本地运行 `npm run dev` 
 
 > 3.打包运行 `npm run build` 
+
+
+
+## 热烈推荐
+大家在使用本项目时，推荐结合贺波老师的书[《深入Activiti流程引擎：核心原理与高阶实战》](https://item.jd.com/13928958.html)，这本书对系统学习和深入掌握Activiti/Flowable的用法非常有帮助。
+
+![输入图片说明](https://foruda.gitee.com/images/1699658576150803044/9bdfb7f1_2042292.png "")
+
