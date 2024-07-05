@@ -1,0 +1,145 @@
+{
+    "code": "200",
+    "msg": "success",
+    "data": {
+        "id": "10001",
+        "bpmnCode": "SFZHSQ-00011",
+        "bpmnName": "合同审批",
+        "bpmnType": null,
+        "formCode": "PROJECT_QGkYu4",
+        "appId": null,
+        "deduplicationType": 2,
+        "effectiveStatus": 1,
+        "remark": "合同审批",
+        "isDel": 0,
+        "nodes": [
+            {
+                "nodeId": "YviYu4",
+                "nodeName": "审核人",
+                "nodeType": 4,
+                "nodeFrom": "IhgYu4",
+                "prevId": [],
+                "nodeTo": [],
+                "setType": 1,
+                "directorLevel": 1,
+                "signType": 1,
+                "noHeaderAction": 1,
+                "error": false,
+                "property": {
+                    "emplIds": [
+                        14
+                    ],
+                    "emplList": [
+                        {
+                            "id": 6,
+                            "name": "马八"
+                        }
+                    ],
+                    "signType": 1
+                },
+                "nodeProperty": 5
+            },
+            {
+                "nodeId": "IhgYu4",
+                "nodeName": "条件1",
+                "nodeDisplayName": "园区面积 < 2000",
+                "nodeType": 3,
+                "nodeFrom": "UcgYu4",
+                "prevId": [],
+                "nodeTo": [
+                    "YviYu4"
+                ],
+                "priorityLevel": 1,
+                "nodeApproveList": [],
+                "error": false,
+                "isDefault": 0,
+                "property": {
+                    "conditionList": [
+                        {
+                            "showType": "1",
+                            "columnId": "3",
+                            "type": 2,
+                            "showName": "园区面积",
+                            "optType": "1",
+                            "zdy1": "2000",
+                            "opt1": "<",
+                            "zdy2": "",
+                            "opt2": "<",
+                            "columnDbname": "parkArea",
+                            "columnType": "Double"
+                        }
+                    ],
+                    "sort": 1,
+                    "isDefault": 0
+                }
+            },
+            {
+                "nodeId": "TkgYu4",
+                "nodeName": "条件2",
+                "nodeDisplayName": "其他条件进入此流程",
+                "nodeType": 3,
+                "nodeFrom": "UcgYu4",
+                "prevId": [],
+                "nodeTo": [],
+                "priorityLevel": 2,
+                "nodeApproveList": [],
+                "isDefault": 1,
+                "error": false,
+                "property": {
+                    "conditionList": [],
+                    "sort": 2,
+                    "isDefault": 1
+                }
+            },
+            {
+                "nodeId": "UcgYu4",
+                "nodeName": "路由",
+                "nodeType": 2,
+                "nodeFrom": "Gb2",
+                "prevId": [],
+                "nodeTo": [
+                    "IhgYu4",
+                    "TkgYu4"
+                ],
+                "error": true,
+                "property": null
+            },
+            {
+                "confId": 35,
+                "nodeId": "Gb2",
+                "nodeType": 1,
+                "nodeProperty": 1,
+                "nodePropertyName": null,
+                "nodeFrom": "",
+                "nodeFroms": null,
+                "prevId": [],
+                "batchStatus": 0,
+                "approvalStandard": 2,
+                "nodeName": "发起人",
+                "nodeDisplayName": "发起人",
+                "annotation": null,
+                "isDeduplication": 0,
+                "isSignUp": 0,
+                "orderedNodeType": null,
+                "remark": "",
+                "isDel": 0,
+                "nodeTo": [
+                    "UcgYu4"
+                ],
+                "property": null,
+                "params": null,
+                "buttons": {
+                    "startPage": [],
+                    "approvalPage": [
+                        2
+                    ],
+                    "viewPage": null
+                },
+                "templateVos": null,
+                "approveRemindVo": null,
+                "formCode": "PROJECT_uoSXu4",
+                "conditionNodes": []
+            }
+        ]
+    }
+}
