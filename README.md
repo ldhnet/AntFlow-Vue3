@@ -10,7 +10,7 @@
 ### workflow彷钉钉审批流程设置-vue3版本
 
 -  在线预览  [预览入口](http://117.72.70.166/ant-flow/dist/)
--  📢📢预览功能以及API介绍来啦(持续完善中)[wiki](https://gitee.com/ldhnet/AntFlow-Vue3/wikis)
+-  📢📢预览功能以及API介绍来啦(持续完善中...)[wiki](https://gitee.com/ldhnet/AntFlow-Vue3/wikis)
 -  开源地址vue3版本Gitee [https://gitee.com/ldhnet/AntFlow-Vue3](https://gitee.com/ldhnet/AntFlow-Vue3)[Gitee仓库](https://gitee.com/ldhnet/AntFlow-Vue3) gitee点个星吧！
 -  开源地址vue2版本GitHub [https://github.com/ldhnet/AntFlow-Vue2](https://github.com/ldhnet/AntFlow-Vue2)[GitHub仓库] (https://github.com/ldhnet/AntFlow-Vue2)点个星吧！
  - QQ技术交流群（972107977） 期待您的加入
