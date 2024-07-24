@@ -17,7 +17,7 @@
                                 <el-card>
                                     <p v-if="activity.verifyUserName">审批人: {{ activity.verifyUserName }}</p>
                                     <p v-if="activity.verifyStatusName">审批结果: {{ activity.verifyStatusName }}</p>
-                                    <p v-if="activity.verifyStatus == 2">审批备注: {{ activity.verifyDesc }}</p>
+                                    <p v-if="activity.verifyDesc">审批备注: {{ activity.verifyDesc }}</p>
                                     <p v-if="activity.verifyDate">操作时间: {{ activity.verifyDate }}</p>
                                 </el-card>
                             </el-collapse-item>

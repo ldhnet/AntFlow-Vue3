@@ -55,22 +55,38 @@
                 <div class="approver_self" v-if="approverConfig.setType == 5">
                     <p>该审批节点设置“发起人自己”后，审批人默认为发起人</p>
                 </div>
-                <div class="approver_some">
-                    <p>多人审批时采用的审批方式</p>
-                    <el-radio-group v-model="approverConfig.signType" class="clear">
-                        <el-radio :label="1">会签（需所有审批人同意，不限顺序）</el-radio>
-                        <br />
-                        <el-radio :label="2">或签（只需一名审批人同意或拒绝即可）</el-radio>
-                    </el-radio-group>
-                </div>
-                <div class="approver_some">
-                    <p>审批人为空时</p>
-                    <el-radio-group v-model="approverConfig.noHeaderAction" class="clear">
-                        <el-radio :label="1">自动审批通过/不允许发起</el-radio>
-                        <br />
-                        <el-radio :label="2">转交给审核管理员</el-radio>
-                    </el-radio-group>
-                </div>
+
+                <el-tabs v-model="activeName" class="set-tabs" @tab-click="handleTabClick">
+                    <el-tab-pane label="基础设置" name="baseTab">                        
+                        <div class="approver_some">
+                            <p>多人审批时采用的审批方式</p>
+                            <el-radio-group v-model="approverConfig.signType" class="clear">
+                                <el-radio :label="1">会签（需所有审批人同意，不限顺序）</el-radio>
+                                <br />
+                                <el-radio :label="2">或签（只需一名审批人同意或拒绝即可）</el-radio>
+                            </el-radio-group>
+                        </div>
+                        <div class="approver_some">
+                            <p>审批人为空时</p>
+                            <el-radio-group v-model="approverConfig.noHeaderAction" class="clear">
+                                <el-radio :label="1">自动审批通过/不允许发起</el-radio>
+                                <br />
+                                <el-radio :label="2">转交给审核管理员</el-radio>
+                            </el-radio-group>
+                        </div>
+                    </el-tab-pane>
+                    <el-tab-pane label="按钮设置" name="btnTab">                    
+                        <div class="approver_some">
+                            <p>审批页面按钮权限显示控制</p>
+                            <el-checkbox v-model="checkedOk" label="同意" border />
+                            <el-checkbox v-model="checkedNot" label="不同意" border />
+                            <el-checkbox v-model="checkedBack" label="打回" border />
+                        </div>
+                    </el-tab-pane> 
+                </el-tabs>
+
+             
+              
             </div>
             <div class="demo-drawer__footer clear">
                 <el-button type="primary" @click="saveApprover">确 定</el-button>
@@ -82,7 +98,7 @@
     </el-drawer>
 </template>
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed } from 'vue' 
 import $func from '@/utils/index'
 import { setTypes } from '@/utils/const'
 import { useStore } from '@/stores/index'
@@ -112,12 +128,18 @@ let visible = computed({
         closeDrawer()
     }
 })
+let checkedOk = ref(true)
+let checkedNot = ref(true)
+let checkedBack = ref(false)
+const activeName = ref('baseTab')
+ 
+const handleTabClick = () => {
+    console.log(tab, event)
+}
 watch(approverConfig1, (val) => {
     approverConfig.value = val.value
 })
-let changeRange = () => {
-    approverConfig.value.nodeApproveList = [];
-}
+
 const changeType = (val) => {
     approverConfig.value.nodeApproveList = [];
     approverConfig.value.signType = 1;
@@ -158,6 +180,9 @@ const closeDrawer = () => {
 }
 </script>
 <style lang="less">
+.el-tabs { 
+    margin-left: 20px !important;
+}
 .set_promoter {
     .approver_content {
         padding-bottom: 10px;
@@ -210,8 +235,7 @@ const closeDrawer = () => {
 
     .approver_self_select,
     .approver_manager,
-    .approver_content,
-    .approver_some {
+    .approver_content {
         padding: 20px 20px 0;
     }
 

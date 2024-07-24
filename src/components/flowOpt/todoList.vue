@@ -45,6 +45,7 @@
                     </el-timeline>
                 </el-tab-pane>
                 <el-tab-pane label="更多">
+                    <el-button type="primary" @click="jumpFlowDesign()">流程设计</el-button>
                     <el-button type="primary" @click="jumpFlowConf()">流程配置列表</el-button>
                     <el-button type="primary" @click="jumpFlowCreate()">发起测试</el-button>
                 </el-tab-pane>
@@ -97,6 +98,10 @@ const jumpFlowConf = () => {
 const jumpFlowCreate = () => {
     router.push({ path: "/demo1" });
 }; 
+const jumpFlowDesign = () => {
+    router.push({ path: "/" });
+}; 
+
 </script>
 <style scoped>
 .app-container {
