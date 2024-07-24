@@ -21,7 +21,7 @@
 .demo-drawer__content>div {
     border-top: 1px solid #F2F2F2 !important;
 }
-
+/* 
 .el-button {
     min-width: 79px !important;
     padding: 8px 12px !important;
@@ -36,7 +36,6 @@
     background: #46A6FE !important;
     color: #fff !important;
 }
-
 .el-button.el-button--danger {
     background: #f56c6c !important;
     color: #fff !important;
@@ -50,9 +49,9 @@
     color: #fff !important;
 }
 .el-button.el-button--success {
-    background: #0b8235 !important;
+    background: #67c23a !important;
     color: #fff !important;
-}
+} */
 .demo-drawer__footer {
     padding: 10px 30px !important;
     border-top: 1px solid #F2F2F2 !important;
@@ -127,4 +126,18 @@
     width: 80px !important;
     height: 80px !important;
     background: url(~@/assets/images/loading.gif) no-repeat center !important;
+}
+
+.el-timeline {
+    --el-timeline-node-size-normal: 25px !important;
+    --el-timeline-node-size-large: 25px !important;
+}
+.el-timeline-item__node--normal {
+    left: -8px !important;
+}
+.el-timeline-item__node--large {
+    left: -8px !important;
+}
+.el-timeline-item__wrapper { 
+    top: -10px !important;
 }

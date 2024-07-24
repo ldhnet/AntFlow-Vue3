@@ -1,31 +1,34 @@
 <template>
-    <el-form ref="queryFormRef" label-position="top">
-        <el-form-item label="审批人ID（测试）" prop="userId">
-            <el-input v-model="queryForm.userId" placeholder="请输入审批人ID" style="width: 150px;margin-right: 10px;" />
-            <el-button type="primary" @click="querySubmit()">查询</el-button>
-        </el-form-item>
-    </el-form>
     <div class="main-container">
-        <el-table :data="papprovelist" stripe style="width: 100%">
+        <div class="filter-container">
+            <el-form ref="queryFormRef" >
+                <el-form-item  prop="userId">
+                    <el-input v-model="queryForm.userId" placeholder="请输入审批人ID" style="width: 200px;" />
+                    <el-input v-model="queryForm.flowName" placeholder="请输入流程名称" style="width: 200px;" />
+                    <el-button type="primary" @click="querySubmit()">查询</el-button>
+                </el-form-item>
+            </el-form>
+        </div> 
+        <el-table :data="papprovelist" border stripe style="width: 100%">
             <el-table-column prop="createTime" label="申请日期" width="120">
                 <template #default="item">
                     {{ parseTime(item.row.createTime, '{y}-{m}-{d}') }}
                 </template>
             </el-table-column>
-            <el-table-column prop="processKey" label="processKey" width="150" />
-            <el-table-column prop="processCode" label="processCode" width="150" />
-            <el-table-column prop="processNumber" label="processNumber" width="150" />
-            <el-table-column prop="processTypeName" label="流程类型" width="150" />
-            <el-table-column prop="processDigest" label="流程名称" width="150" />
+            <el-table-column prop="processKey" label="processKey" width="200" />
+            <el-table-column prop="processCode" label="processCode" width="200" />
+            <el-table-column prop="processNumber" label="processNumber" width="200" />
+            <el-table-column prop="processTypeName" label="流程类型" width="130" />
+            <el-table-column prop="processDigest" label="流程名称" width="130" />
             <el-table-column prop="taskState" label="流程状态" width="120">
                 <template #default="item">
-                    <el-check-tag :checked="true" type="primary">
+                    <el-tag>
                         {{ item.row.taskState }}
-                    </el-check-tag>
+                    </el-tag>
                 </template>
             </el-table-column>
 
-            <el-table-column label="操作" width="150">
+            <el-table-column label="操作" width="110">
                 <template #default="item">
                     <el-button #default="item" @click="previewById(item.row)" size="small"
                         type="success">查看进度</el-button>
@@ -38,29 +41,33 @@
         </el-pagination>
     </div>
 
-    <approveViewDialog v-if="visibleDialog" v-model:visible="visibleDialog" :data="activities"
-        @change="closeApproveViewDialog" />
+    <approveViewDialog v-if="visibleDialog" v-model:visible="visibleDialog" :processNumber="processNumber" @change="closeApproveViewDialog" />
 
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from "vue";
 import { ElMessage } from 'element-plus'
-import { getApprovedlistPage, getBpmVerifyInfoVos } from '@/api/jdCloudApi';
-import { statusColor } from '@/utils/const'
+import { useRoute } from 'vue-router';
+import { getApprovedlistPage} from '@/api/jdCloudApi'; 
 import approveViewDialog from '@/components/flowOpt/approveViewDialog.vue'
 import { showLoading, closeLoading } from '@/utils/loading'
+
+const route = useRoute();
+let uid = route.query.userId??1;
 let pagination = reactive({//分页相关模型数据
     page: 1,//当前页码
     pageSize: 10,//每页显示的记录数
     totalCount: 0//总记录数 
 });
+
 let visibleDialog = ref(false);
-let activities = ref(null);
+let processNumber = ref('');
 let papprovelist = ref([]);
 let uaserid = ref('0');
 let queryForm = ref({
-    userId: 1
+    userId: uid,
+    flowName: ''
 });
 
 onMounted(async () => {
@@ -81,24 +88,7 @@ const getApprovedList = async () => {
     }
     closeLoading();
 };
-
-const getPreviewData = async (processNumber) => {
-    let param = {
-        "processNumber": processNumber,
-    }
-    let resData = await getBpmVerifyInfoVos(param);
-    if (resData.code == 200) {
-        activities.value = resData.data.map(c => {
-            return {
-                ...c,
-                type: statusColor[c.verifyStatus],
-                size: c.verifyStatus == 99 ? 'large' : 'normal',
-                remark: c.verifyStatus == 0 ? '流程结束' : c.verifyStatusName
-            }
-        });
-    };
-};
-
+ 
 const querySubmit = async () => {
     await getApprovedList();
 };
@@ -111,13 +101,12 @@ const handleCurrentChange = async (currentPage) => {
 };
 const previewById = async (data) => {
     showLoading();
-    await getPreviewData(data.processNumber);
+    processNumber.value = data.processNumber;
     visibleDialog.value = true;
     closeLoading();
 
 };
-const closeApproveViewDialog = () => {
-    activities.value = [];
+const closeApproveViewDialog = () => { 
     visibleDialog.value = false;
 };
 
@@ -134,4 +123,15 @@ const closeApproveViewDialog = () => {
     min-height: 550px;
     border-top: 3px solid #46A6FE;
 }
+
+.filter-container {
+    padding: 5px 0 10px 0;
+}
+.filter-container .el-button,
+.filter-container .el-input,
+.filter-container .el-input__inner  {
+    padding: 0 15px;
+    height: 34px;
+    line-height: 34px;
+} 
 </style>

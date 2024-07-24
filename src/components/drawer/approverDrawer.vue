@@ -58,9 +58,9 @@
                 <div class="approver_some">
                     <p>多人审批时采用的审批方式</p>
                     <el-radio-group v-model="approverConfig.signType" class="clear">
-                        <el-radio :label="1">依次审批</el-radio>
+                        <el-radio :label="1">会签（需所有审批人同意，不限顺序）</el-radio>
                         <br />
-                        <el-radio :label="2">会签(须所有审批人同意)</el-radio>
+                        <el-radio :label="2">或签（只需一名审批人同意或拒绝即可）</el-radio>
                     </el-radio-group>
                 </div>
                 <div class="approver_some">
@@ -144,7 +144,7 @@ const sureRoleApprover = (data) => {
     approverConfig.value.nodeApproveList = data;
     approverRoleVisible.value = false;
 }
-const saveApprover = () => {
+const saveApprover = () => { 
     approverConfig.value.error = !$func.setApproverStr(approverConfig.value)
     setApproverConfig({
         value: approverConfig.value,
