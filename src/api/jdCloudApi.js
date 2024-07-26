@@ -126,6 +126,14 @@ export function getFlowPreview(param) {
   return http.post(`${baseUrl}/bpmnConf/startPagePreviewNode`, param);
 } 
 /**
+ * 流程生效
+ * @param {*} param 
+ * @returns 
+ */
+export function getEffectiveBpmn(data) { 
+  return http.get(`${baseUrl}/bpmnConf/effectiveBpmn/${data.id}`);
+}
+/**
  * 获取审批数据列表
  * @param {*} param 
  * @returns 

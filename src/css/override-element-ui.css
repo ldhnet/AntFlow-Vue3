@@ -141,3 +141,7 @@
 .el-timeline-item__wrapper { 
     top: -10px !important;
 }
+.el-tabs--border-card  {
+    min-width: 800px  !important;
+    min-height: 550px !important;
+}

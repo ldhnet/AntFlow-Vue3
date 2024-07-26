@@ -22,6 +22,7 @@
             </button>
         </div>
     </div>
+    
     <div v-if="processConfig"  v-show="activeStep === 'basicSetting'" >
         <BasicSetting ref="basicSetting"  :basicData="processConfig" @nextChange="changeSteps" />
     </div>
@@ -70,7 +71,7 @@ onMounted(async () => {
     let data = FormatDisplayUtils.getToTree(mockjson.data); 
     processConfig.value = data;
     title.value = data.bpmnName; 
-   nodeConfig.value = data.nodeConfig;
+    nodeConfig.value = data.nodeConfig;
     //   directorMaxLevel.value = directors;
     //   workFlowDef.value = works;  
     // setTableId(tableId);
@@ -94,13 +95,13 @@ const publish = () => {
         .then((data) => { 
            console.log("提交到API=data================================",JSON.stringify(data));
         
-            setApiWorkFlowData(data).then((resLog) => {
-                if (resLog.code == 200) { 
-                    console.log("提交到API返回成功"); 
-                }else {
-                    console.log("提交到API返回失败=",JSON.stringify(resLog));
-                } 
-            });
+            // setApiWorkFlowData(data).then((resLog) => {
+            //     if (resLog.code == 200) { 
+            //         console.log("提交到API返回成功"); 
+            //     }else {
+            //         console.log("提交到API返回失败=",JSON.stringify(resLog));
+            //     } 
+            // });
         })
         .catch((err) => {
             if (err && err.msg)
@@ -116,7 +117,7 @@ const publish = () => {
     position: relative;
     height: 60px;
     font-size: 14px;
-    border-right: 1px solid #1583f2;
+    border-right: 0px solid #1583f2;
     text-align: center;
     cursor: pointer
 }

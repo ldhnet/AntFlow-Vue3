@@ -1,61 +1,65 @@
-<template> 
+<template>
     <div class="main-container">
         <div class="filter-container">
-            <el-form ref="queryFormRef" >
-                <el-form-item  prop="userId">
+            <el-form ref="queryFormRef">
+                <el-form-item prop="userId">
                     <el-input v-model="queryForm.userId" placeholder="请输入审批人ID" style="width: 200px;" />
                     <el-input v-model="queryForm.flowName" placeholder="请输入流程名称" style="width: 200px;" />
                     <el-button type="primary" @click="querySubmit()">查询</el-button>
                 </el-form-item>
             </el-form>
-        </div> 
-        <el-table :data="penddinglist" border stripe style="width: 100%">
-            <el-table-column prop="createTime" label="申请日期" width="120">
-                <template #default="item">
-                    {{ parseTime(item.row.createTime, '{y}-{m}-{d}') }}
-                </template>
-            </el-table-column>
-            <el-table-column prop="processKey" label="processKey" width="200" />
-            <el-table-column prop="processCode" label="processCode" width="200" />
-            <el-table-column prop="processNumber" label="processNumber" width="200" />
-            <el-table-column prop="processTypeName" label="流程类型" width="130" />
-            <el-table-column prop="processDigest" label="流程名称" width="130" />
+        </div>
+        <div class="box">
+            <el-table :data="penddinglist" border stripe style="width: 100%">
+                <el-table-column prop="createTime" label="申请日期" width="120">
+                    <template #default="item">
+                        {{ parseTime(item.row.createTime, '{y}-{m}-{d}') }}
+                    </template>
+                </el-table-column>
+                <el-table-column prop="processKey" label="processKey" width="200" />
+                <el-table-column prop="processCode" label="processCode" width="200" />
+                <el-table-column prop="processNumber" label="processNumber" width="200" />
+                <el-table-column prop="processTypeName" label="流程类型" width="130" />
+                <el-table-column prop="processDigest" label="流程名称" width="130" />
 
-            <el-table-column prop="taskState" label="流程状态" width="120">
-                <template #default="item">
-                    <el-tag>
-                        {{ item.row.taskState }}
-                    </el-tag>
-                </template>
-            </el-table-column>
+                <el-table-column prop="taskState" label="流程状态" width="120">
+                    <template #default="item">
+                        <el-tag>
+                            {{ item.row.taskState }}
+                        </el-tag>
+                    </template>
+                </el-table-column>
 
-            <el-table-column label="操作" width="200">
-                <template #default="item">
-                    <el-button #default="item" @click="approveById(item.row)" size="small" type="primary">审批</el-button>
-                    <el-button #default="item" @click="previewById(item.row)" size="small"
-                        type="success">查看进度</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <!--分页组件-->
-        <el-pagination class="pagiantion" @current-change="handleCurrentChange" :current-page="pagination.page"
-            :page-size="pagination.pageSize" layout="total, prev, pager, next" :total="pagination.totalCount">
-        </el-pagination>
+                <el-table-column label="操作" width="200">
+                    <template #default="item">
+                        <el-button #default="item" @click="approveById(item.row)" size="small"
+                            type="primary">审批</el-button>
+                        <el-button #default="item" @click="previewById(item.row)" size="small"
+                            type="success">查看进度</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <!--分页组件-->
+            <el-pagination class="pagiantion" @current-change="handleCurrentChange" :current-page="pagination.page"
+                :page-size="pagination.pageSize" layout="total, prev, pager, next" :total="pagination.totalCount">
+            </el-pagination>
+        </div>
+        
     </div>
     <approveViewDialog v-if="visibleDialog" v-model:visible="visibleDialog" :processNumber="processNumber"
-    @change="closeApproveViewDialog" />
+        @change="closeApproveViewDialog" />
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from "vue";
 import { ElMessage } from 'element-plus';
-import { useRouter,useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { getPenddinglistPage, getBpmVerifyInfoVos } from '@/api/jdCloudApi';
-import approveViewDialog from '@/components/flowOpt/approveViewDialog.vue' 
+import approveViewDialog from '@/components/flowOpt/approveViewDialog.vue'
 import { showLoading, closeLoading } from '@/utils/loading'
 const router = useRouter();
 const route = useRoute();
-let uid = route.query.userId??1;
+let uid = route.query.userId ?? 1;
 let pagination = reactive({//分页相关模型数据
     page: 1,//当前页码
     pageSize: 10,//每页显示的记录数
@@ -101,39 +105,18 @@ const approveById = (data) => {
     Object.assign(data, { "userId": uaserid.value });
     router.push({ path: "/approve", query: data });
 };
- 
+
 const previewById = async (data) => {
     showLoading();
-    processNumber.value = data.processNumber; 
+    processNumber.value = data.processNumber;
     visibleDialog.value = true;
     closeLoading();
 
 };
-const closeApproveViewDialog = () => { 
+const closeApproveViewDialog = () => {
     visibleDialog.value = false;
 };
 
 </script>
-<style scoped>
-.main-container {
-    position: relative;
-    border-radius: 3px;
-    background: #ffffff;
-    padding: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-    min-height: 550px;
-    border-top: 3px solid #46A6FE;
-}
-
-.filter-container {
-    padding: 5px 0 10px 0;
-}
-.filter-container .el-button,
-.filter-container .el-input,
-.filter-container .el-input__inner  {
-    padding: 0 15px;
-    height: 34px;
-    line-height: 34px;
-} 
+<style scoped> 
 </style>

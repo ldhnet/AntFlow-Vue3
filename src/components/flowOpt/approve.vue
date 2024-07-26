@@ -7,7 +7,7 @@
             <div class="fd-nav-title">审批</div>
         </div>
     </div>
-    <div class="app-container">
+    <div class="main-container">
         <div class="box">
             <div style="min-width: 600px;float: left;margin-right: 30px;">
                 <el-form label-width="auto" :disabled="true" style="max-width: 600px;">
@@ -87,7 +87,7 @@ const approveFormRef = ref(null);
 let activities = ref(null);
 
 onMounted(async () => {
-   await getPreviewData();
+    await getPreviewData();
 });
 
 const getPreviewData = async () => {
@@ -104,7 +104,7 @@ const getPreviewData = async () => {
         activities.value = resData.data.map(c => {
             return {
                 ...c,
-                type:statusColor[c.verifyStatus],
+                type: statusColor[c.verifyStatus],
                 size: c.verifyStatus == 99 ? 'large' : 'normal',
                 remark: c.verifyStatus == 0 ? '流程结束' : c.verifyStatusName
             }
@@ -151,39 +151,6 @@ const toReturn = () => {
 
 </script>
 <style scoped>
-.app-container {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-bottom: 30px;
-    background: #fff;
-    margin: 5px 10px 5px 5px;
-}
-
-.app-container .box {
-    position: relative;
-    border-radius: 3px;
-    background: #ffffff;
-    border-top: 3px solid #46A6FE;
-    padding: 20px;
-    margin-bottom: 20px;
-    width: 100%;
-    min-height: 500px;
-}
-
-.form-container {
-    width: 100%;
-    height: 100%;
-    background: white !important;
-    padding: 5px 10px 5px 5px;
-    text-align: center;
-}
-
 .el-timeline-item {
     padding-bottom: 0px !important;
 }

@@ -1,0 +1,63 @@
+.main-container {
+  z-index: 1; 
+  margin-top: 5px;
+  width: 100%
+}
+
+.main-container .box {
+  position: relative;
+  border-radius: 3px;
+  background: #ffffff;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  min-height: 550px;
+  border-top: 3px solid #46A6FE;
+}
+
+.filter-container {
+  padding: 5px 0 10px 0;
+}
+.filter-container .el-button,
+.filter-container .el-input,
+.filter-container .el-input__inner  {
+  padding: 0 15px;
+  height: 34px;
+  line-height: 34px;
+} 
+
+.form-container {   
+  background: white !important;
+  padding: 15px;
+  text-align: center;
+  min-width: 800px;
+  min-height: 600px;
+}
+
+.page-close-box {
+  position: absolute;
+  top:-0;
+  right: -0;
+  width: 42px; 
+  height: 42px;
+  text-align: center;
+  cursor: pointer; 
+  z-index: 999;
+}
+
+.page-close-box  img {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-image: url();
+}
+.page-close-box::before{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 20px solid #46A6FE;
+    border-color: #46A6FE #46A6FE transparent transparent;
+    content: '';
+  } 
