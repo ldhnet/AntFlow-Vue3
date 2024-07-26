@@ -133,8 +133,8 @@ let checkedNot = ref(true)
 let checkedBack = ref(false)
 const activeName = ref('baseTab')
  
-const handleTabClick = () => {
-    console.log(tab, event)
+const handleTabClick = (tab, event) => {
+    //console.log(tab, event)
 }
 watch(approverConfig1, (val) => {
     approverConfig.value = val.value

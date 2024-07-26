@@ -18,7 +18,7 @@ import './css/override-element-ui.css';
 import 'element-plus/es/components/message/style/css' ;
 import "element-plus/theme-chalk/el-message-box.css";
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn';
-import { parseTime } from "@/utils/hsharpUtils";
+import { parseTime,goBack } from "@/utils/hsharpUtils";
  
 
 const app = createApp(App).use(createPinia()).use(router).use(ElementPlus, {
@@ -28,7 +28,7 @@ app.mount('#app')
 
 // 全局方法挂载
 app.config.globalProperties.parseTime = parseTime
-
+app.config.globalProperties.goBack = goBack
 
 // 全局组件挂载
 import nodeWrap from '@/components/nodeWrap.vue'

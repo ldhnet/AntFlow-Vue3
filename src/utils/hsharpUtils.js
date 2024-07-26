@@ -230,3 +230,8 @@ export function tansParams(params) {
 export function blobValidate(data) {
   return data.type !== 'application/json'
 }
+// 返回上一步
+export function goBack() {
+  window.history.go(-1);
+}
+ 
