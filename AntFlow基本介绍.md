@@ -23,9 +23,9 @@ AntFlow是一款开源OA审批工作流系统，灵感来源于钉钉的工作�
 
 ### 核心技术栈
 
-* Java8
+* Java8-17
 * Activiti 5.23
-* Spring Boot 2.5.6
+* Spring Boot 2.7.17
 * MybatisPlus 3.5.1
 * MySql 5.7+
 
