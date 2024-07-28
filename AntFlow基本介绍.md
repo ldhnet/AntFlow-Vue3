@@ -1,6 +1,6 @@
 🐜AntFlow is an activiti based,🛩︎battle tested,enterprise grade workflow platform.It has a Dingtalk(a famous Chinese Enterprise IM software) flow like frontend and meticulously tailored for Chinese style(the C-suite executives supersedes standard operating procedures) Office Automation .It is easy to use,easy to maintance and easy to extend. If you ❤️ it,please ⭐️ it
 
-AntFlow 是一款基于activiti的、✈久经生产环境考验的、企业级的工作流引擎平台。前端设计参考了钉钉样式，同时审批流功能更强大，结合中国OA办公特点精心打造🚩，更符合中国宝宝体质👶👶🏻👶🏾。如果您喜欢，请留下星星⭐️
+AntFlow 是一款基于activiti的、✈久经生产环境考验的、企业级的工作流引擎平台。前端设计参考了钉钉样式，同时审批流功能更强大，结合中国OA办公特点精心打造🚩，加批,去重,委托,督办,退回...等功能一应俱全。如果您喜欢，请留下星星⭐️
 
 ### 基本介绍：
 
