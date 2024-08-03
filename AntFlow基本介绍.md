@@ -1,6 +1,6 @@
 🐜AntFlow is an activiti based,🛩︎battle tested,enterprise grade workflow platform.It has a Dingtalk(a famous Chinese Enterprise IM software) flow like frontend and meticulously tailored for Chinese style(the C-suite executives supersedes standard operating procedures) Office Automation .It is easy to use,easy to maintance and easy to extend. If you ❤️ it,please ⭐️ it
 
-AntFlow 是一款基于activiti的、✈久经生产环境考验的、企业级的工作流引擎平台。前端设计参考了钉钉样式，同时审批流功能更强大，结合中国OA办公特点精心打造🚩，加批,去重,委托,督办,退回...等功能一应俱全。如果您喜欢，请留下星星⭐️
+AntFlow 是一款基于activiti的、✈久经生产环境考验的、企业级的工作流引擎平台。前端设计参考了钉钉样式,简单易用，同时审批流功能更强大，结合中国OA办公特点精心打造🚩，加批,去重,委托,督办,退回...等功能一应俱全。如果您喜欢，请留下星星⭐️
 
 ### 基本介绍：
 
@@ -31,7 +31,7 @@ AntFlow是一款开源OA审批工作流系统，灵感来源于钉钉的工作�
 >
 > 用户在向你反馈工作流问题的时候你的做法是不是把用户的账号要过来登陆看?AntFlow不需要。后面将会有文章介绍AntFlow如何解决日常流程问题。
 
-4. 久经生产检验的：作者曾经任职于某大型快速公司智能办公研发部，流程引擎在公司内部OA办公，项目立项，采购招标，动力运输调度等场景中广泛应用，经受住了复杂应用场景的考验
+4. 久经生产检验的：在国内某大中型快速公司得到生产环境验证,广泛应用在公司内部OA办公，项目立项，采购招标，动力运输调度等场景中广泛应用，经受住了复杂应用场景的考验
 
 5. 基于Activiti的高效开发：AntFlow基于流行的开源工作流引擎Activiti进行深度定制开发，保证了系统的稳定性和高效性。同时，易于扩展和定制（你对activiti熟悉的话可以任意定制，antflow不屏蔽activiti底层能力，当然，你不熟悉也无所谓，提供的扩展功能够绝大部分场景下使用了），可以无缝对接现有的用户、部门和角色体系。
 
