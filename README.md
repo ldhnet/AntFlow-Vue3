@@ -16,8 +16,8 @@
 -  📢📢预览功能以及API介绍文档来啦(持续完善中...)[wiki](https://gitee.com/ldhnet/AntFlow-Vue3/wikis)
 -  📢📢📢 **antflow后端开源啦!!**
 -  🆓 **完全开源免费,无付费引导** 
--  开源地址vue3版本 [Gitee仓库](https://gitee.com/ldhnet/AntFlow-Vue3)  点个星吧！
--  开源地址vue2版本 [GitHub仓库](https://github.com/ldhnet/AntFlow-Vue2) 点个星吧！
+-  开源前端地址vue3版本 [Gitee仓库](https://gitee.com/ldhnet/AntFlow-Vue3)  点个星吧！
+-  开源前端地址vue2版本 [GitHub仓库](https://github.com/ldhnet/AntFlow-Vue2) 点个星吧！
 -  开源后端地址 [github仓库](https://github.com/mrtylerzhou/AntFlow)
 -  开源后端gitee地址 [gitee仓库](https://gitee.com/tylerzhou/Antflow)
  - QQ技术交流群（972107977） 期待您的加入
