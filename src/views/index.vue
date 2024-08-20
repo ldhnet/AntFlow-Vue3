@@ -1,7 +1,7 @@
 <template>
     <div class="fd-nav">
         <div class="fd-nav-left">
-            <div class="fd-nav-back" @click="toReturn">
+            <div class="fd-nav-back">
                 <i class="anticon anticon-left"></i>
             </div>
             <div class="fd-nav-title">{{ title}}</div>
@@ -77,10 +77,7 @@ onMounted(async () => {
     // setTableId(tableId);
     closeLoading();
 });
-
-const toReturn = () => {
-    router.push({ path: "/todo" });
-};
+ 
 const publish = () => {
     const step1 = basicSetting.value.getData();
     const step2 = processDesign.value.getData();
