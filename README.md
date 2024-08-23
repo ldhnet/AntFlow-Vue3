@@ -40,7 +40,7 @@
 ## 演示图 
 <table>
     <tr>
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1-1.png"/></td>
+        <td style="width:380px"><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1-1.png"/></td>
         <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1-2.png"/></td>
     </tr> 
     <tr>
@@ -71,5 +71,10 @@
 ## 热烈推荐
 大家在使用本项目时，推荐结合贺波老师的书[《深入Activiti流程引擎：核心原理与高阶实战》](https://item.jd.com/13928958.html)，这本书对系统学习和深入掌握Activiti/Flowable的用法非常有帮助。
 
-![输入图片说明](https://foruda.gitee.com/images/1699658576150803044/9bdfb7f1_2042292.png "")
+<table>
+    <tr>
+        <td style="max-width:200px;"><img src="https://foruda.gitee.com/images/1699658576150803044/9bdfb7f1_2042292.png"/></td>  
+    </tr>  
+</table>
+   
 
