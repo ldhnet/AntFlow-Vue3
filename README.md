@@ -20,17 +20,36 @@
 -  开源前端地址vue2版本 [GitHub仓库](https://github.com/ldhnet/AntFlow-Vue2) 点个星吧！
 -  开源后端地址 [github仓库](https://github.com/mrtylerzhou/AntFlow)
 -  开源后端gitee地址 [gitee仓库](https://gitee.com/tylerzhou/Antflow)
- - QQ技术交流群（972107977） 期待您的加入
- - 有疑问可以Issues留言，我们会认真对待
-  [issues地址](https://gitee.com/ldhnet/AntFlow-Vue3/issues)
+- QQ技术交流群（972107977） 期待您的加入
+- 有疑问可以Issues留言，我们会认真对待  [issues地址](https://gitee.com/ldhnet/AntFlow-Vue3/issues)
 
 
-#### 项目预览
-   
-![1.png](https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1.png)
-![2.png](https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/2.png)
-![3.png](https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/3.png)
+## 项目介绍
+- UI钉钉风格
+- 技术点
+1. 组件自调用+递归处理，按树状结局处理审批流程问题
+ 
+- 流程设计器
+  1、节点设置（包括审批人、发起人、抄送人、条件设置）<br />
+  2、节点新增、删除、修改<br />
+  3、条件节点：自定义配置条件<br />
+  4、审批人节点：人员、角色、部门选择<br />
+  5、错误校验<br />
+  6、流程保存<br />
+  7、流程发布 
 
+## 演示图 
+<table>
+    <tr>
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1.png"/></td>
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1.png"/></td>
+    </tr> 
+        <tr>
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/3.png"/></td>
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/4.png"/></td>
+    </tr> 
+</table>
+  
 -------------------
  
 
