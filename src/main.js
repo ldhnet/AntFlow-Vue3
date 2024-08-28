@@ -2,28 +2,23 @@
  * @Date:  2024-05-25 11:58:11
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2024-06-30 15:19:57
- * @FilePath: /zto-flow/src/main.js
+ * @FilePath: /src/main.js
  */
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
-import router from './router';
-import ElementPlus from 'element-plus';
-
+import router from './router'; 
 import "./css/base.css";
 import "./css/workflow.css";
 import './assets/main.css';
 import 'element-plus/dist/index.css';
 import './css/override-element-ui.css';
 import 'element-plus/es/components/message/style/css' ;
-import "element-plus/theme-chalk/el-message-box.css";
-import zhLocale from 'element-plus/lib/locale/lang/zh-cn';
+import "element-plus/theme-chalk/el-message-box.css"; 
 import { parseTime,goBack } from "@/utils/hsharpUtils";
  
 
-const app = createApp(App).use(createPinia()).use(router).use(ElementPlus, {
-  locale: zhLocale
-})
+const app = createApp(App).use(createPinia()).use(router)
 app.mount('#app')
 
 // 全局方法挂载
