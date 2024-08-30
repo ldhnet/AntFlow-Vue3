@@ -42,7 +42,7 @@
             {
                 "nodeId": "IhgYu4",
                 "nodeName": "条件1",
-                "nodeDisplayName": "园区面积 < 2000",
+                "nodeDisplayName": "总支出金额 < 2000",
                 "nodeType": 3,
                 "nodeFrom": "UcgYu4",
                 "prevId": [],
@@ -57,9 +57,9 @@
                     "conditionList": [
                         {
                             "showType": "1",
-                            "columnId": "3",
+                            "columnId": "1",
                             "type": 2,
-                            "showName": "园区面积",
+                            "showName": "总支出金额",
                             "optType": "1",
                             "zdy1": "2000",
                             "opt1": "<",

@@ -10,23 +10,23 @@
         "endRow": "3",
         "pageSize": "30",
         "list": [{
-            "departmentName": "招商事业部",
+            "departmentName": "事业部",
             "employeeName": "111111",
             "employeeDepartmentId": "121",
             "id": "5312",
-            "departmentNames": "招商事业部"
+            "departmentNames": "事业部"
         }, {
             "departmentName": "111",
-            "employeeName": "东亚-测试",
+            "employeeName": "开发部测试",
             "employeeDepartmentId": "139",
             "id": "2515638",
             "departmentNames": "111"
         }, {
-            "departmentName": "招商事业部",
+            "departmentName": "IT部门",
             "employeeName": "1111",
             "employeeDepartmentId": "121",
             "id": "2515746",
-            "departmentNames": "招商事业部"
+            "departmentNames": "IT部门"
         }],
         "pageNum": "1",
         "navigatePages": "8",

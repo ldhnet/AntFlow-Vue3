@@ -5,24 +5,24 @@
     {
       "columnId": "1",
       "showType": "1",
-      "showName": "预计采购总费用",
-      "columnName": "planProcurementTotalMoney",
+      "showName": "总支出金额",
+      "columnName": "outTotalMoney",
       "columnType": "Double",
       "fixedDownBoxValue": ""
     },
     {
       "columnId": "2",
-      "showType": "3",
-      "showName": "采购类型",
-      "columnName": "procurementType",
-      "columnType": "String",
-      "fixedDownBoxValue": "{\"1\":{\"key\":\"1\",\"value\":\"新开园区集中采购\",\"column\":\"\",\"type\":\"1\"}}"
-    },
+      "showType": "1",
+      "showName": "采购费用",
+      "columnName": "purchaseMoney",
+      "columnType": "Double",
+      "fixedDownBoxValue": ""
+    }, 
     {
       "columnId": "3",
       "showType": "1",
-      "showName": "园区面积",
-      "columnName": "parkArea",
+      "showName": "借款金额",
+      "columnName": "borrowMoney",
       "columnType": "Double",
       "fixedDownBoxValue": ""
     },
@@ -41,6 +41,13 @@
       "columnName": "jobLevelType",
       "columnType": "String",
       "fixedDownBoxValue": "{\"1\":{\"key\":\"1\",\"value\":\"CEO\",\"column\":\"\",\"type\":\"1\"},\"2\":{\"key\":\"2\",\"value\":\"CFO\",\"column\":\"\",\"type\":\"1\"},\"3\":{\"key\":\"3\",\"value\":\"总监\",\"column\":\"\",\"type\":\"1\"}}"
+    },{
+      "columnId": "6",
+      "showType": "3",
+      "showName": "办公用品",
+      "columnName": "accountType",
+      "columnType": "String",
+      "fixedDownBoxValue": "{\"1\":{\"key\":\"1\",\"value\":\"圆珠笔\",\"column\":\"\",\"type\":\"1\"},\"2\":{\"key\":\"2\",\"value\":\"笔记本\",\"column\":\"\",\"type\":\"1\"},\"3\":{\"key\":\"3\",\"value\":\"显示器\",\"column\":\"\",\"type\":\"1\"}}"
     }
   ]
 }

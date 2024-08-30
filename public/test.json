@@ -32,7 +32,7 @@
         {
             "nodeId": "IhgYu4",
             "nodeName": "条件1",
-            "nodeDisplayName": "园区面积 < 2000",
+            "nodeDisplayName": "采购费用 < 2000",
             "nodeType": 3,
             "nodeFrom": "UcgYu4",
             "prevId": [],
@@ -49,7 +49,7 @@
                         "showType": "1",
                         "columnId": "3",
                         "type": 2,
-                        "showName": "园区面积",
+                        "showName": "采购费用",
                         "optType": "1",
                         "zdy1": "2000",
                         "opt1": "<",

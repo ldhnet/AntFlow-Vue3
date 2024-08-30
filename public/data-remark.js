@@ -10,15 +10,13 @@ export default {
         "flowPermission": [],//发起人
         "nodeConfig": {
             "nodeName": "发起人",//节点名称
-            "type": 0,// 0 发起人 1审批 2抄送 3条件 4路由
+            "nodeType": 1,// 1发起人 2 网关 3条件 4审批 5抄送人
             "priorityLevel": "",// 条件优先级
-            "setType": "",// 审批人设置 1指定成员 2主管 4发起人自选 5发起人自己 7连续多级主管
-             //审批人数 1选一个人 2选多个人
-             //选择范围 1.全公司 2指定成员 2指定角色
+            "setType": "", 
+            "nodeProperty": 5,// 审批人设置 1指定成员 2主管 3指定角色  5发起人自己 
             "directorLevel": "", //审批终点   第n层主管
             "signType": "", //多人审批时采用的审批方式 1依次审批 2会签
-            "noHeaderAction": "",//审批人为空时 1自动审批通过/不允许发起 2转交给审核管理员
- 
+            "noHeaderAction": "",//审批人为空时 1自动审批通过/不允许发起 2转交给审核管理员 
             "ccSelfSelectFlag": "", //允许发起人自选抄送人
             "conditionList": [], //当审批单同时满足以下条件时进入此流程
             "nodeApproveList": [], //操作人

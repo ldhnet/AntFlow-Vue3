@@ -1,7 +1,20 @@
 {
     "code": "200",
     "msg": "操作成功",
-    "data": { 
+    "data": {
+        "childDepartments": [{
+            "departmentKey": "RLXZB_V2",
+            "departmentName": "人事部",
+            "id": "150",
+            "parentId": "0",
+            "departmentNames": "人事部"
+        }, {
+            "departmentKey": "ZNBN",
+            "departmentName": "财务部",
+            "id": "324",
+            "parentId": "0",
+            "departmentNames": "财务部"
+        }],
         "employees": [{
             "id": "1001",
             "employeeName": "管理员",
