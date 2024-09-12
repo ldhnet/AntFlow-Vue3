@@ -1,5 +1,5 @@
 <p align="center" style="margin-bottom: 0 !important">
-	<img alt="logo" src="https://gitee.com/ldhnet/ant-flow/raw/master/public/images/logo.png"  width = "25%"; height= "25%";>
+	<img alt="logo" src="https://gitee.com/ldhnet/ant-flow/raw/master/public/images/logo.png"   width = 25%; height=25%;>
 </p>
 <h1 align="center" style="margin: 10px 10px; font-weight: bold;margin-top: 0 !important">AntFlow-Vue3</h1>
 <h4 style="border-top: solid #ACC0D8 1px;"></h4>
