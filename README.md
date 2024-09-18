@@ -68,14 +68,20 @@
 
 > 3.打包运行 `npm run build` 
 
-## 热烈推荐
-大家在使用本项目时，推荐结合贺波老师的书[《深入Activiti流程引擎：核心原理与高阶实战》](https://item.jd.com/13928958.html)，这本书对系统学习和深入掌握Activiti/Flowable的用法非常有帮助。
 
+##  捐赠支持
+😀 你可以请作者喝杯咖啡表示鼓励
 <table>
     <tr>
         <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/wxpay.jpg"/></td>
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/alipay.png"/></td>
-    </tr> 
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/alipay.jpg"/></td>
+    </tr>  
+</table>
+
+## 热烈推荐
+大家在使用本项目时，推荐结合贺波老师的书[《深入Activiti流程引擎：核心原理与高阶实战》](https://item.jd.com/13928958.html)，这本书对系统学习和深入掌握Activiti/Flowable的用法非常有帮助。
+
+<table>  
     <tr>
         <td style="max-width:200px;"><img src="https://foruda.gitee.com/images/1699658576150803044/9bdfb7f1_2042292.png"/></td>  
     </tr>  
