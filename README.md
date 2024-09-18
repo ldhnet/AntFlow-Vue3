@@ -72,6 +72,10 @@
 
 <table>
     <tr>
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/wxpay.jpg"/></td>
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/alipay.png"/></td>
+    </tr> 
+    <tr>
         <td style="max-width:200px;"><img src="https://foruda.gitee.com/images/1699658576150803044/9bdfb7f1_2042292.png"/></td>  
     </tr>  
 </table>
