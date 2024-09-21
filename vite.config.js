@@ -31,7 +31,7 @@ export default defineConfig(({mode})=>{
           }
       }
     },
-    base: mode === "production" ? '/flow/' : '/',///ant-flow/dist/
+    base: mode === "production" ? '/ant-flow/dist/' : '/',///ant-flow/dist/
     plugins: [
       vue(),
       AutoImport({
