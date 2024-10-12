@@ -8,10 +8,10 @@ export class FormatUtils {
      * 对基础设置,高级设置等设置页内容进行格式化
      * @param params
      */
-    static formatSettings(param) { 
+    static formatSettings(param) {
         let treeList = this.flattenMapTreeToList(param);
         let combinationList = this.getEndpointNodeId(treeList);
-        let finalList = this.cleanNodeList(combinationList); 
+        let finalList = this.cleanNodeList(combinationList);
         let fomatList = this.adapterActivitiNodeList(finalList);
         return fomatList;
         // let finalObj = {
@@ -141,13 +141,13 @@ export class FormatUtils {
         for (let node of nodeList) {
             if (node.hasOwnProperty('id')) {
                 delete node.id;
-            }  
+            }
             if (node.nodeType == 3) {
                 let conditionObj = {
-                    conditionList:node.conditionList,
+                    conditionList: node.conditionList,
                     sort: node.priorityLevel,
                     isDefault: node.isDefault
-                }; 
+                };
                 Object.assign(node, { property: {} });
                 node.property = conditionObj;
                 delete node.conditionList;

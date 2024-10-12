@@ -7,9 +7,9 @@ export class FormatDisplayUtils {
      * @param {Array} parmData 
      * @returns Object
      */
-    static getToTree(parmData) {           
-        let node = this.createNodeDisplay(parmData); 
-        let formatList = this.formatDisplayStructNodeList(parmData.nodes);    
+    static getToTree(parmData) {
+        let node = this.createNodeDisplay(parmData);
+        let formatList = this.formatDisplayStructNodeList(parmData.nodes);
         node.nodeConfig = this.depthConverterToTree(formatList);//parmData.nodes
         return node
     }
@@ -19,21 +19,21 @@ export class FormatDisplayUtils {
      * @param { Object } nodeData - 源节点数据
      * @returns Object
      */
-    static createNodeDisplay(nodeData) {    
+    static createNodeDisplay(nodeData) {
         let displayObj = {
             tableId: nodeData.id,
             bpmnCode: nodeData.bpmnCode,
             bpmnName: nodeData.bpmnName, //name 改成 bpmnName 其他的都是添加的
             bpmnType: nodeData.bpmnType,
-            formCode:nodeData.formCode,
+            formCode: nodeData.formCode,
             appId: nodeData.appId,
             deduplicationType: nodeData.deduplicationType,//2去重,1不去重
-            effectiveStatus:  nodeData.effectiveStatus == 1?true:false,
+            effectiveStatus: nodeData.effectiveStatus == 1 ? true : false,
             remark: "合同审批",
             isDel: 0,
-            directorMaxLevel: 3, 
+            directorMaxLevel: 3,
             nodeConfig: {},
-        } 
+        }
         return displayObj
     }
     /**
@@ -73,18 +73,18 @@ export class FormatDisplayUtils {
 
     static formatDisplayStructNodeList(nodeList) {
         if (isEmptyArray(nodeList)) return nodeList;
-        for (let node of nodeList) {    
-    
+        for (let node of nodeList) {
+
             if (node.nodeType == 3) {
                 node.priorityLevel = node.property.sort;
                 node.isDefault = node.property.isDefault;
                 Object.assign(node, { conditionList: [] });
-                node.conditionList  =  node.property.conditionList ? node.property.conditionList : [];  
+                node.conditionList = node.property.conditionList ? node.property.conditionList : [];
                 delete node.property;
             }
 
             if (node.nodeType == 4 || node.nodeType == 5) {
-                let empList = [];       
+                let empList = [];
                 if (node.property && !isEmptyArray(node.property.emplList)) {
                     for (let emp of node.property.emplList) {
                         let approveObj = {
@@ -97,9 +97,9 @@ export class FormatDisplayUtils {
 
                     Object.assign(node, { signType: node.property.signType });
                 }
-                node.setType = node.nodeProperty == 5 ? 1 : node.nodeProperty; 
+                node.setType = node.nodeProperty == 5 ? 1 : node.nodeProperty;
                 Object.assign(node, { nodeApproveList: [] });
- 
+
                 node.nodeApproveList = empList;
                 delete node.property;
             }
