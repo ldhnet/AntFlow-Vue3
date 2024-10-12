@@ -85,4 +85,4 @@
 
 > flowable源于activiti,很多核心表,核心api和设计模式都是一样的.读flowable的书同样也可以用在activiti上
 
-![图书image](./doc/images/flowablebook.jpg)
+![图书image](https://gitee.com/tylerzhou/Antflow/raw/master/doc/images/flowablebook.jpg)
