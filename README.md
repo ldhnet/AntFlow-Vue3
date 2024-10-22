@@ -59,7 +59,7 @@
 
 > git clone https://gitee.com/ldhnet/AntFlow-Vue3.git 点个赞吧！
 
-> 集成若依前端管理系统 git clone https://gitee.com/ldhnet/FlowAdmin-vue.git 点个赞吧！
+> 集成若依前端 git clone https://gitee.com/ldhnet/FlowAdmin-vue.git 点个赞吧！
 
 > 后端地址 git clone https://gitee.com/tylerzhou/Antflow.git 点个赞吧！
 
