@@ -16,7 +16,7 @@
                     <a v-if="copyerConfig.nodeApproveList&&copyerConfig.nodeApproveList.length!=0" @click="copyerConfig.nodeApproveList=[]">清除</a>
                 </p>
                 <el-checkbox-group v-model="ccSelfSelectFlag" class="clear">
-                    <el-checkbox :label="1">允许发起人自选抄送人</el-checkbox>
+                    <el-checkbox :value="1">允许发起人自选抄送人</el-checkbox>
                 </el-checkbox-group>
             </div>
             <div class="demo-drawer__footer clear">
