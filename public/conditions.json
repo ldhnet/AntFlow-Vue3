@@ -36,7 +36,7 @@
     },
     {
       "columnId": "5",
-      "showType": "3",
+      "showType": "2",
       "showName": "职级",
       "columnName": "jobLevelType",
       "columnType": "String",

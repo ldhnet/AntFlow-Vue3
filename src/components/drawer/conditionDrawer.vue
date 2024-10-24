@@ -33,6 +33,13 @@
                                 v-for="(item1,index1) in JSON.parse(item.fixedDownBoxValue)" :key="index1">{{item1.value}}</a>
                             </p>
                         </div>
+                        <div v-else-if="item.columnType == 'String' && item.showType == 2">
+                            <p class="check_box">
+                                <select style="width:300px;" v-model="item.zdy1"> 
+                                    <option v-for="({key, value}) in JSON.parse(item.fixedDownBoxValue)" :value="key" :key="key">{{ value }}</option>
+                                </select>
+                            </p>                    
+                        </div>
                         <div v-else>
                             <p>
                                 <select v-model="item.optType" :style="'width:'+(item.optType==6?370:100)+'px'" @change="changeOptType(item)">
@@ -203,7 +210,19 @@ const sureCondition = () => {
                     "columnDbname": columnName,
                     "columnType": columnType,
                 })
-            } else if (columnType == "String" && showType == "3") {
+            } else if (columnType == "String" && showType == "2") {
+                conditionConfig.value.conditionList.push({
+                    "showType": showType,
+                    "columnId": columnId,
+                    "type": 2,
+                    "showName": showName,
+                    "zdy1": "",
+                    "columnDbname": columnName,
+                    "columnType": columnType,
+                    "fixedDownBoxValue": fixedDownBoxValue
+                })
+            } 
+            else if (columnType == "String" && showType == "3") {
                 conditionConfig.value.conditionList.push({
                     "showType": showType,
                     "columnId": columnId,

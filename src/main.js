@@ -8,17 +8,18 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router'; 
+import ElementPlus from 'element-plus' /* 引入 ElementPlus */
+import 'element-plus/dist/index.css'
 import "./css/base.css";
 import "./css/workflow.css";
-import './assets/main.css';
-import 'element-plus/dist/index.css';
+import './assets/main.css'; 
 import './css/override-element-ui.css';
-import 'element-plus/es/components/message/style/css' ;
-import "element-plus/theme-chalk/el-message-box.css"; 
+// import 'element-plus/es/components/message/style/css' ;
+// import "element-plus/theme-chalk/el-message-box.css"; 
 import { parseTime,goBack } from "@/utils/hsharpUtils";
  
-
 const app = createApp(App).use(createPinia()).use(router)
+app.use(ElementPlus)
 app.mount('#app')
 
 // 全局方法挂载

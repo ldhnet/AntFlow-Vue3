@@ -99,6 +99,14 @@ All.prototype = {
         }
         return arr.join("或")
     },  
+    getLabelStr(str, obj) {  
+        if(!obj) return; 
+        let ret = obj[str];
+        if (ret) {
+            return ret.value;
+        }
+        return '';
+    },  
     conditionStr(nodeConfig, index) {
         var { conditionList, nodeApproveList } = nodeConfig.conditionNodes[index];
         if (conditionList.length == 0) {
@@ -118,7 +126,21 @@ All.prototype = {
                         str += showName + '属于：' + this.dealStr(zdy1, JSON.parse(fixedDownBoxValue)) + " 并且 "
                     }
                 }
-                if (columnType == "Double") {
+                if (columnType == "String" && showType == "2") {
+                    if (!fixedDownBoxValue) {
+                        str += nodeConfig.conditionNodes[index].nodeDisplayName + "     "
+                    }else {
+                        if (zdy1) {
+                            str += showName + '：' + this.getLabelStr(zdy1, JSON.parse(fixedDownBoxValue)) + " 并且 "
+                        }
+                    }                  
+                }
+                if (columnType == "Double" && showType == "2") {
+                    if (zdy1) {
+                        str += showName + '：' + this.getLabelStr(zdy1, JSON.parse(fixedDownBoxValue)) + " 并且 "
+                    }
+                }
+                if (columnType == "Double" && showType != "2") {
                     if (optType != 6 && zdy1) {
                         var optTypeStr = ["", "<", ">", "≤", "=", "≥"][optType]
                         str += `${showName} ${optTypeStr} ${zdy1} 并且 `
