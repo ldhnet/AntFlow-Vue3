@@ -41,13 +41,19 @@ export default defineConfig(({mode})=>{
         resolvers: [ElementPlusResolver()],
       }),
     ],
+
+    optimizeDeps: {
+      include: ['@/./lib/vform/designer.umd.js']  //此处路径必须跟main.js中import路径完全一致！
+    },
+
     build: {
   
       /** If you set esmExternals to true, this plugins assumes that 
         all external dependencies are ES modules */
    
       commonjsOptions: {
-         esmExternals: true 
+         esmExternals: true,
+         include: /node_modules|lib/  //这里记得把lib目录加进来，否则生产打包会报错！！
       },
    }
   }

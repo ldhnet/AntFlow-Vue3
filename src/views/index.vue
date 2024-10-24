@@ -26,9 +26,9 @@
     <div v-if="processConfig"  v-show="activeStep === 'basicSetting'" >
         <BasicSetting ref="basicSetting"  :basicData="processConfig" @nextChange="changeSteps" />
     </div>
-    <!-- <div>
-        <DynamicForm  ref="formDesign" :conf="mockData.formData"  v-show="activeStep === 'formDesign'"  tabName="formDesign" />
-    </div>  -->
+    <div v-show="activeStep === 'formDesign'" >
+        <DynamicForm  ref="formDesign"  />
+    </div> 
     <div v-if="nodeConfig" v-show="activeStep === 'processDesign'">
         <Process ref="processDesign"   :processData="nodeConfig" @nextChange="changeSteps" />
     </div>
@@ -37,7 +37,7 @@
 <script setup>
 import { ref, onMounted  } from "vue";
 import { ElMessage } from 'element-plus';
-// import DynamicForm from "@/components/DynamicForm/index.vue";
+import DynamicForm from "@/components/DynamicForm/index.vue";
 import { useRoute } from 'vue-router';
 import { getMockWorkFlowData } from '@/api/index';
 import { getApiWorkFlowData, setApiWorkFlowData } from '@/api/jdCloudApi';
@@ -52,7 +52,7 @@ let activeStep = ref("basicSetting"); // 激活的步骤面板
 
 let steps = ref([
     { label: "基础设置", key: "basicSetting" },
-    //{ label: "表单设计", key: "formDesign" },
+    { label: "表单设计", key: "formDesign" },
     { label: "流程设计", key: "processDesign" },
 ]);
 

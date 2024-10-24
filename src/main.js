@@ -17,9 +17,13 @@ import './css/override-element-ui.css';
 // import 'element-plus/es/components/message/style/css' ;
 // import "element-plus/theme-chalk/el-message-box.css"; 
 import { parseTime,goBack } from "@/utils/hsharpUtils";
- 
+
+import VForm3 from '@/./lib/vform/designer.umd.js'
+import './lib/vform/designer.style.css'
+
 const app = createApp(App).use(createPinia()).use(router)
 app.use(ElementPlus)
+app.use(VForm3)
 app.mount('#app')
 
 // 全局方法挂载
