@@ -74,9 +74,9 @@ export default {
                             "opt2": "",//右侧符号 < ≤
                             "columnDbname": "",//条件字段名称
                             "columnType": "",//条件字段类型
-                            "showType": "",//3多选 其他
+                            "showType": "",////1：数值输入框 2：下拉框 3：Checkbox复选框多选 
                             "showName": "",//展示名
-                            "fixedDownBoxValue": ""//多选数组
+                            "fixedDownBoxValue": ""//下拉框,多选 的条件
                         }],
                         "nodeApproveList": [{
                             "targetId": 85,
