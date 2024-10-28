@@ -46,6 +46,7 @@ import { FormatDisplayUtils } from '@/utils/formatdisplay_data'
 import { showLoading, closeLoading } from '@/utils/loading'
 const route = useRoute(); 
 const basicSetting = ref(null);
+const formDesign = ref(null);
 const processDesign = ref(null);
 
 let activeStep = ref("basicSetting"); // 激活的步骤面板
@@ -80,12 +81,15 @@ onMounted(async () => {
  
 const publish = () => {
     const step1 = basicSetting.value.getData();
-    const step2 = processDesign.value.getData();
-    Promise.all([step1, step2])
+    const step2 = formDesign.value.getData();
+    const step3 = processDesign.value.getData();
+    Promise.all([step1, step2,step3])
         .then((res) => {
             ElMessage.success("设置成功,F12控制台查看数据");
             let basicData = res[0].formData;  
-            var nodes = FormatUtils.formatSettings(res[1].formData); 
+            let formData = res[1].formData;  
+            Object.assign(basicData, { formData: formData }); 
+            var nodes = FormatUtils.formatSettings(res[2].formData); 
             Object.assign(basicData, { nodes: nodes });
             return basicData;
         })

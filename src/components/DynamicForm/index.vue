@@ -1,11 +1,25 @@
 <template>
-     <div style="margin-top: 70px;">
-       <v-form-designer></v-form-designer>
+     <div class="fd-nav-content">
+        <div class="form-container">
+          <v-form-designer ref="formDesign"></v-form-designer>
+        </div>
+        <!-- <button @click="submitForm">ok</button> -->
      </div>
   </template>
   
   <script setup>
-
+  import { ref } from 'vue'
+  const formDesign = ref(null) 
+  const getData = () => {
+    let exportData= formDesign.value.getFormJson();
+    //console.log('exportData=========',JSON.stringify(exportData)) 
+    return new Promise((resolve, reject) => {
+      resolve({ formData: exportData })
+    })
+  }
+  defineExpose({
+    getData
+  })
   </script>
   
   <style lang="css" scoped>
