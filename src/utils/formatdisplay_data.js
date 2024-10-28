@@ -29,7 +29,7 @@ export class FormatDisplayUtils {
             appId: nodeData.appId,
             deduplicationType: nodeData.deduplicationType,//2去重,1不去重
             effectiveStatus: nodeData.effectiveStatus == 1 ? true : false,
-            remark: "合同审批",
+            remark: nodeData.remark,
             isDel: 0,
             directorMaxLevel: 3,
             nodeConfig: {},

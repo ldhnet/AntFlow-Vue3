@@ -14,7 +14,8 @@ let baseUrl = "http://117.72.70.166:7001/"
  * @returns 
  */
 export function getApiWorkFlowData(data) {
-  return http.get(`${baseUrl}/bpmnConf/detail/${data.id}`)
+  let headers = { "Userid": '1', "Username": 'zhangsan' };
+  return http.get(`${baseUrl}bpmnConf/detail/${data.id}`, { headers })
 }
   
 /**
@@ -23,7 +24,8 @@ export function getApiWorkFlowData(data) {
  * @returns 
  */
 export function setApiWorkFlowData(data) {
-  return http.post(`${baseUrl}/bpmnConf/edit`, data)
+  let headers = { "Userid": '1', "Username": 'zhangsan' };
+  return http.post(`${baseUrl}bpmnConf/edit`, data, { headers })
 }
  
 /**

@@ -3,14 +3,14 @@
     "msg": "success",
     "data": {
         "id": "10001",
-        "bpmnCode": "SFZHSQ-00011",
-        "bpmnName": "合同审批流程设计",
+        "bpmnCode": "LEAVE_WMA01",
+        "bpmnName": "请假流程设计",
         "bpmnType": null,
-        "formCode": "PROJECT_QGkYu4",
+        "formCode": "LEAVE_WMA",
         "appId": null,
         "deduplicationType": 2,
         "effectiveStatus": 1,
-        "remark": "合同审批流程设计",
+        "remark": "总公司员工请假流程设计",
         "isDel": 0,
         "nodes": [
             {
@@ -42,7 +42,7 @@
             {
                 "nodeId": "IhgYu4",
                 "nodeName": "条件1",
-                "nodeDisplayName": "总支出金额 < 2000",
+                "nodeDisplayName": "请假时长 < 72",
                 "nodeType": 3,
                 "nodeFrom": "UcgYu4",
                 "prevId": [],
@@ -59,13 +59,13 @@
                             "showType": "1",
                             "columnId": "1",
                             "type": 2,
-                            "showName": "总支出金额",
+                            "showName": "请假时长",
                             "optType": "1",
-                            "zdy1": "2000",
+                            "zdy1": "72",
                             "opt1": "<",
                             "zdy2": "",
                             "opt2": "<",
-                            "columnDbname": "parkArea",
+                            "columnDbname": "LeaveTime",
                             "columnType": "Double"
                         }
                     ],

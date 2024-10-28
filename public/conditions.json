@@ -5,8 +5,8 @@
     {
       "columnId": "1",
       "showType": "1",
-      "showName": "总支出金额",
-      "columnName": "outTotalMoney",
+      "showName": "请假时长",
+      "columnName": "LeaveTime",
       "columnType": "Double",
       "fixedDownBoxValue": ""
     },
