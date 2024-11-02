@@ -2,7 +2,7 @@
  * @Date: 2023-03-29 15:25:37
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-03-29 15:52:38
- * @FilePath: /zto-flow/src/utils/const.js
+ * @FilePath: /flow-designer/src/utils/const.js
  */
 
 export let bgColors = ["", '87, 106, 149', '', '', '255, 148, 62', '50, 150, 250']

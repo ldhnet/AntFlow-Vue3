@@ -567,12 +567,12 @@ mark {
     margin-left: 8px
 }
 
-.fd-nav-container {
+.my-nav-container {
     display: inline-block;
     position: relative
 }
 
-.fd-nav-container .ghost-bar {
+.my-nav-container .ghost-bar {
     position: absolute;
     width: 150px;
     height: 100%;
@@ -582,7 +582,7 @@ mark {
     transition: all .3s cubic-bezier(.645, .045, .355, 1)
 }
 
-.fd-nav-container .ghost-bar:after {
+.my-nav-container .ghost-bar:after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -595,7 +595,7 @@ mark {
     border-color: transparent transparent #f6f6f6
 }
 
-.fd-nav-item {
+.my-nav-item {
     position: relative;
     cursor: pointer;
     display: inline-block;
@@ -605,7 +605,7 @@ mark {
     white-space: nowrap
 }
 
-.fd-nav-item .order-num {
+.my-nav-item .order-num {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -617,7 +617,7 @@ mark {
     transition: all .3s cubic-bezier(.645, .045, .355, 1)
 }
 
-.fd-nav-item.active .order-num {
+.my-nav-item.active .order-num {
     color: #1583f2;
     background: #fff
 }
@@ -931,7 +931,7 @@ html {
     -moz-osx-font-smoothing: grayscale
 }
 
-.fd-nav {
+.my-nav {
     position: fixed;
     top: 0;
     left: 0;
@@ -946,31 +946,31 @@ html {
     align-items: center
 }
 
-.fd-nav>* {
+.my-nav>* {
     flex: 1;
     width: 100%
 }
 
-.fd-nav .fd-nav-left {
+.my-nav .my-nav-left {
     display: -webkit-box;
     display: flex;
     align-items: center
 }
 
-.fd-nav .fd-nav-center {
+.my-nav .my-nav-center {
     flex: none;
     width: 600px;
     text-align: center
 }
 
-.fd-nav .fd-nav-right {
+.my-nav .my-nav-right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     text-align: right
 }
 
-.fd-nav .fd-nav-back {
+.my-nav .my-nav-back {
     display: inline-block;
     width: 60px;
     height: 60px;
@@ -980,19 +980,19 @@ html {
     cursor: pointer
 }
 
-.fd-nav .fd-nav-back:hover {
+.my-nav .my-nav-back:hover {
     background: #5af
 }
 
-.fd-nav .fd-nav-back:active {
+.my-nav .my-nav-back:active {
     background: #1583f2
 }
 
-.fd-nav .fd-nav-back .anticon {
+.my-nav .my-nav-back .anticon {
     line-height: 60px
 }
 
-.fd-nav .fd-nav-title {
+.my-nav .my-nav-title {
     width: 0;
     flex: 1;
     overflow: hidden;
@@ -1001,12 +1001,12 @@ html {
     padding: 0 15px
 }
 
-.fd-nav a {
+.my-nav a {
     color: #fff;
     margin-left: 12px
 }
 
-.fd-nav .button-publish {
+.my-nav .button-publish {
     min-width: 80px;
     margin-left: 4px;
     margin-right: 15px;
@@ -1014,20 +1014,20 @@ html {
     border-color: #fff
 }
 
-.fd-nav .button-publish.ant-btn:focus,
-.fd-nav .button-publish.ant-btn:hover {
+.my-nav .button-publish.ant-btn:focus,
+.my-nav .button-publish.ant-btn:hover {
     color: #3296fa;
     border-color: #fff;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .3)
 }
 
-.fd-nav .button-publish.ant-btn:active {
+.my-nav .button-publish.ant-btn:active {
     color: #3296fa;
     background: #d6eaff;
     box-shadow: none
 }
 
-.fd-nav .button-preview {
+.my-nav .button-preview {
     min-width: 80px;
     margin-left: 16px;
     margin-right: 4px;
@@ -1036,20 +1036,20 @@ html {
     background: transparent
 }
 
-.fd-nav .button-preview.ant-btn:focus,
-.fd-nav .button-preview.ant-btn:hover {
+.my-nav .button-preview.ant-btn:focus,
+.my-nav .button-preview.ant-btn:hover {
     color: #fff;
     border-color: #fff;
     background: #59acfc
 }
 
-.fd-nav .button-preview.ant-btn:active {
+.my-nav .button-preview.ant-btn:active {
     color: #fff;
     border-color: #fff;
     background: #2186ef
 }
 
-.fd-nav-content {
+.my-nav-content {
     position: fixed;
     top: 60px;
     left: 0;

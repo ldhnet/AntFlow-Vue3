@@ -2,13 +2,13 @@
  * @Date:  2024-05-25 14:13:11
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:00:32
- * @FilePath: /zto-flow/src/store/index.js
+ * @FilePath: /flow-designer/src/store/index.js
  */
 import { defineStore } from 'pinia';
 
 export const useStore = defineStore('store', {
   state: () => ({
-    tableId: '',
+    flowId: '',
     isTried: false,
     promoterDrawer: false,
     flowPermission1: {},
@@ -22,8 +22,8 @@ export const useStore = defineStore('store', {
     },
   }),
   actions: {
-    setTableId(payload) {
-      this.tableId = payload
+    setFlowId(payload) {
+      this.flowId = payload
     },
     setIsTried(payload) {
       this.isTried = payload

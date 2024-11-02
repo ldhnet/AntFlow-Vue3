@@ -2,7 +2,7 @@
  * @Date: 2023-03-15 14:44:17
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:20:48
- * @FilePath: /zto-flow/src/components/drawer/conditionDrawer.vue
+ * @FilePath: /flow-designer/src/components/drawer/conditionDrawer.vue
 -->
 
 <template>
@@ -59,21 +59,17 @@
                                 <input type="text" style="width:75px;" v-enter-number="2" v-model="item.zdy2">
                             </p>
                         </div>
-                        <a v-if="item.type==1" @click="conditionConfig.nodeApproveList= [];$func.removeEle(conditionConfig.conditionList,item,'columnId')">删除</a>
-                        <a v-if="item.type==2" @click="$func.removeEle(conditionConfig.conditionList,item,'columnId')">删除</a>
+                        <a v-if="item.type==1" @click="conditionConfig.nodeApproveList= [];$func.removeEle(conditionConfig.conditionList,item,'formId')">删除</a>
+                        <a v-if="item.type==2" @click="$func.removeEle(conditionConfig.conditionList,item,'formId')">删除</a>
                     </li>
                 </ul>
                 <el-button type="primary" @click="addCondition">添加条件</el-button>
                 <el-dialog title="选择条件" v-model="conditionVisible" :width="480" append-to-body class="condition_list">
                     <p>请选择用来区分审批流程的条件字段</p>
-                    <p class="check_box">
-                        <a :class="$func.toggleClass(conditionList,{columnId:0},'columnId')&&'active'" @click="$func.toChecked(conditionList,{columnId:0},'columnId')">发起人</a>
-                         
-                        <template  v-for="(item,index) in conditions" :key="index" >
-                       
-                            <a :class="$func.toggleClass(conditionList,item,'columnId')&&'active'"  @click="$func.toChecked(conditionList,item,'columnId')">{{item.showName}}</a>
-                          
-                            <br v-if="(index)%3 == 0"/> 
+                    <p class="check_box"> 
+                        <template  v-for="(item,index) in conditions" :key="index" >                       
+                            <a :class="$func.toggleClass(conditionList,item,'formId')&&'active'"  @click="$func.toChecked(conditionList,item,'formId')">{{item.showName}}</a>
+                            <br v-if="(index + 1)%3 == 0"/> 
                         </template> 
                     </p>
                     <template #footer>
@@ -81,13 +77,7 @@
                         <el-button type="primary" @click="sureCondition">确 定</el-button>
                     </template>
                 </el-dialog>
-            </div>
-            <employees-role-dialog 
-                v-model:visible="conditionRoleVisible"
-                :data="checkedList"
-                @change="sureConditionRole"
-                :isDepartment="true"
-            />
+            </div> 
             <div class="demo-drawer__footer clear">
                 <el-button type="primary" @click="saveCondition">确 定</el-button>
                 <el-button @click="closeDrawer">取 消</el-button>
@@ -100,8 +90,7 @@ import { ref, watch, computed } from 'vue'
 import $func from '@/utils/index'
 import { useStore } from '@/stores/index'
 import { optTypes, opt1s } from '@/utils/const'
-import { getConditions } from '@/api/index'
-import employeesRoleDialog from '../dialog/employeesRoleDialog.vue'
+import { getConditions } from '@/api/index' 
 
 let conditionVisible = ref(false)
 let conditionsConfig = ref({
@@ -116,7 +105,7 @@ let conditionRoleVisible = ref(false)
 
 let store = useStore()
 let { setCondition, setConditionsConfig } = store
-let tableId = computed(()=> store.tableId)
+let flowId = computed(()=> store.flowId)
 let conditionsConfig1 = computed(()=> store.conditionsConfig1)
 let conditionDrawer = computed(()=> store.conditionDrawer)
 let visible = computed({
@@ -167,39 +156,37 @@ const removeStrEle = (item, key) => {
 const addCondition = async () => {
     conditionList.value = [];
     conditionVisible.value = true;
-    let { data } = await getConditions({ tableId: tableId.value })
+    let { data } = await getConditions({ flowId: flowId.value })
     conditions.value = data;
     if (conditionConfig.value.conditionList) {
         for (var i = 0; i < conditionConfig.value.conditionList.length; i++) {
-            var { columnId } = conditionConfig.value.conditionList[i]
-            if (columnId == 0) {
-                conditionList.value.push({ columnId: 0 })
+            var { formId } = conditionConfig.value.conditionList[i]
+            if (formId == 0) {
+                conditionList.value.push({ formId: 0 })
             } else {
-                conditionList.value.push(conditions.value.filter(item => { return item.columnId == columnId; })[0])
+                conditionList.value.push(conditions.value.filter(item => { return item.formId == formId; })[0])
             }
         }
     }
 }
-const sureCondition = () => {
-    //1.弹窗有，外面无+
-    //2.弹窗有，外面有不变
+const sureCondition = () => { 
     for (var i = 0; i < conditionList.value.length; i++) {
-        var { columnId, showName, columnName, showType, columnType, fixedDownBoxValue } = conditionList.value[i];
-        if ($func.toggleClass(conditionConfig.value.conditionList, conditionList.value[i], "columnId")) {
+        var { formId, showName, columnName, showType, columnType, fixedDownBoxValue } = conditionList.value[i];
+        if ($func.toggleClass(conditionConfig.value.conditionList, conditionList.value[i], "formId")) {
             continue;
         }
-        if (columnId == 0) {
+        if (formId == 0) {
             conditionConfig.value.nodeApproveList = [];
             conditionConfig.value.conditionList.push({
                 "type": 1,
-                "columnId": columnId,
+                "formId": formId,
                 "showName": '发起人'
             });
         } else {
             if (columnType == "Double") {
                 conditionConfig.value.conditionList.push({
                     "showType": showType,
-                    "columnId": columnId,
+                    "formId": formId,
                     "type": 2,
                     "showName": showName,
                     "optType": "1",
@@ -213,7 +200,7 @@ const sureCondition = () => {
             } else if (columnType == "String" && showType == "2") {
                 conditionConfig.value.conditionList.push({
                     "showType": showType,
-                    "columnId": columnId,
+                    "formId": formId,
                     "type": 2,
                     "showName": showName,
                     "zdy1": "",
@@ -225,7 +212,7 @@ const sureCondition = () => {
             else if (columnType == "String" && showType == "3") {
                 conditionConfig.value.conditionList.push({
                     "showType": showType,
-                    "columnId": columnId,
+                    "formId": formId,
                     "type": 2,
                     "showName": showName,
                     "zdy1": "",
@@ -236,13 +223,13 @@ const sureCondition = () => {
             }
         }
     }
-    //3.弹窗无，外面有-
+ 
     for (let i = conditionConfig.value.conditionList.length - 1; i >= 0; i--) {
-        if (!$func.toggleClass(conditionList.value, conditionConfig.value.conditionList[i], "columnId")) {
+        if (!$func.toggleClass(conditionList.value, conditionConfig.value.conditionList[i], "formId")) {
             conditionConfig.value.conditionList.splice(i, 1);
         }
     }
-    conditionConfig.value.conditionList.sort(function (a, b) { return a.columnId - b.columnId; });
+    conditionConfig.value.conditionList.sort(function (a, b) { return a.formId - b.formId; });
     conditionVisible.value = false;
 }
 const saveCondition = () => {

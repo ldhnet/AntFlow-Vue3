@@ -1,13 +1,13 @@
 <template>
-    <div class="fd-nav">
-        <div class="fd-nav-left">
-            <div class="fd-nav-back">
+    <div class="my-nav">
+        <div class="my-nav-left">
+            <div class="my-nav-back">
                 <i class="anticon anticon-left"></i>
             </div>
-            <div class="fd-nav-title">{{ title}}</div>
+            <div class="my-nav-title">{{ title}}</div>
         </div>
 
-        <div class="fd-nav-center">
+        <div class="my-nav-center">
             <div class="step-tab">
                 <div v-for="(item, index) in steps" :key="index" class="step"
                     :class="[activeStep == item.key ? 'active' : '']" @click="changeSteps(item)">
@@ -16,18 +16,18 @@
                 </div>
             </div>
         </div>
-        <div class="fd-nav-right">
+        <div class="my-nav-right">
             <button type="button" class="ant-btn button-publish" @click="publish">
                 <span>发 布</span>
             </button>
         </div>
     </div>
     
-    <div v-if="processConfig"  v-show="activeStep === 'basicSetting'" >
-        <BasicSetting ref="basicSetting"  :basicData="processConfig" @nextChange="changeSteps" />
+    <div v-if="processConfig"  v-show="activeStep === 'basicSettingDesign'" >
+        <basicSetting ref="basicSettingDesign"  :basicData="processConfig" @nextChange="changeSteps" />
     </div>
     <div v-show="activeStep === 'formDesign'" >
-        <DynamicForm  ref="formDesign"  />
+        <dynamicForm  ref="formDesign"  />
     </div> 
     <div v-if="nodeConfig" v-show="activeStep === 'processDesign'">
         <Process ref="processDesign"   :processData="nodeConfig" @nextChange="changeSteps" />
@@ -36,23 +36,20 @@
 
 <script setup>
 import { ref, onMounted  } from "vue";
-import { ElMessage } from 'element-plus';
-import DynamicForm from "@/components/DynamicForm/index.vue";
-import { useRoute } from 'vue-router';
-import { getMockWorkFlowData } from '@/api/index';
-import { getApiWorkFlowData, setApiWorkFlowData } from '@/api/jdCloudApi';
+import { ElMessage } from 'element-plus';  
+import { getMockWorkFlowData } from '@/api/index'; 
 import { FormatUtils } from '@/utils/formatcommit_data' 
 import { FormatDisplayUtils } from '@/utils/formatdisplay_data'
 import { showLoading, closeLoading } from '@/utils/loading'
-const route = useRoute(); 
-const basicSetting = ref(null);
+ 
+const basicSettingDesign = ref(null);
 const formDesign = ref(null);
 const processDesign = ref(null);
 
-let activeStep = ref("basicSetting"); // 激活的步骤面板
+let activeStep = ref("basicSettingDesign"); // 激活的步骤面板
 
 let steps = ref([
-    { label: "基础设置", key: "basicSetting" },
+    { label: "基础设置", key: "basicSettingDesign" },
     { label: "表单设计", key: "formDesign" },
     { label: "流程设计", key: "processDesign" },
 ]);
@@ -66,13 +63,8 @@ let nodeConfig = ref(null);
 let title = ref('');  
 onMounted(async () => { 
     showLoading();
-    let mockjson = {};
-    if (route.query.id) {
-        mockjson = await getApiWorkFlowData({ id: route.query.id });
-    } else {
-        mockjson = await getMockWorkFlowData({ id: 0 });
-    }
-    let data = FormatDisplayUtils.getToTree(mockjson.data); 
+    let mockjson = await getMockWorkFlowData({ id: 0 }); 
+    let data = FormatDisplayUtils.getToTree(mockjson.data);  
     processConfig.value = data;
     title.value = data.bpmnName; 
     nodeConfig.value = data.nodeConfig; 
@@ -80,7 +72,7 @@ onMounted(async () => {
 });
  
 const publish = () => {
-    const step1 = basicSetting.value.getData();
+    const step1 = basicSettingDesign.value.getData();
     const step2 = formDesign.value.getData();
     const step3 = processDesign.value.getData();
     Promise.all([step1, step2,step3])
@@ -94,8 +86,7 @@ const publish = () => {
             return basicData;
         })
         .then((data) => { 
-           console.log("提交到API=data================================",JSON.stringify(data));
-        
+           console.log("提交到API=data================================",JSON.stringify(data)); 
             // setApiWorkFlowData(data).then((resLog) => {
             //     if (resLog.code == 200) { 
             //         console.log("提交到API返回成功"); 
@@ -123,7 +114,7 @@ const publish = () => {
     cursor: pointer
 }
 
-.fd-nav .step {
+.my-nav .step {
     width: 140px;
     line-height: 100%;
     padding-left: 30px;
@@ -133,19 +124,19 @@ const publish = () => {
     position: relative;
 }
 
-.fd-nav .step:hover {
+.my-nav .step:hover {
     background: #5af
 }
 
-.fd-nav .step:active {
+.my-nav .step:active {
     background: #1583f2
 }
 
-.fd-nav .active {
+.my-nav .active {
     background: #5af;
 }
 
-.fd-nav .step-index {
+.my-nav .step-index {
     display: inline-block;
     width: 18px;
     height: 18px;

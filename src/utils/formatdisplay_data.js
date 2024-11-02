@@ -21,7 +21,7 @@ export class FormatDisplayUtils {
      */
     static createNodeDisplay(nodeData) {
         let displayObj = {
-            tableId: nodeData.id,
+            flowId: nodeData.id,
             bpmnCode: nodeData.bpmnCode,
             bpmnName: nodeData.bpmnName, //name 改成 bpmnName 其他的都是添加的
             bpmnType: nodeData.bpmnType,

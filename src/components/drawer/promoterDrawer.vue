@@ -2,33 +2,41 @@
  * @Date:  2024-05-25 14:05:59
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:17:13
- * @FilePath: /zto-flow/src/components/drawer/promoterDrawer.vue
+ * @FilePath: /flow-designer/src/components/drawer/promoterDrawer.vue
 -->
 <template>
     <el-drawer :append-to-body="true" title="发起人" v-model="visible" class="set_promoter" :show-close="false" :size="550" :before-close="savePromoter"> 
         <div class="demo-drawer__content">
             <div class="promoter_content drawer_content">
                 <p>{{ $func.arrToStr(flowPermission) || '所有人' }}</p>
-                <el-button type="primary" @click="addPromoter">添加/修改发起人</el-button>
+
+                <span style="font-size: small;color: red;">*发起人 默认全部，预览环境不支持修改，可以联系管理员</span>
+
+                <!-- <el-button type="primary" @click="addPromoter">添加/修改发起人</el-button> -->
+                <p class="selected_list">
+                    <span v-for="(item,index) in flowPermission" :key="index">{{item.name}}
+                        <img src="@/assets/images/add-close1.png" @click="$func.removeEle(flowPermission,item,'targetId')">
+                    </span>
+                    <a v-if="flowPermission&&flowPermission.length!=0" @click="flowPermission=[]">清除</a>
+                </p>
             </div>
             <div class="demo-drawer__footer clear">
                 <el-button type="primary" @click="savePromoter">确 定</el-button>
                 <el-button @click="closeDrawer">取 消</el-button>
-            </div>
-            <employees-dialog 
-                :isDepartment="true"
+            </div> 
+            <selectUser
                 v-model:visible="promoterVisible"
                 :data="checkedList"
-                @change="surePromoter"
-            />
+                @change="surePromoter" />
         </div>
     </el-drawer>
 </template>
 <script setup>
-import employeesDialog from '../dialog/employeesDialog.vue'
+import { computed, ref, watch } from 'vue'
+import selectUser from '../dialog/selectUserDialog.vue'
 import $func from '@/utils/index'
 import { useStore } from '@/stores/index'
-import { computed, ref, watch } from 'vue'
+
 let flowPermission = ref([])
 let promoterVisible = ref(false)
 let checkedList = ref([])
@@ -47,13 +55,12 @@ let visible = computed({
 })
 watch(flowPermission1, (val) => {
     flowPermission.value = val.value
-})
-
-const addPromoter = () => {
+}) 
+const addPromoter = () => { 
     checkedList.value = flowPermission.value
     promoterVisible.value = true;
 }
-const surePromoter = (data) => {
+const surePromoter = (data) => { 
     flowPermission.value = data;
     promoterVisible.value = false;
 }

@@ -1,27 +1,26 @@
 {
-  "name": "antflow-vue3",
-  "version": "0.0.0",
-  "type":"module",
+  "name": "flow-designer",
+  "version": "5.2.0",
+  "type": "module",
   "scripts": {
-    "build": "vite build",
     "dev": "vite",
-    "preview": "vite preview --port 4173"
+    "build": "vite build", 
+    "preview": "vite preview --port 5100"
   },
   "dependencies": {
-    "element-plus": "^2.2.14", 
+    "element-plus": "^2.2.14",
+    "pinia": "^2.2.4",
     "vue": "^3.2.37",
     "vue-router": "^4.4.5",
-    "pinia": "^2.2.4",
     "vuedraggable": "^2.23.2"
   },
   "devDependencies": {
-    "vite": "^5.4.9",
     "@vitejs/plugin-vue": "^5.0.0",
     "axios": "^1.7.2",
-    "vue-cli-plugin-axios": "~0.0.4",
-    "less": "^11.1.4",
-    "less-loader": "^11.0.0",
+    "less": "^4.2.0",
+    "less-loader": "^12.2.0",
     "unplugin-auto-import": "^0.11.2",
-    "unplugin-vue-components": "^0.22.4" 
+    "unplugin-vue-components": "^0.22.4",
+    "vite": "^5.4.9"
   }
 }

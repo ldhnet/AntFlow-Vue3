@@ -13,8 +13,7 @@
             "nodeId": "YviYu4",
             "nodeName": "审核人",
             "nodeType": 4,
-            "nodeFrom": "IhgYu4",
-            "prevId": [],
+            "nodeFrom": "IhgYu4", 
             "nodeTo": [],
             "setType": 1,
             "directorLevel": 1,
@@ -34,8 +33,7 @@
             "nodeName": "条件1",
             "nodeDisplayName": "采购费用 < 2000",
             "nodeType": 3,
-            "nodeFrom": "UcgYu4",
-            "prevId": [],
+            "nodeFrom": "UcgYu4", 
             "nodeTo": [
                 "YviYu4"
             ],
@@ -47,7 +45,7 @@
                 "conditionList": [
                     {
                         "showType": "1",
-                        "columnId": "3",
+                        "formId": "3",
                         "type": 2,
                         "showName": "采购费用",
                         "optType": "1",
@@ -68,8 +66,7 @@
             "nodeName": "条件2",
             "nodeDisplayName": "其他条件进入此流程",
             "nodeType": 3,
-            "nodeFrom": "UcgYu4",
-            "prevId": [],
+            "nodeFrom": "UcgYu4", 
             "nodeTo": [],
             "priorityLevel": 2,
             "nodeApproveList": [],
@@ -83,10 +80,9 @@
         },
         {
             "nodeId": "UcgYu4",
-            "nodeName": "路由",
+            "nodeName": "网关",
             "nodeType": 2,
-            "nodeFrom": "Gb2",
-            "prevId": [],
+            "nodeFrom": "Gb2", 
             "nodeTo": [
                 "IhgYu4",
                 "TkgYu4"
@@ -100,9 +96,7 @@
             "nodeType": 1,
             "nodeProperty": 1,
             "nodePropertyName": null,
-            "nodeFrom": "",
-            "nodeFroms": null,
-            "prevId": [],
+            "nodeFrom": "", 
             "batchStatus": 0,
             "approvalStandard": 2,
             "nodeName": "发起人",

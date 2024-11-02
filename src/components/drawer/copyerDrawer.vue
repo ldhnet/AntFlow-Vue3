@@ -2,7 +2,7 @@
  * @Date:  2024-05-25 14:05:59
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:20:53
- * @FilePath: /zto-flow/src/components/drawer/copyerDrawer.vue
+ * @FilePath: /flow-designer/src/components/drawer/copyerDrawer.vue
 -->
 <template>
     <el-drawer :append-to-body="true" title="抄送人设置" v-model="visible" class="set_copyer" :show-close="false" :size="550" :before-close="saveCopyer"> 
@@ -15,29 +15,28 @@
                     </span>
                     <a v-if="copyerConfig.nodeApproveList&&copyerConfig.nodeApproveList.length!=0" @click="copyerConfig.nodeApproveList=[]">清除</a>
                 </p>
-                <el-checkbox-group v-model="ccSelfSelectFlag" class="clear">
+                <el-checkbox-group v-model="ccFlag" class="clear">
                     <el-checkbox :value="1">允许发起人自选抄送人</el-checkbox>
                 </el-checkbox-group>
             </div>
             <div class="demo-drawer__footer clear">
                 <el-button type="primary" @click="saveCopyer">确 定</el-button>
                 <el-button @click="closeDrawer">取 消</el-button>
-            </div>
-            <employees-role-dialog 
+            </div> 
+            <selectUser
                 v-model:visible="copyerVisible"
                 :data="checkedList"
-                @change="sureCopyer"
-            />
+                @change="sureCopyer" />
         </div>
     </el-drawer>
 </template>
 <script setup>
-import employeesRoleDialog from '../dialog/employeesRoleDialog.vue'
-import $func from '@/utils/index'
-import { useStore } from '@/stores/index'
 import { ref, watch, computed } from 'vue'
+import selectUser from '../dialog/selectUserDialog.vue'
+import { useStore } from '@/stores/index'
+import $func from '@/utils/index'
 let copyerConfig = ref({})
-let ccSelfSelectFlag = ref([])
+let ccFlag = ref([])
 let copyerVisible = ref(false)
 let checkedList = ref([])
 let store = useStore()
@@ -54,7 +53,7 @@ let visible = computed({
 })
 watch(copyerConfig1, (val) => {
     copyerConfig.value = val.value;
-    ccSelfSelectFlag.value = copyerConfig.value.ccSelfSelectFlag == 0 ? [] : [copyerConfig.value.ccSelfSelectFlag]
+    ccFlag.value = copyerConfig.value.ccFlag == 0 ? [] : [copyerConfig.value.ccFlag]
 })
 
 const addCopyer = () => {
@@ -66,7 +65,7 @@ const sureCopyer = (data) => {
     copyerVisible.value = false;
 }
 const saveCopyer = () => {
-    copyerConfig.value.ccSelfSelectFlag = ccSelfSelectFlag.value.length == 0 ? 0 : 1;
+    copyerConfig.value.ccFlag = ccFlag.value.length == 0 ? 0 : 1;
     copyerConfig.value.error = !$func.copyerStr(copyerConfig.value);
     setCopyerConfig({
         value: copyerConfig.value,

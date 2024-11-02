@@ -2,7 +2,7 @@
  * @Date: 2022-09-21 14:41:53
  * @LastEditors: LDH 574427343@qq.com
  * @LastEditTime: 2023-05-24 15:20:24
- * @FilePath: /zto-flow/src/components/nodeWrap.vue
+ * @FilePath: /flow-designer/src/components/nodeWrap.vue
 -->
 <template>
   <div class="node-wrap" v-if="nodeConfig.nodeType != 2">
@@ -201,20 +201,8 @@ const delNode = () => {
 };
 const addTerm = () => {
     let len = props.nodeConfig.conditionNodes.length + 1;
-    props.nodeConfig.conditionNodes.push({
-        nodeId: NodeUtils.idGenerator(),
-        nodeName: "条件" + len,
-        nodeType: 3,
-        nodeFrom: "", 
-        prevId: [],
-        nodeTo: [],
-        priorityLevel: len,
-        conditionList: [],
-        nodeApproveList: [],
-        childNode: null,
-        isDefault: 0,
-        error: true
-    });
+    let n_name='条件1' + len;
+    props.nodeConfig.conditionNodes.push(NodeUtils.createConditionNode(n_name,null,0));
     resetConditionNodesErr()
     emits("update:nodeConfig", props.nodeConfig);
 };

@@ -83,16 +83,13 @@
                             <el-checkbox v-model="checkedBack" label="打回" border />
                         </div>
                     </el-tab-pane> 
-                </el-tabs>
-
-             
-              
+                </el-tabs> 
             </div>
             <div class="demo-drawer__footer clear">
                 <el-button type="primary" @click="saveApprover">确 定</el-button>
                 <el-button @click="closeDrawer">取 消</el-button>
-            </div>
-            <employees-dialog v-model:visible="approverVisible" :data="checkedList" @change="sureApprover" />
+            </div> 
+            <selectUser v-model:visible="approverVisible" :data="checkedList" @change="sureApprover" />
             <role-dialog v-model:visible="approverRoleVisible" :data="checkedRoleList" @change="sureRoleApprover" />
         </div>
     </el-drawer>
@@ -102,8 +99,8 @@ import { ref, watch, computed } from 'vue'
 import $func from '@/utils/index'
 import { setTypes } from '@/utils/const'
 import { useStore } from '@/stores/index'
-import employeesDialog from '../dialog/employeesDialog.vue'
-import roleDialog from '../dialog/roleDialog.vue'
+import selectUser from '../dialog/selectUserDialog.vue'
+import roleDialog from '../dialog/selectRoleDialog.vue'
 
 let props = defineProps({
     directorMaxLevel: {

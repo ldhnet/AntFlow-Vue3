@@ -114,8 +114,8 @@ All.prototype = {
         } else {
             let str = ""
             for (var i = 0; i < conditionList.length; i++) {
-                var { columnId, columnType, showType, showName, optType, zdy1, opt1, zdy2, opt2, fixedDownBoxValue } = conditionList[i];
-                if (columnId == 0) {
+                var { formId, columnType, showType, showName, optType, zdy1, opt1, zdy2, opt2, fixedDownBoxValue } = conditionList[i];
+                if (formId == 0) {
                     if (nodeApproveList.length != 0) {
                         str += '发起人属于：'
                         str += nodeApproveList.map(item => { return item.name }).join("或") + " 并且 "
@@ -156,7 +156,7 @@ All.prototype = {
         if (nodeConfig.nodeApproveList.length != 0) {
             return this.arrToStr(nodeConfig.nodeApproveList)
         } else {
-            if (nodeConfig.ccSelfSelectFlag == 1) {
+            if (nodeConfig.ccFlag == 1) {
                 return "发起人自选"
             }
         }

@@ -1,5 +1,5 @@
 <template>
-     <div class="fd-nav-content">
+     <div class="my-nav-content">
         <div class="form-container">
           <v-form-designer ref="formDesign"></v-form-designer>
         </div>

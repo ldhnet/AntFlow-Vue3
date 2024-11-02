@@ -1,5 +1,5 @@
 <template>
-    <div class="fd-nav-content">
+    <div class="my-nav-content">
         <section class="dingflow-design">
             <div class="zoom">
                 <div class="zoom-out" :class="nowVal == 50 && 'disabled'" @click="zoomSize(1)"></div>
@@ -33,7 +33,7 @@ import approverDrawer from "@/components/drawer/approverDrawer.vue";
 import copyerDrawer from "@/components/drawer/copyerDrawer.vue";
 import conditionDrawer from "@/components/drawer/conditionDrawer.vue";
 
-let { setTableId, setIsTried } = useStore()
+let { setFlowId, setIsTried } = useStore()
 const emit = defineEmits(['nextChange']) 
 let props = defineProps({
     processData: {

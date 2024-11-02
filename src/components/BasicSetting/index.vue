@@ -1,5 +1,5 @@
 <template>
-    <div class="fd-nav-content">
+    <div class="my-nav-content">
         <div class="form-container">
             <el-form ref="ruleFormRef" :model="form" :rules="rules" label-width="auto"
                 style="max-width: 600px;margin: auto;">
@@ -26,11 +26,7 @@
                 <el-form-item label="审批说明" prop="remark">
                     <el-input v-model="form.remark" type="textarea" placeholder="请输入审批说明" :maxlength="100"
                         show-word-limit :autosize="{ minRows: 4, maxRows: 4 }" :style="{ width: '100%' }"></el-input>
-                </el-form-item>
-                <el-form-item style="float: right;">
-                    <el-button type="primary" @click="nextSubmit(ruleFormRef)">下一步》》》</el-button>
-
-                </el-form-item>
+                </el-form-item> 
             </el-form>
         </div>
     </div>
@@ -119,7 +115,7 @@ const getData = () => {
     return new Promise((resolve, reject) => {
         proxy.$refs['ruleFormRef'].validate((valid, fields) => {
             if (!valid) {
-                emit('nextChange', { label: "基础设置", key: "basicSetting" })
+                emit('nextChange', { label: "基础设置", key: "basicSettingDesign" })
                 return;
             }
             form.effectiveStatus = form.effectiveStatus ? 1 : 0;
