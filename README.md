@@ -11,7 +11,7 @@
 
 - [![star](https://gitee.com/ldhnet/AntFlow-Vue3/badge/star.svg?theme=dark)](https://gitee.com/ldhnet/AntFlow-Vue3/stargazers)  [![fork](https://gitee.com/ldhnet/AntFlow-Vue3/badge/fork.svg?theme=dark)](https://gitee.com/ldhnet/AntFlow-Vue3/members)
 
--  **使用若依(RuoYi-Vue3)**，集成审批流  [预览入口](http://117.72.70.166/admin/)
+-  **使用若依(RuoYi-Vue3)**，成品案例  [预览入口](http://117.72.70.166/admin/)
 -  **独立流程设计器** [预览入口](http://117.72.70.166/ant-flow/dist/) 
 -  📢📢预览功能以及API介绍文档[wiki](https://gitee.com/ldhnet/AntFlow-Vue3/wikis)
 -  📢📢 **antflow后端开源啦!!** | 🆓 **完全开源免费,无付费引导** 
