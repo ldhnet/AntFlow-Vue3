@@ -15,8 +15,8 @@
 -  **独立流程设计器** [预览入口](http://117.72.70.166/ant-flow/dist/) 
 -  📢📢预览功能以及API介绍文档[wiki](https://gitee.com/ldhnet/AntFlow-Vue3/wikis)
 -  📢📢 **antflow后端开源啦!!** | 🆓 **完全开源免费,无付费引导** 
--  开源前端地址 [Gitee仓库](https://gitee.com/ldhnet/AntFlow-Vue3) |    [GitHub仓库](https://github.com/ldhnet/AntFlow-Vue3) 
--  开源后端地址 [Gitee仓库](https://gitee.com/tylerzhou/Antflow) | [Github仓库](https://github.com/mrtylerzhou/AntFlow)
+-  开源前端地址 [Gitee仓库](https://gitee.com/ldhnet/AntFlow-Vue3) | [GitHub仓库](https://github.com/ldhnet/AntFlow-Vue3) | [GitCode仓库](https://gitcode.com/ldhnet/FlowDesigner/overview) 
+-  开源后端地址 [Gitee仓库](https://gitee.com/tylerzhou/Antflow) | [Github仓库](https://github.com/mrtylerzhou/AntFlow) | [GitCode仓库](https://gitcode.com/zypqqgc/AntFlow/overview) 
  
 - QQ技术交流群（972107977） 期待您的加入
 - 有疑问可以Issues留言，我们会认真对待  [issues地址](https://gitee.com/ldhnet/AntFlow-Vue3/issues)
