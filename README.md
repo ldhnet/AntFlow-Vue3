@@ -42,7 +42,7 @@
 #### 项目运行 node14.20.1 以上版本
 > 1.下载项目 git clone https://gitee.com/ldhnet/AntFlow-Designer.git
 
-> 2.环境依赖  `npm i`
+> 2.环境依赖  `npm  install --registry=https://registry.npmmirror.com`
 
 > 3.本地运行 `npm run dev` 
 
