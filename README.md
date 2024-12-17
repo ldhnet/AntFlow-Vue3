@@ -1,13 +1,8 @@
 <p align="center" style="margin-bottom: 0 !important">
 	<img alt="logo" src="https://gitee.com/ldhnet/ant-flow/raw/master/public/images/logo.png"   width = 15%;>
-</p>
-<h1 align="center" style="margin: 10px 10px; font-weight: bold;margin-top: 0 !important">AntFlow-Designer</h1>
-<h4 style="border-top: solid #ACC0D8 1px;"></h4>
-<h4 align="center">AntFlow是基于Vue3 的前端工作流配置新模式 </h4>
-<h4 align="center" style="margin: 0px 0px 30px 10px; ">后端自主研发基于SpringBoot + Activiti 开发的轻量级工作流框架</h4>
+</p>  
 
-
-### 基于vue3 + elementplus的独立流程设计器
+## 基于vue3 + elementplus的独立流程设计器
 
 - [![star](https://gitee.com/ldhnet/AntFlow-Designer/badge/star.svg?theme=dark)](https://gitee.com/ldhnet/AntFlow-Designer/stargazers)  [![fork](https://gitee.com/ldhnet/AntFlow-Designer/badge/fork.svg?theme=dark)](https://gitee.com/ldhnet/AntFlow-Designer/members)
 
@@ -19,7 +14,7 @@
 -  开源后端地址 [Gitee仓库](https://gitee.com/tylerzhou/Antflow) | [Github仓库](https://github.com/mrtylerzhou/AntFlow) | [GitCode仓库](https://gitcode.com/zypqqgc/AntFlow/overview) 
  
 - QQ技术交流群（972107977） 期待您的加入
-- 有疑问可以Issues留言，我们会认真对待  [issues地址](https://gitee.com/ldhnet/AntFlow-Designer/issues)
+- 有疑问可以Issues留言，我们会认真对待  [issues地址](https://gitee.com/tylerzhou/Antflow/issues)
 
 
 ## 项目介绍
@@ -29,13 +24,13 @@
  2、本项目流程设计器，方便集成到现有项目中或者二次开发<br />
  3、集成到管理系统本版 https://gitee.com/tylerzhou/Antflow
 - 流程设计器<br />
-  1、节点设置（包括审批人、发起人、抄送人、条件设置）<br />
-  2、节点新增、删除、修改<br />
-  3、条件节点：自定义配置条件<br />
-  4、审批人节点：人员、角色、部门选择<br />
-  5、错误校验<br />
-  6、流程保存<br />
-  7、流程发布 
+  1、节点操作：流程节点（添加、修改、删除)。<br />
+  2、节点设置：包括审批人、发起人、抄送人、条件设置。<br />
+  3、条件节点：选择条件类型，自定义配置条件判断值。<br />
+  4、审批节点：选择需要审批的人员、角色、或部门。<br />
+  5、抄送节点：选择抄送到的人员、角色、或部门。<br />
+  6、错误校验: 对流程节点参数的校验。<br />
+  7、流程发布: 当前配置流程提交到Api接口。<br /> 
 
 ## 演示图 
 
@@ -43,23 +38,16 @@
 ![](./public/images/11.png)
 ![](./public/images/12.png)  
   
--------------------
-  
-#### 项目安装
-
-> git clone https://gitee.com/ldhnet/AntFlow-Designer.git 点个赞吧！
-
-> 成品案例 git clone https://gitee.com/tylerzhou/Antflow.git 点个赞吧！
-
-> 后端地址 git clone https://gitee.com/tylerzhou/Antflow.git 点个赞吧！
+-------------------   
 
 #### 项目运行 node14.20.1 以上版本
+> 1.下载项目 git clone https://gitee.com/ldhnet/AntFlow-Designer.git
 
-> 1.环境依赖  `npm i`
+> 2.环境依赖  `npm i`
 
-> 2.本地运行 `npm run dev` 
+> 3.本地运行 `npm run dev` 
 
-> 3.打包运行 `npm run build` 
+> 4.打包运行 `npm run build` 
 
 
 ##  捐赠支持
