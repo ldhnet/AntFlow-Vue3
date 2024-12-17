@@ -75,7 +75,7 @@ const publish = () => {
     const step1 = basicSettingDesign.value.getData();
     const step2 = formDesign.value.getData();
     const step3 = processDesign.value.getData();
-    Promise.all([step1, step2,step3])
+    Promise.all([step1,step2,step3])
         .then((res) => {
             ElMessage.success("设置成功,F12控制台查看数据");
             let basicData = res[0].formData;  
@@ -95,9 +95,11 @@ const publish = () => {
             //     } 
             // });
         })
-        .catch((err) => {
-            if (err && err.msg)
-                ElMessage.error("设置失败" + JSON.stringify(err.msg));
+        .catch((err) => { 
+            if (err){
+                console.log("设置失败" + JSON.stringify(err.msg));
+                ElMessage.error("至少配置一个有效审批人节点");
+            }
         });
 };
 

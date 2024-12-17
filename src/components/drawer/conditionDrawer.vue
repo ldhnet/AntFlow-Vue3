@@ -91,6 +91,7 @@ import $func from '@/utils/index'
 import { useStore } from '@/stores/index'
 import { optTypes, opt1s } from '@/utils/const'
 import { getConditions } from '@/api/index' 
+import { NodeUtils } from '@/utils/nodeUtils'
 
 let conditionVisible = ref(false)
 let conditionsConfig = ref({
@@ -169,58 +170,19 @@ const addCondition = async () => {
         }
     }
 }
+/**选择条件后确认 */
 const sureCondition = () => { 
     for (var i = 0; i < conditionList.value.length; i++) {
         var { formId, showName, columnName, showType, columnType, fixedDownBoxValue } = conditionList.value[i];
         if ($func.toggleClass(conditionConfig.value.conditionList, conditionList.value[i], "formId")) {
             continue;
         }
+        const judgeObj= NodeUtils.createJudgeNode(formId, 2, showName, showType, columnName, columnType, fixedDownBoxValue);
         if (formId == 0) {
             conditionConfig.value.nodeApproveList = [];
-            conditionConfig.value.conditionList.push({
-                "type": 1,
-                "formId": formId,
-                "showName": '发起人'
-            });
+            conditionConfig.value.conditionList.push({formId: formId, type: 1,showName: '发起人'});
         } else {
-            if (columnType == "Double") {
-                conditionConfig.value.conditionList.push({
-                    "showType": showType,
-                    "formId": formId,
-                    "type": 2,
-                    "showName": showName,
-                    "optType": "1",
-                    "zdy1": "2",
-                    "opt1": "<",
-                    "zdy2": "",
-                    "opt2": "<",
-                    "columnDbname": columnName,
-                    "columnType": columnType,
-                })
-            } else if (columnType == "String" && showType == "2") {
-                conditionConfig.value.conditionList.push({
-                    "showType": showType,
-                    "formId": formId,
-                    "type": 2,
-                    "showName": showName,
-                    "zdy1": "",
-                    "columnDbname": columnName,
-                    "columnType": columnType,
-                    "fixedDownBoxValue": fixedDownBoxValue
-                })
-            } 
-            else if (columnType == "String" && showType == "3") {
-                conditionConfig.value.conditionList.push({
-                    "showType": showType,
-                    "formId": formId,
-                    "type": 2,
-                    "showName": showName,
-                    "zdy1": "",
-                    "columnDbname": columnName,
-                    "columnType": columnType,
-                    "fixedDownBoxValue": fixedDownBoxValue
-                })
-            }
+            conditionConfig.value.conditionList.push(judgeObj)
         }
     }
  
@@ -232,6 +194,7 @@ const sureCondition = () => {
     conditionConfig.value.conditionList.sort(function (a, b) { return a.formId - b.formId; });
     conditionVisible.value = false;
 }
+/**条件抽屉的确认 */
 const saveCondition = () => {
     closeDrawer()
     var a = conditionsConfig.value.conditionNodes.splice(PriorityLevel.value - 1, 1)//截取旧下标

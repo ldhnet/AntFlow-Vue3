@@ -15,16 +15,7 @@ let baseUrl = import.meta.env.BASE_URL
  */
 export function getRoles(data) {
   return http.get(`${baseUrl}roles.json`, { params: data })
-}
-
-/**
- * 获取部门
- * @param {*} data 
- * @returns 
- */
-export function getDepartments(data) {
-  return http.get(`${baseUrl}departments.json`, { params: data })
-}
+} 
 
 /**
  * 获取职员

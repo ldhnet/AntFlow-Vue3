@@ -52,7 +52,19 @@ onMounted(async () => {
         nodeConfig.value = props.processData;
     } 
 });
-
+/**
+ * 判断流程中是否有审批节点
+ * @param treeNode 
+ */
+ const preTreeIsApproveNode = (treeNode) =>  { 
+  if(!treeNode) return false;  
+  if(treeNode.nodeType == 4) { 
+    return true;
+  }
+  else{
+    return preTreeIsApproveNode(treeNode.childNode);
+  } 
+}
 const reErr = ({ childNode }) => {
     if (childNode) {
         let { nodeType, error, nodeName, conditionNodes } = childNode;
@@ -100,13 +112,18 @@ const zoomSize = (type) => {
 };
 
 const getJson = () => {
-    setIsTried(true);
+    setIsTried(true); 
+    let isApproveNode = preTreeIsApproveNode(nodeConfig.value); 
+    if (!nodeConfig.value || !nodeConfig.value.childNode || !isApproveNode) {
+        emit('nextChange', { label: "流程设计", key: "processDesign" }); 
+        return false;
+    }  
     tipList.value = [];
     reErr(nodeConfig.value);
     if (tipList.value.length != 0) {
         emit('nextChange', { label: "流程设计", key: "processDesign" });
         tipVisible.value = true;
-        return;
+        return false;
     }
     let submitData = JSON.parse(JSON.stringify(nodeConfig.value)); 
     return submitData;
@@ -117,7 +134,7 @@ const getData = () => {
     let resData = getJson();
     return new Promise((resolve, reject) => {
         if (!resData) { 
-            return
+            reject({ formData: null });
         }
         resolve({ formData: resData})
     })

@@ -144,7 +144,7 @@ export class NodeUtils {
     };
     let startNode = {
       bpmnCode: null,
-      bpmnName: "",
+      bpmnName: "请假申请流程",
       bpmnType: null,
       formCode: "",
       appId: null,
@@ -189,6 +189,35 @@ export class NodeUtils {
     };
     startObj.data = startNode;
     return startObj;
+  }
+  /**
+  * 条件判断对象
+  * @param {*} formId  条件表单Id
+  * @param {*} columnId 条件判断id
+  * @param {*} type 类型 1，发起人 2，其他表单条件
+  * @param {*} showName 显示名称.
+  * @param {*} showType //1,值类型（>,>=,<,<=,=）,2单选下拉, 3多选(checkbox) 其他
+  * @param {*} columnName  DB字段名称 
+  * @param {*} columnType  DB字段类型
+  * @param {*} fixedDownBoxValue 条件选项
+  * @returns 
+  */
+  static createJudgeNode(formId,type ,showName,showType,  columnName, columnType,fixedDownBoxValue) {
+    let judgeNode = {
+      formId: formId,       
+      showType: showType,
+      type: type, //1，发起人 2，其他表单条件
+      showName: showName,
+      optType: "5",
+      zdy1:"",
+      opt1: "<",
+      zdy2: "",
+      opt2: "<",
+      columnDbname: columnName,
+      columnType: columnType, 
+      fixedDownBoxValue: fixedDownBoxValue
+    }
+    return judgeNode;
   }
 } 
 
