@@ -35,18 +35,18 @@ FlowDesigner是为今日快速变化的工作环境设计的，它提供了一�
 ### 项目截图
 <table>
     <tr>
-        <td style="width:380px"><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1-1.png"/></td> 
+        <td style="width:380px"><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/1-1.png"/></td> 
     </tr>   
     <tr>
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/4.png"/></td> 
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/4.png"/></td> 
     </tr> 
     <tr> 
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/2.png"/></td>
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/2.png"/></td>
     </tr> 
     <tr>
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/1-4.png"/></td> 
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/1-4.png"/></td> 
     </tr> 
     <tr> 
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Vue3/raw/master/public/images/3.png"/></td>
+        <td><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/3.png"/></td>
     </tr> 
 </table>
