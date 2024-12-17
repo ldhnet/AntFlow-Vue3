@@ -59,13 +59,4 @@ export function getWorkFlowData(data) {
 export function setWorkFlowData(data) {
   return http.post(`${baseUrl}`, data)
 }
-
-
-/**
- * 获取审批mock数据
- * @param {*} data 
- * @returns 
- */
-export function getMockWorkFlowData(data) {
-  return http.get(`${baseUrl}datashow.json`, { params: data })
-}
+ 

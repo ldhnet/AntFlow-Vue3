@@ -38,20 +38,10 @@
   7、流程发布 
 
 ## 演示图 
-<table>
-    <tr>
-        <td style="width:380px"><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/1-1.png"/></td>
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/1-2.png"/></td>
-    </tr> 
-    <tr>
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/4.png"/></td>
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/2.png"/></td>
-    </tr> 
-    <tr>
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/1-4.png"/></td>
-        <td><img src="https://gitee.com/ldhnet/AntFlow-Designer/raw/master/public/images/3.png"/></td>
-    </tr> 
-</table>
+
+![](./public/images/10.png)
+![](./public/images/11.png)
+![](./public/images/12.png)  
   
 -------------------
   

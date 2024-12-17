@@ -36,8 +36,7 @@
 
 <script setup>
 import { ref, onMounted  } from "vue";
-import { ElMessage } from 'element-plus';  
-import { getMockWorkFlowData } from '@/api/index'; 
+import { ElMessage } from 'element-plus';   
 import { FormatUtils } from '@/utils/formatcommit_data';
 import { NodeUtils } from '@/utils/nodeUtils';
 import { FormatDisplayUtils } from '@/utils/formatdisplay_data';
