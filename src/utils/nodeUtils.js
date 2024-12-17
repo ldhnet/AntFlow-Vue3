@@ -92,27 +92,104 @@ export class NodeUtils {
       }
       return gatewayNode;
     }
-    /**
-     * 创建条件对象
-     * @returns object
-     */
-    static createConditionNode(name,childNode,isDefault) {
-      let conditionNode ={
-        "nodeId": this.idGenerator(),
-        "nodeName": name||"条件1", 
-        "nodeDisplayName": name||"条件1", 
-        "nodeType": 3,
-        "nodeFrom": "",  
-        "nodeTo": [],
-        "priorityLevel": 1,
-        "conditionList": [],
-        "nodeApproveList": [],
-        "error": true, 
-        "childNode": childNode,
-        "isDefault": isDefault||0
-      }
-      return conditionNode;
-    }
+   /**
+   * 创建网关对象
+   * @returns object
+   */
+  static createGatewayNode(child) {
+    let gatewayNode = {
+      nodeId: this.idGenerator(),
+      nodeName: "网关",
+      nodeType: 2,
+      nodeFrom: "",
+      nodeTo: [],
+      childNode: null,
+      error: true,
+      property: null,
+      conditionNodes: [
+        this.createConditionNode("条件1", child, 0),
+        this.createConditionNode("条件2", null, 1),
+      ],
+    };
+    return gatewayNode;
+  }
+  /**
+   * 创建条件对象
+   * @returns object
+   */
+  static createConditionNode(name, childNode, isDefault) {
+    let conditionNode = {
+      nodeId: this.idGenerator(),
+      nodeName: name || "条件1",
+      nodeDisplayName: name || "条件1",
+      nodeType: 3,
+      nodeFrom: "",
+      nodeTo: [],
+      priorityLevel: 1,
+      conditionList: [],
+      nodeApproveList: [],
+      error: true,
+      childNode: childNode,
+      isDefault: isDefault || 0,
+    };
+    return conditionNode;
+  }
+   /**
+   * 初始化流程数据
+   * @returns object
+   */
+   static createStartNode() {
+    let startObj = {
+      "data":{}
+    };
+    let startNode = {
+      bpmnCode: null,
+      bpmnName: "",
+      bpmnType: null,
+      formCode: "",
+      appId: null,
+      deduplicationType: 1,
+      effectiveStatus: 0,
+      isLowCodeFlow: 1,
+      remark: "",
+      isDel: 0,
+      nodes: [
+        {
+          confId: 35,
+          nodeId: "Gb2",
+          nodeType: 1,
+          nodeProperty: 1,
+          nodePropertyName: null,
+          nodeFrom: "",
+          nodeFroms: null,
+          prevId: [],
+          batchStatus: 0,
+          approvalStandard: 2,
+          nodeName: "发起人",
+          nodeDisplayName: "发起人",
+          annotation: null,
+          isDeduplication: 0,
+          isSignUp: 0,
+          orderedNodeType: null,
+          remark: "",
+          isDel: 0,
+          nodeTo: [],
+          property: null,
+          params: null,
+          buttons: {
+            startPage: [],
+            approvalPage: [2],
+            viewPage: null,
+          },
+          templateVos: null,
+          approveRemindVo: null, 
+          conditionNodes: [],
+        },
+      ],
+    };
+    startObj.data = startNode;
+    return startObj;
+  }
 } 
 
 /**

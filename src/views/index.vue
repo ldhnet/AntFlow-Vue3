@@ -38,9 +38,10 @@
 import { ref, onMounted  } from "vue";
 import { ElMessage } from 'element-plus';  
 import { getMockWorkFlowData } from '@/api/index'; 
-import { FormatUtils } from '@/utils/formatcommit_data' 
-import { FormatDisplayUtils } from '@/utils/formatdisplay_data'
-import { showLoading, closeLoading } from '@/utils/loading'
+import { FormatUtils } from '@/utils/formatcommit_data';
+import { NodeUtils } from '@/utils/nodeUtils';
+import { FormatDisplayUtils } from '@/utils/formatdisplay_data';
+import { showLoading, closeLoading } from '@/utils/loading';
  
 const basicSettingDesign = ref(null);
 const formDesign = ref(null);
@@ -62,8 +63,8 @@ let processConfig = ref(null);
 let nodeConfig = ref(null);
 let title = ref('');  
 onMounted(async () => { 
-    showLoading();
-    let mockjson = await getMockWorkFlowData({ id: 0 }); 
+    showLoading(); 
+    let mockjson = NodeUtils.createStartNode();
     let data = FormatDisplayUtils.getToTree(mockjson.data);  
     processConfig.value = data;
     title.value = data.bpmnName; 

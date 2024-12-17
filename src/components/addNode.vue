@@ -55,20 +55,7 @@ const addType = (type)=> {
         }
         emits("update:childNodeP", data)
     } else {
-        let gatewayNode={
-            "nodeId": NodeUtils.idGenerator(),
-            "nodeName": "网关",
-            "nodeType": 2,
-            "nodeFrom": "",  
-            "nodeTo": [],
-            "childNode": null, 
-            "error": true,
-            "property":null,
-            "conditionNodes": [
-                NodeUtils.createConditionNode('条件1',props.childNodeP,0), 
-                NodeUtils.createConditionNode('条件2',null,0)
-            ]
-        };
+        let gatewayNode= NodeUtils.createGatewayNode(props.childNodeP); 
         emits("update:childNodeP", gatewayNode)
     }
 }
@@ -135,8 +122,7 @@ const addType = (type)=> {
         }
     }
 }
-</style>
-<style lang="less">
+
 .add-node-popover-body {
     display: flex;
     .add-node-popover-item {
